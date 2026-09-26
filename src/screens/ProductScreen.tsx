@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { ArrowLeft, Heart, RotateCcw, Truck } from 'lucide-react'
 import ProductGrid from '../components/ProductGrid'
 import ProductImage from '../components/ProductImage'
-import { formatPrice, products, type Product } from '../data/products'
+import Price from '../components/Price'
+import { discountPercent, formatPrice, products, type Product } from '../data/products'
 import { FREE_SHIPPING_FROM } from '../account/types'
 import { store } from '../config'
 import { useNav } from '../nav'
@@ -21,7 +22,8 @@ function ProductScreen({ product, onBack, onOpen }: Props) {
   const [size, setSize] = useState<string | null>(product.sizes.length === 1 ? product.sizes[0] : null)
   const isFavorite = favorites.has(product.id)
 
-  const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4)
+  const sameSection = products.filter((p) => p.section === product.section && p.id !== product.id)
+  const related = [...sameSection.filter((p) => p.sub === product.sub), ...sameSection.filter((p) => p.sub !== product.sub)].slice(0, 4)
 
   const add = () => {
     if (!size) return notify('Selecciona una talla')
@@ -43,18 +45,23 @@ function ProductScreen({ product, onBack, onOpen }: Props) {
         <ProductImage product={product} width={800} className="aspect-[3/4] rounded-card" />
 
         <div className="flex flex-col">
-          {product.isNew && <span className="text-xs font-semibold tracking-wide text-sage-dark uppercase">Nuevo</span>}
+          {product.isNew && <span className="text-xs font-semibold tracking-wide text-ink uppercase">Nuevo</span>}
           <div className="flex items-start justify-between gap-3">
-            <h2 className="text-xl font-semibold">{product.name}</h2>
+            <h2 className="text-2xl">{product.name}</h2>
             <button
               onClick={() => toggleFavorite(product.id)}
               aria-label={isFavorite ? 'Quitar de favoritos' : 'Añadir a favoritos'}
-              className="rounded-full p-2 ring-1 ring-slate-200 transition active:scale-90"
+              className="rounded-none p-2 ring-1 ring-neutral-300 transition active:scale-90"
             >
-              <Heart className={`size-5 ${isFavorite ? 'fill-sage text-sage' : ''}`} />
+              <Heart className={`size-5 ${isFavorite ? 'fill-ink text-ink' : ''}`} />
             </button>
           </div>
-          <p className="mt-1 text-lg">{formatPrice(product.price)}</p>
+          <div className="mt-1 flex items-center gap-2">
+            <Price product={product} className="text-lg" />
+            {product.oldPrice && (
+              <span className="rounded-none bg-red-600 px-2 py-0.5 text-xs font-semibold text-white">-{discountPercent(product)}%</span>
+            )}
+          </div>
 
           <h3 className="mt-5 text-sm font-medium">
             Color: <span className="font-normal text-muted">{color}</span>
@@ -65,8 +72,8 @@ function ProductScreen({ product, onBack, onOpen }: Props) {
                 key={c.name}
                 onClick={() => setColor(c.name)}
                 aria-label={c.name}
-                className={`size-8 rounded-full ring-offset-2 transition ${
-                  color === c.name ? 'ring-2 ring-ink' : 'ring-1 ring-slate-200'
+                className={`size-7 rounded-full ring-offset-2 transition ${
+                  color === c.name ? 'ring-2 ring-ink' : 'ring-1 ring-neutral-300'
                 }`}
                 style={{ backgroundColor: c.hex }}
               />
@@ -85,7 +92,7 @@ function ProductScreen({ product, onBack, onOpen }: Props) {
                 key={s}
                 onClick={() => setSize(s)}
                 className={`min-w-11 rounded-lg border px-3 py-2 text-sm transition ${
-                  size === s ? 'border-ink bg-ink text-white' : 'border-slate-200 bg-white'
+                  size === s ? 'border-ink bg-ink text-white' : 'border-neutral-300 bg-white'
                 }`}
               >
                 {s}
@@ -96,13 +103,13 @@ function ProductScreen({ product, onBack, onOpen }: Props) {
           <div className="mt-6 grid gap-2 sm:grid-cols-2">
             <button
               onClick={add}
-              className="rounded-full bg-sage py-3 text-sm font-semibold text-white transition active:scale-[0.98] active:bg-sage-dark"
+              className="bg-ink py-3.5 text-[11px] font-medium tracking-[0.15em] uppercase text-white transition active:bg-neutral-700"
             >
               Añadir a la bolsa
             </button>
             <button
               onClick={buyNow}
-              className="rounded-full bg-ink py-3 text-sm font-semibold text-white transition active:scale-[0.98]"
+              className="border border-ink py-3.5 text-[11px] font-medium tracking-[0.15em] uppercase transition active:bg-neutral-100"
             >
               Comprar ahora
             </button>
@@ -110,7 +117,7 @@ function ProductScreen({ product, onBack, onOpen }: Props) {
 
           <p className="mt-5 text-sm leading-relaxed text-muted">{product.description}</p>
 
-          <ul className="mt-5 space-y-2 border-t border-slate-100 pt-4 text-xs text-muted">
+          <ul className="mt-5 space-y-2 border-t border-neutral-100 pt-4 text-xs text-muted">
             <li className="flex items-center gap-2">
               <Truck className="size-4" /> Entrega en 24–48 h en {store.city} · gratis desde {formatPrice(FREE_SHIPPING_FROM)}
             </li>
@@ -123,7 +130,7 @@ function ProductScreen({ product, onBack, onOpen }: Props) {
 
       {related.length > 0 && (
         <section className="mt-8">
-          <h3 className="mb-3 text-base font-semibold">También te puede gustar</h3>
+          <h3 className="mb-5 text-[11px] font-medium tracking-[0.15em] uppercase">También te puede gustar</h3>
           <ProductGrid products={related} onOpen={onOpen} />
         </section>
       )}

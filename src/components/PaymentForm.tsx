@@ -25,7 +25,7 @@ function PaymentForm({ value: d, onChange, errors, savedCard }: Props) {
       {methods.map(({ id, icon: Icon, note }) => {
         const selected = d.method === id
         return (
-          <div key={id} className={`rounded-xl border transition ${selected ? 'border-ink' : 'border-slate-200'}`}>
+          <div key={id} className={`rounded-xl border transition ${selected ? 'border-ink' : 'border-neutral-300'}`}>
             <button type="button" onClick={() => set('method', id)} className="flex w-full items-center gap-3 p-3 text-left">
               <span className={`flex size-4 shrink-0 items-center justify-center rounded-full border ${selected ? 'border-ink' : 'border-slate-300'}`}>
                 {selected && <span className="size-2 rounded-full bg-ink" />}
@@ -38,7 +38,7 @@ function PaymentForm({ value: d, onChange, errors, savedCard }: Props) {
             </button>
 
             {selected && (
-              <div className="space-y-3 border-t border-slate-100 p-3">
+              <div className="space-y-3 border-t border-neutral-100 p-3">
                 {id === 'yappy' && (
                   <Field
                     label="Celular Yappy (+507)"
@@ -124,7 +124,7 @@ function PaymentForm({ value: d, onChange, errors, savedCard }: Props) {
                           key={type}
                           type="button"
                           onClick={() => set('codType', type)}
-                          className={`rounded-lg border py-2 ${d.codType === type ? 'border-ink bg-ink text-white' : 'border-slate-200'}`}
+                          className={`rounded-lg border py-2 ${d.codType === type ? 'border-ink bg-ink text-white' : 'border-neutral-300'}`}
                         >
                           {label}
                         </button>
@@ -147,7 +147,7 @@ function PaymentForm({ value: d, onChange, errors, savedCard }: Props) {
 
                 {id !== 'cod' && !(id === 'card' && d.useSavedCard && savedCard) && (
                   <label className="flex items-center gap-2 text-xs text-muted">
-                    <input type="checkbox" checked={d.saveMethod} onChange={(e) => set('saveMethod', e.target.checked)} className="accent-[#8f8a68]" />
+                    <input type="checkbox" checked={d.saveMethod} onChange={(e) => set('saveMethod', e.target.checked)} className="accent-[#111111]" />
                     Guardar para próximas compras
                   </label>
                 )}

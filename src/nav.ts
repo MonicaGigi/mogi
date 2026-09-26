@@ -1,10 +1,11 @@
 import { createContext, useContext } from 'react'
-import type { Category } from './data/products'
+import type { Listing, MenuSection } from './data/products'
 
 export type BuyNowItem = { productId: string; color: string; size: string }
 
 export type Screen =
-  | { name: 'catalog'; category: Category }
+  | { name: 'catalog'; listing: Listing }
+  | { name: 'menu'; section: MenuSection }
   | { name: 'product'; id: string }
   | { name: 'favorites' }
   | { name: 'bag' }

@@ -2,6 +2,10 @@ import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react
 import { ArrowLeft } from 'lucide-react'
 import { useNav } from '../nav'
 
+const labelClass = 'block text-[10px] tracking-[0.12em] text-muted uppercase'
+const controlClass = 'w-full border-0 border-b bg-transparent px-0 py-2 text-sm outline-none focus:border-ink'
+const buttonText = 'text-[11px] font-medium tracking-[0.15em] uppercase'
+
 type FieldProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string
   error?: string
@@ -11,17 +15,12 @@ type FieldProps = InputHTMLAttributes<HTMLInputElement> & {
 export function Field({ label, error, hint, className = '', ...input }: FieldProps) {
   return (
     <label className={`block ${className}`}>
-      <span className="mb-1 block text-xs font-medium text-muted">{label}</span>
-      <input
-        {...input}
-        className={`w-full rounded-xl border bg-white px-3 py-2.5 text-sm outline-none focus:border-ink ${
-          error ? 'border-red-400' : 'border-slate-200'
-        }`}
-      />
+      <span className={labelClass}>{label}</span>
+      <input {...input} className={`${controlClass} ${error ? 'border-red-500' : 'border-neutral-300'}`} />
       {error ? (
-        <span className="mt-1 block text-xs text-red-600">{error}</span>
+        <span className="mt-1 block text-[11px] text-red-600">{error}</span>
       ) : (
-        hint && <span className="mt-1 block text-xs text-muted">{hint}</span>
+        hint && <span className="mt-1 block text-[11px] text-muted">{hint}</span>
       )}
     </label>
   )
@@ -39,13 +38,11 @@ type SelectProps = {
 export function Select({ label, value, options, onChange, error, placeholder }: SelectProps) {
   return (
     <label className="block">
-      <span className="mb-1 block text-xs font-medium text-muted">{label}</span>
+      <span className={labelClass}>{label}</span>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`w-full rounded-xl border bg-white px-3 py-2.5 text-sm outline-none focus:border-ink ${
-          error ? 'border-red-400' : 'border-slate-200'
-        }`}
+        className={`${controlClass} ${error ? 'border-red-500' : 'border-neutral-300'}`}
       >
         {options.map((o) => (
           <option key={o} value={o} disabled={!o}>
@@ -53,7 +50,7 @@ export function Select({ label, value, options, onChange, error, placeholder }: 
           </option>
         ))}
       </select>
-      {error && <span className="mt-1 block text-xs text-red-600">{error}</span>}
+      {error && <span className="mt-1 block text-[11px] text-red-600">{error}</span>}
     </label>
   )
 }
@@ -62,7 +59,7 @@ export function PrimaryButton({ className = '', ...props }: ButtonHTMLAttributes
   return (
     <button
       {...props}
-      className={`w-full rounded-full bg-sage py-3 text-sm font-semibold text-white transition active:scale-[0.98] active:bg-sage-dark disabled:opacity-50 ${className}`}
+      className={`w-full bg-ink py-3.5 ${buttonText} text-white transition active:bg-neutral-700 disabled:opacity-40 ${className}`}
     />
   )
 }
@@ -71,26 +68,26 @@ export function SecondaryButton({ className = '', ...props }: ButtonHTMLAttribut
   return (
     <button
       {...props}
-      className={`w-full rounded-full py-3 text-sm font-semibold ring-1 ring-slate-300 transition active:scale-[0.98] active:bg-slate-50 ${className}`}
+      className={`w-full border border-ink py-3.5 ${buttonText} transition active:bg-neutral-100 ${className}`}
     />
   )
 }
 
 export function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <section className={`rounded-card bg-white p-4 shadow-soft ring-1 ring-slate-100 ${className}`}>{children}</section>
+  return <section className={`border border-neutral-200 bg-white p-5 sm:p-6 ${className}`}>{children}</section>
 }
 
 export function ScreenTitle({ title, subtitle }: { title: string; subtitle?: string }) {
   const { back, canGoBack } = useNav()
   return (
-    <div className="mb-4">
+    <div className="mb-8">
       {canGoBack && (
-        <button onClick={back} className="mb-2 flex items-center gap-1 text-sm text-muted">
-          <ArrowLeft className="size-4" /> Volver
+        <button onClick={back} className="mb-4 flex items-center gap-1.5 text-[11px] tracking-[0.12em] text-muted uppercase">
+          <ArrowLeft className="size-3.5" strokeWidth={1.5} /> Volver
         </button>
       )}
-      <h2 className="text-lg font-semibold">{title}</h2>
-      {subtitle && <p className="text-xs text-muted">{subtitle}</p>}
+      <h2 className="text-2xl">{title}</h2>
+      {subtitle && <p className="mt-1 text-xs text-muted">{subtitle}</p>}
     </div>
   )
 }

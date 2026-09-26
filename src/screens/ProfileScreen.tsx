@@ -44,7 +44,7 @@ function ProfileScreen() {
         </div>
       </Card>
       <Card>
-        <h3 className="mb-3 text-sm font-semibold">Dirección de envío</h3>
+        <h3 className="mb-5 text-[11px] font-medium tracking-[0.15em] uppercase">Dirección de envío</h3>
         <AddressFields value={address} onChange={setAddress} errors={addressErrors} />
       </Card>
       <PrimaryButton onClick={save}>Guardar cambios</PrimaryButton>

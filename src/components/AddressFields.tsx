@@ -15,7 +15,7 @@ function AddressFields({ value, onChange, errors = {} }: Props) {
 
   return (
     <div className="grid gap-3 sm:grid-cols-2">
-      <p className="flex items-center gap-1.5 rounded-xl bg-sage/15 px-3 py-2 text-xs sm:col-span-2">
+      <p className="flex items-center gap-1.5 rounded-xl bg-neutral-100 px-3 py-2 text-xs sm:col-span-2">
         <MapPin className="size-3.5 shrink-0" /> Solo realizamos entregas en {store.city}
       </p>
       <Select

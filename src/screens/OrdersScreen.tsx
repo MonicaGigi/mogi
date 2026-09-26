@@ -21,7 +21,7 @@ function OrdersScreen() {
           icon={Package}
           title="Aún no tienes pedidos"
           text="Cuando compres algo, podrás seguir aquí su estado."
-          action={{ label: 'Ver novedades', onClick: () => go({ name: 'catalog', category: 'Novedades' }) }}
+          action={{ label: 'Ver novedades', onClick: () => go({ name: 'catalog', listing: { kind: 'new' } }) }}
         />
       </>
     )
@@ -38,7 +38,7 @@ function OrdersScreen() {
             <li key={order.id}>
               <button
                 onClick={() => go({ name: 'order', id: order.id })}
-                className="flex w-full items-center gap-3 rounded-card bg-white p-3 text-left shadow-soft ring-1 ring-slate-100 active:bg-slate-50"
+                className="flex w-full items-center gap-3 rounded-card bg-white p-3 text-left shadow-soft ring-1 ring-neutral-200 active:bg-neutral-50"
               >
                 <div className="flex -space-x-4">
                   {order.lines.slice(0, 3).map((l) => {
@@ -54,15 +54,15 @@ function OrdersScreen() {
                     {formatDate(order.createdAt)} · {units} {units === 1 ? 'artículo' : 'artículos'}
                   </p>
                   <span
-                    className={`mt-1 inline-block rounded-full px-2 py-0.5 text-[11px] font-medium ${
-                      cancelled ? 'bg-red-50 text-red-700' : label === 'Entregado' ? 'bg-slate-100' : 'bg-sage/20 text-sage-dark'
+                    className={`mt-1 inline-block rounded-none px-2 py-0.5 text-[11px] font-medium ${
+                      cancelled ? 'bg-red-50 text-red-700' : label === 'Entregado' ? 'bg-neutral-100' : 'bg-neutral-100 text-ink'
                     }`}
                   >
                     {label}
                   </span>
                 </div>
                 <span className="text-sm font-semibold">{formatPrice(order.total)}</span>
-                <ChevronRight className="size-4 text-slate-300" />
+                <ChevronRight className="size-4 text-neutral-300" />
               </button>
             </li>
           )

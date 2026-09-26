@@ -39,12 +39,12 @@ function BagScreen({ onOpen, onShop }: Props) {
   return (
     <div className="grid gap-6 md:grid-cols-[1fr_18rem]">
       <section>
-        <h2 className="text-lg font-semibold">Mi bolsa</h2>
+        <h2 className="text-2xl">Mi bolsa</h2>
         <p className="mb-4 text-xs text-muted">{bagCount} artículos</p>
 
         <ul className="space-y-3">
           {lines.map(({ item, product }) => (
-            <li key={item.key} className="flex gap-3 rounded-card bg-white p-2.5 shadow-soft ring-1 ring-slate-100">
+            <li key={item.key} className="flex gap-3 rounded-card bg-white p-2.5 shadow-soft ring-1 ring-neutral-200">
               <button onClick={() => onOpen(product.id)} className="w-20 shrink-0">
                 <ProductImage product={product} width={200} className="aspect-[3/4] rounded-xl" />
               </button>
@@ -59,7 +59,7 @@ function BagScreen({ onOpen, onShop }: Props) {
                   {item.color} · Talla {item.size}
                 </p>
                 <div className="mt-auto flex items-center justify-between pt-2">
-                  <div className="flex items-center rounded-full ring-1 ring-slate-200">
+                  <div className="flex items-center rounded-none ring-1 ring-neutral-300">
                     <button
                       onClick={() => (item.qty === 1 ? removeFromBag(item.key) : setQty(item.key, item.qty - 1))}
                       aria-label="Restar"
@@ -80,18 +80,18 @@ function BagScreen({ onOpen, onShop }: Props) {
         </ul>
       </section>
 
-      <aside className="h-fit rounded-card bg-white p-4 shadow-soft ring-1 ring-slate-100 md:sticky md:top-0">
+      <aside className="h-fit rounded-card bg-white p-4 shadow-soft ring-1 ring-neutral-200 md:sticky md:top-0">
         {missing > 0 ? (
           <div className="mb-4">
             <p className="text-xs text-muted">
               Te faltan <strong className="text-ink">{formatPrice(missing)}</strong> para el envío gratis
             </p>
-            <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-slate-100">
-              <div className="h-full rounded-full bg-sage" style={{ width: `${(subtotal / FREE_SHIPPING_FROM) * 100}%` }} />
+            <div className="mt-1.5 h-1.5 overflow-hidden rounded-none bg-neutral-100">
+              <div className="h-full rounded-none bg-ink" style={{ width: `${(subtotal / FREE_SHIPPING_FROM) * 100}%` }} />
             </div>
           </div>
         ) : (
-          <p className="mb-4 text-xs font-medium text-sage-dark">¡Tienes envío gratis!</p>
+          <p className="mb-4 text-xs font-medium text-ink">¡Tienes envío gratis!</p>
         )}
 
         <dl className="space-y-1.5 text-sm">
@@ -103,7 +103,7 @@ function BagScreen({ onOpen, onShop }: Props) {
             <dt className="text-muted">Envío</dt>
             <dd>{shipping === 0 ? 'Gratis' : formatPrice(shipping)}</dd>
           </div>
-          <div className="flex justify-between border-t border-slate-100 pt-2 text-base font-semibold">
+          <div className="flex justify-between border-t border-neutral-100 pt-2 text-base font-semibold">
             <dt>Total</dt>
             <dd>{formatPrice(subtotal + shipping)}</dd>
           </div>
@@ -111,7 +111,7 @@ function BagScreen({ onOpen, onShop }: Props) {
 
         <button
           onClick={() => go({ name: 'checkout' })}
-          className="mt-4 w-full rounded-full bg-sage py-3 text-sm font-semibold text-white transition active:scale-[0.98] active:bg-sage-dark"
+          className="mt-6 w-full bg-ink py-3.5 text-[11px] font-medium tracking-[0.15em] uppercase text-white transition active:bg-neutral-700"
         >
           Finalizar compra
         </button>

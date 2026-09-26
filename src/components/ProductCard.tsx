@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Heart, Plus, X } from 'lucide-react'
-import { formatPrice, type Product } from '../data/products'
+import { discountPercent, type Product } from '../data/products'
+import Price from './Price'
 import { useShop } from '../useShop'
 import ProductImage from './ProductImage'
 
@@ -21,22 +22,25 @@ function ProductCard({ product, onOpen }: Props) {
   }
 
   return (
-    <article className="overflow-hidden rounded-card bg-white shadow-soft ring-1 ring-slate-100">
+    <article className="bg-white">
       <div className="relative">
         <button onClick={onOpen} className="block w-full" aria-label={`Ver ${product.name}`}>
           <ProductImage product={product} width={400} className="aspect-[3/4]" />
         </button>
-        {product.isNew && (
-          <span className="pointer-events-none absolute top-2 left-2 rounded-full bg-white/90 px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase">
-            Nuevo
-          </span>
-        )}
+        <div className="pointer-events-none absolute top-2 left-2 flex flex-col items-start gap-1">
+          {product.oldPrice && (
+            <span className="bg-red-600 px-1.5 py-0.5 text-[9px] font-medium tracking-wider text-white">-{discountPercent(product)}%</span>
+          )}
+          {product.isNew && (
+            <span className="bg-white px-1.5 py-0.5 text-[9px] font-medium tracking-[0.15em] uppercase">Nuevo</span>
+          )}
+        </div>
         <button
           onClick={() => toggleFavorite(product.id)}
           aria-label={isFavorite ? 'Quitar de favoritos' : 'Añadir a favoritos'}
-          className="absolute top-2 right-2 rounded-full bg-white/90 p-1.5 transition active:scale-90"
+          className="absolute top-2 right-2 bg-white/80 p-1.5 transition active:scale-90"
         >
-          <Heart className={`size-4 ${isFavorite ? 'fill-sage text-sage' : 'text-ink'}`} />
+          <Heart strokeWidth={1.5} className={`size-4 ${isFavorite ? 'fill-ink text-ink' : 'text-ink'}`} />
         </button>
 
         {pickingSize && (
@@ -55,7 +59,7 @@ function ProductCard({ product, onOpen }: Props) {
                     addToBag(product.id, product.colors[0].name, size)
                     setPickingSize(false)
                   }}
-                  className="min-w-8 rounded-md border border-slate-200 px-1.5 py-1 text-xs transition active:bg-sage active:text-white"
+                  className="min-w-8 rounded-md border border-neutral-300 px-1.5 py-1 text-xs transition active:bg-ink active:text-white"
                 >
                   {size}
                 </button>
@@ -65,17 +69,17 @@ function ProductCard({ product, onOpen }: Props) {
         )}
       </div>
 
-      <div className="flex items-end justify-between gap-2 p-3">
+      <div className="flex items-start justify-between gap-2 pt-3">
         <button onClick={onOpen} className="min-w-0 text-left">
-          <h3 className="line-clamp-2 text-sm leading-tight font-medium">{product.name}</h3>
-          <p className="mt-0.5 text-sm text-muted">{formatPrice(product.price)}</p>
+          <h3 className="line-clamp-2 text-xs leading-snug">{product.name}</h3>
+          <Price product={product} className="mt-1 text-xs" />
         </button>
         <button
           onClick={quickAdd}
           aria-label="Añadir a la bolsa"
-          className="shrink-0 rounded-full bg-sage p-1.5 text-white transition active:scale-90 active:bg-sage-dark"
+          className="shrink-0 border border-ink p-1 text-ink transition active:bg-ink active:text-white"
         >
-          <Plus className="size-4" />
+          <Plus className="size-3.5" strokeWidth={1.5} />
         </button>
       </div>
     </article>

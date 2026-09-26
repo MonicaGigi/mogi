@@ -13,7 +13,7 @@ function ProductImage({ product, width, className = '' }: Props) {
   const [failed, setFailed] = useState(false)
 
   return (
-    <div className={`relative overflow-hidden ${className}`} style={{ backgroundColor: product.tone }}>
+    <div className={`relative overflow-hidden ${className}`} style={{ backgroundColor: product.tone ?? '#e9e6df' }}>
       {failed ? (
         <Shirt className="absolute inset-0 m-auto size-1/3 text-white/70" strokeWidth={1.5} />
       ) : (

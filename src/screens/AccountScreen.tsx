@@ -39,28 +39,28 @@ function AccountScreen() {
   return (
     <div className="mx-auto max-w-md">
       <Card className="flex items-center gap-4">
-        <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-sage text-lg font-semibold text-white">
+        <div className="flex size-14 shrink-0 items-center justify-center rounded-none bg-ink text-lg font-semibold text-white">
           {user.firstName[0]}
           {user.lastName[0]}
         </div>
         <div className="min-w-0">
-          <h2 className="truncate text-lg font-semibold">
+          <h2 className="truncate text-2xl">
             Hola, {user.firstName}
           </h2>
           <p className="truncate text-xs text-muted">Cliente desde {new Date(user.createdAt).toLocaleDateString('es-PA', { month: 'long', year: 'numeric' })}</p>
         </div>
       </Card>
 
-      <ul className="mt-4 divide-y divide-slate-100 overflow-hidden rounded-card bg-white shadow-soft ring-1 ring-slate-100">
+      <ul className="mt-4 divide-y divide-slate-100 overflow-hidden rounded-card bg-white shadow-soft ring-1 ring-neutral-200">
         {options.map(({ label, detail, icon: Icon, onClick }) => (
           <li key={label}>
-            <button onClick={onClick} className="flex w-full items-center gap-3 px-4 py-3.5 text-left active:bg-slate-50">
+            <button onClick={onClick} className="flex w-full items-center gap-3 px-4 py-3.5 text-left active:bg-neutral-50">
               <Icon className="size-4 shrink-0 text-muted" />
               <span className="min-w-0 flex-1">
                 <span className="block text-sm">{label}</span>
                 <span className="block truncate text-xs text-muted">{detail}</span>
               </span>
-              <ChevronRight className="size-4 shrink-0 text-slate-300" />
+              <ChevronRight className="size-4 shrink-0 text-neutral-300" />
             </button>
           </li>
         ))}

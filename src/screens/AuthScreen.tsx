@@ -93,19 +93,19 @@ function AuthScreen({ mode: initialMode, email: initialEmail = '', then, message
 
   return (
     <div className="mx-auto max-w-lg">
-      <div className="mb-4 grid grid-cols-2 rounded-full bg-slate-100 p-1 text-sm font-medium">
+      <div className="mb-8 grid grid-cols-2 border-b border-neutral-200 text-[11px] tracking-[0.15em] uppercase">
         {(['login', 'register'] as const).map((m) => (
           <button
             key={m}
             onClick={() => switchMode(m)}
-            className={`rounded-full py-2 transition ${mode === m ? 'bg-white shadow-soft' : 'text-muted'}`}
+            className={`-mb-px py-3 transition ${mode === m ? 'border-b border-ink font-medium text-ink' : 'text-muted'}`}
           >
             {m === 'login' ? 'Iniciar sesión' : 'Crear cuenta'}
           </button>
         ))}
       </div>
 
-      {notice && <p className="mb-4 rounded-xl bg-sage/15 px-4 py-3 text-sm text-ink">{notice}</p>}
+      {notice && <p className="mb-4 rounded-xl bg-neutral-100 px-4 py-3 text-sm text-ink">{notice}</p>}
 
       {mode === 'login' ? (
         <Card>
@@ -132,7 +132,7 @@ function AuthScreen({ mode: initialMode, email: initialEmail = '', then, message
       ) : (
         <form onSubmit={submitRegister} noValidate className="space-y-4">
           <Card>
-            <h3 className="mb-3 text-sm font-semibold">Tus datos</h3>
+            <h3 className="mb-5 text-[11px] font-medium tracking-[0.15em] uppercase">Tus datos</h3>
             <div className="grid gap-3 sm:grid-cols-2">
               <Field label="Nombre" autoComplete="given-name" value={form.firstName} onChange={set('firstName')} error={errors.firstName} />
               <Field label="Apellidos" autoComplete="family-name" value={form.lastName} onChange={set('lastName')} error={errors.lastName} />
@@ -160,12 +160,12 @@ function AuthScreen({ mode: initialMode, email: initialEmail = '', then, message
           </Card>
 
           <Card>
-            <h3 className="mb-3 text-sm font-semibold">Dirección de envío</h3>
+            <h3 className="mb-5 text-[11px] font-medium tracking-[0.15em] uppercase">Dirección de envío</h3>
             <AddressFields value={address} onChange={setAddress} errors={addressErrors} />
           </Card>
 
           <label className="flex items-start gap-2 px-1 text-xs text-muted">
-            <input type="checkbox" checked={form.terms} onChange={set('terms')} className="mt-0.5 accent-[#8f8a68]" />
+            <input type="checkbox" checked={form.terms} onChange={set('terms')} className="mt-0.5 accent-[#111111]" />
             <span>
               Acepto las condiciones de uso y la política de privacidad de mo&amp;ju.
               {errors.terms && <span className="block text-red-600">{errors.terms}</span>}

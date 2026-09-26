@@ -26,7 +26,7 @@ function FavoritesScreen({ onOpen, onShop }: Props) {
 
   return (
     <>
-      <h2 className="text-lg font-semibold">Favoritos</h2>
+      <h2 className="text-2xl">Favoritos</h2>
       <p className="mb-4 text-xs text-muted">{items.length} guardados</p>
       <ProductGrid products={items} onOpen={onOpen} />
     </>

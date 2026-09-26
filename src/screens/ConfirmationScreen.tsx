@@ -13,8 +13,8 @@ function ConfirmationScreen({ orderId }: { orderId: string }) {
 
   return (
     <div className="mx-auto max-w-md text-center">
-      <CheckCircle2 className="mx-auto mt-4 size-14 text-sage-dark" strokeWidth={1.5} />
-      <h2 className="mt-3 text-xl font-semibold">¡Gracias por tu compra{user ? `, ${user.firstName}` : ''}!</h2>
+      <CheckCircle2 className="mx-auto mt-4 size-14 text-ink" strokeWidth={1.5} />
+      <h2 className="mt-3 text-2xl">¡Gracias por tu compra{user ? `, ${user.firstName}` : ''}!</h2>
       <p className="mt-1 text-sm text-muted">
         Tu pedido <strong className="text-ink">{order.id}</strong> está confirmado. Te avisaremos cuando salga hacia tu dirección.
       </p>
@@ -42,7 +42,7 @@ function ConfirmationScreen({ orderId }: { orderId: string }) {
 
       <div className="mt-5 space-y-2">
         <PrimaryButton onClick={() => replace({ name: 'order', id: order.id })}>Ver mi pedido</PrimaryButton>
-        <SecondaryButton onClick={() => go({ name: 'catalog', category: 'Novedades' })}>Seguir comprando</SecondaryButton>
+        <SecondaryButton onClick={() => go({ name: 'catalog', listing: { kind: 'new' } })}>Seguir comprando</SecondaryButton>
       </div>
     </div>
   )

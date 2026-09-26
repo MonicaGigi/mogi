@@ -12,10 +12,10 @@ function OrderTimeline({ order }: { order: Order }) {
         const done = i <= step
         return (
           <li key={label} className="relative flex flex-1 flex-col items-center text-center">
-            {i > 0 && <span className={`absolute top-3 right-1/2 h-0.5 w-full ${done ? 'bg-sage' : 'bg-slate-200'}`} />}
+            {i > 0 && <span className={`absolute top-3 right-1/2 h-0.5 w-full ${done ? 'bg-ink' : 'bg-slate-200'}`} />}
             <span
               className={`relative z-10 flex size-6 items-center justify-center rounded-full ${
-                done ? 'bg-sage text-white' : 'bg-slate-200 text-slate-400'
+                done ? 'bg-ink text-white' : 'bg-slate-200 text-neutral-400'
               }`}
             >
               {done ? <Check className="size-3.5" /> : <span className="size-1.5 rounded-full bg-current" />}

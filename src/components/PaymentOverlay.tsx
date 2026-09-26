@@ -63,14 +63,14 @@ function PaymentOverlay({ method, amount, yappyPhone, declined = false, onApprov
         )}
         {phase === 'processing' && (
           <>
-            <Loader2 className="mx-auto size-10 animate-spin text-sage" />
+            <Loader2 className="mx-auto size-10 animate-spin text-ink" />
             <h3 className="mt-4 font-semibold">{method === 'cod' ? 'Confirmando tu pedido…' : 'Procesando el pago…'}</h3>
             <p className="mt-1 text-sm text-muted">No cierres la aplicación.</p>
           </>
         )}
         {phase === 'approved' && (
           <>
-            <CheckCircle2 className="mx-auto size-12 text-sage-dark" />
+            <CheckCircle2 className="mx-auto size-12 text-ink" />
             <h3 className="mt-4 font-semibold">{method === 'cod' ? 'Pedido confirmado' : 'Pago aprobado'}</h3>
           </>
         )}

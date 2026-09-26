@@ -26,7 +26,7 @@ function PaymentsScreen() {
           const preferred = (user.preferredPayment ?? 'yappy') === method
           const saved = method === 'yappy' ? user.yappyPhone : method === 'card' ? user.card : undefined
           return (
-            <div key={method} className={`flex items-center gap-3 rounded-xl border p-3 ${preferred ? 'border-ink' : 'border-slate-200'}`}>
+            <div key={method} className={`flex items-center gap-3 rounded-xl border p-3 ${preferred ? 'border-ink' : 'border-neutral-300'}`}>
               <button
                 onClick={() => {
                   updateUser({ preferredPayment: method })

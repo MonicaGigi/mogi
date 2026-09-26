@@ -43,7 +43,7 @@ function OrderDetailScreen({ id }: { id: string }) {
       </Card>
 
       <Card>
-        <h3 className="mb-3 text-sm font-semibold">Artículos</h3>
+        <h3 className="mb-5 text-[11px] font-medium tracking-[0.15em] uppercase">Artículos</h3>
         <ul className="space-y-3">
           {order.lines.map((l) => {
             const product = productById(l.productId)
@@ -65,7 +65,7 @@ function OrderDetailScreen({ id }: { id: string }) {
             )
           })}
         </ul>
-        <dl className="mt-4 space-y-1.5 border-t border-slate-100 pt-3 text-sm">
+        <dl className="mt-4 space-y-1.5 border-t border-neutral-100 pt-3 text-sm">
           <div className="flex justify-between">
             <dt className="text-muted">Subtotal</dt>
             <dd>{formatPrice(order.subtotal)}</dd>
@@ -118,7 +118,7 @@ function OrderDetailScreen({ id }: { id: string }) {
                     setConfirming(false)
                     notify('Pedido cancelado')
                   }}
-                  className="w-full rounded-full bg-red-600 py-3 text-sm font-semibold text-white"
+                  className="w-full bg-red-600 py-3.5 text-[11px] font-medium tracking-[0.15em] uppercase text-white"
                 >
                   Sí, cancelar
                 </button>

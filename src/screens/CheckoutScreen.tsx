@@ -121,7 +121,7 @@ function Checkout({ buyNow }: Props) {
         <ScreenTitle title="Finalizar compra" subtitle={buyNow ? 'Compra rápida' : `${lines.length} artículos de tu bolsa`} />
 
         <Card>
-          <h3 className="mb-3 text-sm font-semibold">1. Entrega</h3>
+          <h3 className="mb-5 text-[11px] font-medium tracking-[0.15em] uppercase">1. Entrega</h3>
           <div className="grid gap-3 sm:grid-cols-2">
             <Field label="Recibe" value={recipient} onChange={(e) => setRecipient(e.target.value)} error={errors.recipient} />
             <Field label="Teléfono de contacto (+507)" type="tel" inputMode="numeric" value={phone} onChange={(e) => setPhone(e.target.value)} error={errors.phone} />
@@ -130,12 +130,12 @@ function Checkout({ buyNow }: Props) {
             <div className="mt-3 space-y-3">
               <AddressFields value={address} onChange={setAddress} errors={errors.address} />
               <label className="flex items-center gap-2 text-xs text-muted">
-                <input type="checkbox" checked={saveAddress} onChange={(e) => setSaveAddress(e.target.checked)} className="accent-[#8f8a68]" />
+                <input type="checkbox" checked={saveAddress} onChange={(e) => setSaveAddress(e.target.checked)} className="accent-[#111111]" />
                 Guardar como mi dirección habitual
               </label>
             </div>
           ) : (
-            <div className="mt-3 flex items-start justify-between gap-3 rounded-xl bg-slate-50 p-3 text-sm">
+            <div className="mt-3 flex items-start justify-between gap-3 rounded-xl bg-neutral-50 p-3 text-sm">
               <div>
                 <p>{formatAddress(address)}</p>
                 {address.reference && <p className="text-xs text-muted">{address.reference}</p>}
@@ -149,7 +149,7 @@ function Checkout({ buyNow }: Props) {
         </Card>
 
         <Card>
-          <h3 className="mb-3 text-sm font-semibold">2. Pago</h3>
+          <h3 className="mb-5 text-[11px] font-medium tracking-[0.15em] uppercase">2. Pago</h3>
           <PaymentForm value={payment} onChange={setPayment} errors={errors.payment} savedCard={me.card} />
           <p className="mt-3 text-[11px] text-muted">Prototipo: ningún pago es real, todos se simulan en el dispositivo.</p>
         </Card>
@@ -157,7 +157,7 @@ function Checkout({ buyNow }: Props) {
 
       <aside className="h-fit space-y-3 md:sticky md:top-0">
         <Card>
-          <h3 className="mb-3 text-sm font-semibold">Resumen</h3>
+          <h3 className="mb-5 text-[11px] font-medium tracking-[0.15em] uppercase">Resumen</h3>
           <ul className="mb-3 space-y-2">
             {lines.map((l) => {
               const product = productById(l.productId)!
@@ -175,7 +175,7 @@ function Checkout({ buyNow }: Props) {
               )
             })}
           </ul>
-          <dl className="space-y-1.5 border-t border-slate-100 pt-3 text-sm">
+          <dl className="space-y-1.5 border-t border-neutral-100 pt-3 text-sm">
             <div className="flex justify-between">
               <dt className="text-muted">Subtotal</dt>
               <dd>{formatPrice(subtotal)}</dd>
@@ -184,7 +184,7 @@ function Checkout({ buyNow }: Props) {
               <dt className="text-muted">Envío</dt>
               <dd>{shipping === 0 ? 'Gratis' : formatPrice(shipping)}</dd>
             </div>
-            <div className="flex justify-between border-t border-slate-100 pt-2 text-base font-semibold">
+            <div className="flex justify-between border-t border-neutral-100 pt-2 text-base font-semibold">
               <dt>Total</dt>
               <dd>{formatPrice(total)}</dd>
             </div>
