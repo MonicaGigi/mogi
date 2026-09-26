@@ -10,6 +10,10 @@
   --color-brand-600: oklch(0.55 0.21 275);
   --color-brand-700: oklch(0.48 0.2 275);
 
+  /* Pantone 15-0318 TCX Sage Green */
+  --color-sage: #b2ac88;
+  --color-sage-dark: #8f8a68;
+
   --color-surface: oklch(0.985 0.003 250);
   --color-ink: oklch(0.25 0.02 260);
   --color-muted: oklch(0.55 0.02 260);

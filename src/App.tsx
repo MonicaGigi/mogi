@@ -1,72 +1,127 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { Heart, ShoppingBag, User } from 'lucide-react'
+import { productById, type Category } from './data/products'
+import AccountScreen from './screens/AccountScreen'
+import BagScreen from './screens/BagScreen'
+import CatalogScreen from './screens/CatalogScreen'
+import FavoritesScreen from './screens/FavoritesScreen'
+import ProductScreen from './screens/ProductScreen'
+import { useShop } from './useShop'
 
-const tabs = [
-  { id: 'home', label: 'Inicio', icon: 'M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z' },
-  { id: 'search', label: 'Buscar', icon: 'M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Zm10 2-4.35-4.35' },
-  { id: 'profile', label: 'Perfil', icon: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-8 9a8 8 0 0 1 16 0' },
+const categories: Category[] = ['Ropa', 'Calzado', 'Accesorios', 'Novedades']
+
+type Screen =
+  | { name: 'catalog'; category: Category }
+  | { name: 'product'; id: string }
+  | { name: 'favorites' }
+  | { name: 'account' }
+  | { name: 'bag' }
+
+const actions = [
+  { id: 'favorites', label: 'Favoritos', icon: Heart },
+  { id: 'account', label: 'Mi cuenta', icon: User },
+  { id: 'bag', label: 'Mi bolsa', icon: ShoppingBag },
 ] as const
 
-type TabId = (typeof tabs)[number]['id']
+const buildDate = new Date(__BUILD_DATE__).toLocaleDateString('es-ES')
 
 function App() {
-  const [active, setActive] = useState<TabId>('home')
+  const { favorites, bagCount, toast } = useShop()
+  const [history, setHistory] = useState<Screen[]>([{ name: 'catalog', category: 'Ropa' }])
+  const mainRef = useRef<HTMLElement>(null)
+  const screen = history[history.length - 1]
+
+  const go = (next: Screen) => {
+    setHistory((prev) => [...prev, next])
+    mainRef.current?.scrollTo({ top: 0 })
+  }
+  const back = () => setHistory((prev) => (prev.length > 1 ? prev.slice(0, -1) : prev))
+  const openProduct = (id: string) => go({ name: 'product', id })
+  const shopNew = () => go({ name: 'catalog', category: 'Novedades' })
+
+  // La categoría resaltada es la del catálogo visible o la del producto abierto.
+  const activeCategory =
+    screen.name === 'catalog' ? screen.category : screen.name === 'product' ? productById(screen.id)?.category : undefined
+
+  const counts: Record<(typeof actions)[number]['id'], number> = {
+    favorites: favorites.size,
+    account: 0,
+    bag: bagCount,
+  }
+
+  const product = screen.name === 'product' ? productById(screen.id) : undefined
 
   return (
     <div className="flex h-full flex-col">
-      <header className="pt-safe sticky top-0 z-10 bg-surface/80 backdrop-blur-md">
-        <div className="flex items-center justify-between px-5 py-4">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            mo<span className="text-brand-500">&amp;</span>ju
-          </h1>
-          <div className="size-9 rounded-full bg-brand-100" />
+      <header className="pt-safe border-b border-slate-100 bg-white">
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 px-4 py-3">
+          <div />
+          <button onClick={() => go({ name: 'catalog', category: 'Ropa' })} className="text-3xl font-bold tracking-tight">
+            mo&amp;ju
+          </button>
+          <nav className="flex justify-end gap-1.5 sm:gap-2">
+            {actions.map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                onClick={() => go({ name: id })}
+                aria-label={label}
+                className={`relative flex items-center gap-1.5 rounded-full p-2 text-sm font-medium text-white transition active:scale-95 sm:px-3 ${
+                  screen.name === id ? 'bg-sage-dark' : 'bg-sage active:bg-sage-dark'
+                }`}
+              >
+                <Icon className="size-4" strokeWidth={2} />
+                <span className="hidden sm:inline">{label}</span>
+                {counts[id] > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 flex size-5 items-center justify-center rounded-full bg-ink text-[10px] font-semibold text-white">
+                    {counts[id]}
+                  </span>
+                )}
+              </button>
+            ))}
+          </nav>
         </div>
       </header>
 
-      <main className="flex-1 overflow-y-auto px-5 pb-6">
-        <section className="rounded-card bg-gradient-to-br from-brand-500 to-brand-700 p-6 text-white shadow-soft">
-          <p className="text-sm text-white/80">Bienvenido</p>
-          <p className="mt-1 text-xl font-semibold">Tu app está lista para empezar</p>
-          <button className="mt-5 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-brand-700 active:scale-95 transition">
-            Comenzar
-          </button>
-        </section>
-
-        <h2 className="mt-8 mb-3 text-sm font-medium text-muted">Accesos rápidos</h2>
-        <div className="grid grid-cols-2 gap-3">
-          {['Novedades', 'Favoritos', 'Actividad', 'Ajustes'].map((item) => (
-            <button
-              key={item}
-              className="rounded-card bg-white p-4 text-left shadow-soft ring-1 ring-slate-100 active:scale-[0.98] transition"
-            >
-              <div className="mb-3 size-9 rounded-xl bg-brand-50" />
-              <span className="text-sm font-medium">{item}</span>
-            </button>
-          ))}
-        </div>
-      </main>
-
-      <nav className="pb-safe border-t border-slate-100 bg-white/90 backdrop-blur-md">
-        <ul className="flex justify-around py-2">
-          {tabs.map((tab) => {
-            const isActive = tab.id === active
+      <div className="flex min-h-0 flex-1">
+        <aside className="flex w-28 shrink-0 flex-col gap-2 border-r border-slate-100 bg-white p-2 sm:w-36 sm:p-3">
+          {categories.map((category) => {
+            const isActive = category === activeCategory
             return (
-              <li key={tab.id}>
-                <button
-                  onClick={() => setActive(tab.id)}
-                  className={`flex flex-col items-center gap-1 px-4 py-1 text-xs transition ${
-                    isActive ? 'text-brand-600' : 'text-muted'
-                  }`}
-                >
-                  <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
-                    <path d={tab.icon} />
-                  </svg>
-                  {tab.label}
-                </button>
-              </li>
+              <button
+                key={category}
+                onClick={() => go({ name: 'catalog', category })}
+                className={`rounded-xl px-3 py-2.5 text-left text-sm font-medium transition active:scale-[0.98] ${
+                  isActive ? 'bg-ink text-white' : 'text-ink hover:bg-slate-100'
+                }`}
+              >
+                {category}
+              </button>
             )
           })}
-        </ul>
-      </nav>
+        </aside>
+
+        <main ref={mainRef} className="min-w-0 flex-1 overflow-y-auto p-4 sm:p-5">
+          {screen.name === 'catalog' && <CatalogScreen key={screen.category} category={screen.category} onOpen={openProduct} />}
+          {product && <ProductScreen key={product.id} product={product} onBack={back} onOpen={openProduct} />}
+          {screen.name === 'favorites' && <FavoritesScreen onOpen={openProduct} onShop={shopNew} />}
+          {screen.name === 'account' && <AccountScreen />}
+          {screen.name === 'bag' && <BagScreen onOpen={openProduct} onShop={shopNew} />}
+        </main>
+      </div>
+
+      <footer className="pb-safe border-t border-slate-100 bg-white">
+        <p className="px-4 py-2 text-center text-xs text-slate-400">
+          mo&amp;ju · v{__APP_VERSION__} · {buildDate}
+        </p>
+      </footer>
+
+      {toast && (
+        <div className="pt-safe pointer-events-none fixed inset-x-0 top-16 flex justify-center px-4">
+          <div role="status" className="rounded-full bg-ink px-4 py-2 text-sm text-white shadow-soft">
+            {toast}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
