@@ -66,5 +66,6 @@ export function productsFor(category: Category) {
 export const photoUrl = (photo: string, width: number) =>
   `https://images.unsplash.com/photo-${photo}?w=${width}&h=${Math.round(width * 4 / 3)}&fit=crop&auto=format&q=70`
 
+// Panamá: dólares estadounidenses, formato $1,234.50.
 export const formatPrice = (price: number) =>
-  price.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })
+  `$${price.toLocaleString('es-PA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`

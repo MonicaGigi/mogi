@@ -3,6 +3,9 @@ import { ArrowLeft, Heart, RotateCcw, Truck } from 'lucide-react'
 import ProductGrid from '../components/ProductGrid'
 import ProductImage from '../components/ProductImage'
 import { formatPrice, products, type Product } from '../data/products'
+import { FREE_SHIPPING_FROM } from '../account/types'
+import { store } from '../config'
+import { useNav } from '../nav'
 import { useShop } from '../useShop'
 
 type Props = {
@@ -13,6 +16,7 @@ type Props = {
 
 function ProductScreen({ product, onBack, onOpen }: Props) {
   const { favorites, toggleFavorite, addToBag, notify } = useShop()
+  const { go } = useNav()
   const [color, setColor] = useState(product.colors[0].name)
   const [size, setSize] = useState<string | null>(product.sizes.length === 1 ? product.sizes[0] : null)
   const isFavorite = favorites.has(product.id)
@@ -22,6 +26,11 @@ function ProductScreen({ product, onBack, onOpen }: Props) {
   const add = () => {
     if (!size) return notify('Selecciona una talla')
     addToBag(product.id, color, size)
+  }
+
+  const buyNow = () => {
+    if (!size) return notify('Selecciona una talla')
+    go({ name: 'checkout', buyNow: { productId: product.id, color, size } })
   }
 
   return (
@@ -84,18 +93,26 @@ function ProductScreen({ product, onBack, onOpen }: Props) {
             ))}
           </div>
 
-          <button
-            onClick={add}
-            className="mt-6 rounded-full bg-sage py-3 text-sm font-semibold text-white transition active:scale-[0.98] active:bg-sage-dark"
-          >
-            Añadir a la bolsa
-          </button>
+          <div className="mt-6 grid gap-2 sm:grid-cols-2">
+            <button
+              onClick={add}
+              className="rounded-full bg-sage py-3 text-sm font-semibold text-white transition active:scale-[0.98] active:bg-sage-dark"
+            >
+              Añadir a la bolsa
+            </button>
+            <button
+              onClick={buyNow}
+              className="rounded-full bg-ink py-3 text-sm font-semibold text-white transition active:scale-[0.98]"
+            >
+              Comprar ahora
+            </button>
+          </div>
 
           <p className="mt-5 text-sm leading-relaxed text-muted">{product.description}</p>
 
           <ul className="mt-5 space-y-2 border-t border-slate-100 pt-4 text-xs text-muted">
             <li className="flex items-center gap-2">
-              <Truck className="size-4" /> Envío gratis en pedidos desde 50 €
+              <Truck className="size-4" /> Entrega en 24–48 h en {store.city} · gratis desde {formatPrice(FREE_SHIPPING_FROM)}
             </li>
             <li className="flex items-center gap-2">
               <RotateCcw className="size-4" /> Devoluciones gratuitas en 30 días

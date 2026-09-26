@@ -1,23 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { load, save } from './storage'
 import { ShopContext, type BagItem, type Shop } from './useShop'
-
-// Persistencia local para el prototipo; se sustituirá por backend.
-function load<T>(key: string, fallback: T): T {
-  try {
-    const raw = localStorage.getItem(key)
-    return raw ? (JSON.parse(raw) as T) : fallback
-  } catch {
-    return fallback
-  }
-}
-
-function save(key: string, value: unknown) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value))
-  } catch {
-    // Sin almacenamiento disponible: el estado vive solo en memoria.
-  }
-}
 
 export function ShopProvider({ children }: { children: ReactNode }) {
   const [favorites, setFavorites] = useState(() => new Set(load<string[]>('moju.favorites', [])))

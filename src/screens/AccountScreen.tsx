@@ -1,51 +1,80 @@
-import { Bell, ChevronRight, CreditCard, MapPin, Package, Settings } from 'lucide-react'
+import { ChevronRight, CreditCard, LogOut, MapPin, Package, UserRound } from 'lucide-react'
+import { orderProgress } from '../account/orderStatus'
+import { formatAddress, formatPhone, paymentLabels } from '../account/types'
+import { useAccount } from '../account/useAccount'
+import { Card } from '../components/ui'
+import { useNav } from '../nav'
 import { useShop } from '../useShop'
-
-const options = [
-  { label: 'Mis pedidos', icon: Package },
-  { label: 'Direcciones', icon: MapPin },
-  { label: 'Métodos de pago', icon: CreditCard },
-  { label: 'Notificaciones', icon: Bell },
-  { label: 'Ajustes', icon: Settings },
-]
+import AuthScreen from './AuthScreen'
 
 function AccountScreen() {
+  const { user, orders, logout } = useAccount()
+  const { go } = useNav()
   const { notify } = useShop()
+
+  if (!user) return <AuthScreen mode="login" />
+
+  const active = orders.filter((o) => {
+    const { cancelled, label } = orderProgress(o)
+    return !cancelled && label !== 'Entregado'
+  }).length
+
+  const options = [
+    {
+      label: 'Mis pedidos',
+      detail: orders.length ? `${orders.length} pedidos${active ? ` · ${active} en curso` : ''}` : 'Aún no tienes pedidos',
+      icon: Package,
+      onClick: () => go({ name: 'orders' }),
+    },
+    { label: 'Datos personales', detail: `${user.email} · ${formatPhone(user.phone)}`, icon: UserRound, onClick: () => go({ name: 'profile' }) },
+    { label: 'Dirección de envío', detail: formatAddress(user.address), icon: MapPin, onClick: () => go({ name: 'profile' }) },
+    {
+      label: 'Métodos de pago',
+      detail: user.preferredPayment ? `Preferido: ${paymentLabels[user.preferredPayment]}` : 'Yappy, tarjeta o contra entrega',
+      icon: CreditCard,
+      onClick: () => go({ name: 'payments' }),
+    },
+  ]
 
   return (
     <div className="mx-auto max-w-md">
-      <section className="rounded-card bg-white p-5 shadow-soft ring-1 ring-slate-100">
-        <h2 className="text-lg font-semibold">Hola 👋</h2>
-        <p className="mt-1 text-sm text-muted">Inicia sesión para ver tus pedidos y guardar tus favoritos en todos tus dispositivos.</p>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            notify('Inicio de sesión: próximamente')
-          }}
-          className="mt-4 space-y-2"
-        >
-          <input type="email" placeholder="Email" className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm" />
-          <input type="password" placeholder="Contraseña" className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm" />
-          <button className="w-full rounded-full bg-sage py-3 text-sm font-semibold text-white transition active:scale-[0.98] active:bg-sage-dark">
-            Iniciar sesión
-          </button>
-        </form>
-        <p className="mt-3 text-center text-xs text-muted">
-          ¿Aún no tienes cuenta? <span className="font-medium text-ink underline">Crea tu cuenta</span>
-        </p>
-      </section>
+      <Card className="flex items-center gap-4">
+        <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-sage text-lg font-semibold text-white">
+          {user.firstName[0]}
+          {user.lastName[0]}
+        </div>
+        <div className="min-w-0">
+          <h2 className="truncate text-lg font-semibold">
+            Hola, {user.firstName}
+          </h2>
+          <p className="truncate text-xs text-muted">Cliente desde {new Date(user.createdAt).toLocaleDateString('es-PA', { month: 'long', year: 'numeric' })}</p>
+        </div>
+      </Card>
 
       <ul className="mt-4 divide-y divide-slate-100 overflow-hidden rounded-card bg-white shadow-soft ring-1 ring-slate-100">
-        {options.map(({ label, icon: Icon }) => (
+        {options.map(({ label, detail, icon: Icon, onClick }) => (
           <li key={label}>
-            <button onClick={() => notify(`${label}: próximamente`)} className="flex w-full items-center gap-3 px-4 py-3.5 text-left text-sm active:bg-slate-50">
-              <Icon className="size-4 text-muted" />
-              <span className="flex-1">{label}</span>
-              <ChevronRight className="size-4 text-slate-300" />
+            <button onClick={onClick} className="flex w-full items-center gap-3 px-4 py-3.5 text-left active:bg-slate-50">
+              <Icon className="size-4 shrink-0 text-muted" />
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm">{label}</span>
+                <span className="block truncate text-xs text-muted">{detail}</span>
+              </span>
+              <ChevronRight className="size-4 shrink-0 text-slate-300" />
             </button>
           </li>
         ))}
       </ul>
+
+      <button
+        onClick={() => {
+          logout()
+          notify('Has cerrado sesión')
+        }}
+        className="mt-4 flex w-full items-center justify-center gap-2 py-3 text-sm text-muted"
+      >
+        <LogOut className="size-4" /> Cerrar sesión
+      </button>
     </div>
   )
 }

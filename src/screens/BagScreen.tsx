@@ -1,11 +1,11 @@
 import { Minus, Plus, ShoppingBag, Trash2 } from 'lucide-react'
 import EmptyState from '../components/EmptyState'
 import ProductImage from '../components/ProductImage'
+import { FREE_SHIPPING_FROM, shippingFor } from '../account/types'
+import { store } from '../config'
 import { formatPrice, productById } from '../data/products'
+import { useNav } from '../nav'
 import { useShop } from '../useShop'
-
-const FREE_SHIPPING_FROM = 50
-const SHIPPING_COST = 3.95
 
 type Props = {
   onOpen: (id: string) => void
@@ -13,7 +13,8 @@ type Props = {
 }
 
 function BagScreen({ onOpen, onShop }: Props) {
-  const { bag, bagCount, setQty, removeFromBag, clearBag, notify } = useShop()
+  const { bag, bagCount, setQty, removeFromBag } = useShop()
+  const { go } = useNav()
 
   const lines = bag.flatMap((item) => {
     const product = productById(item.productId)
@@ -32,13 +33,8 @@ function BagScreen({ onOpen, onShop }: Props) {
   }
 
   const subtotal = lines.reduce((sum, { item, product }) => sum + item.qty * product.price, 0)
-  const shipping = subtotal >= FREE_SHIPPING_FROM ? 0 : SHIPPING_COST
+  const shipping = shippingFor(subtotal)
   const missing = FREE_SHIPPING_FROM - subtotal
-
-  const checkout = () => {
-    clearBag()
-    notify('¡Pedido realizado! (simulado)')
-  }
 
   return (
     <div className="grid gap-6 md:grid-cols-[1fr_18rem]">
@@ -114,12 +110,13 @@ function BagScreen({ onOpen, onShop }: Props) {
         </dl>
 
         <button
-          onClick={checkout}
+          onClick={() => go({ name: 'checkout' })}
           className="mt-4 w-full rounded-full bg-sage py-3 text-sm font-semibold text-white transition active:scale-[0.98] active:bg-sage-dark"
         >
           Finalizar compra
         </button>
-        <p className="mt-2 text-center text-[11px] text-muted">IVA incluido · Pago seguro</p>
+        <p className="mt-2 text-center text-[11px] text-muted">ITBMS incluido · Yappy, tarjeta o contra entrega</p>
+        <p className="mt-1 text-center text-[11px] text-muted">Entregas solo en {store.city}</p>
       </aside>
     </div>
   )
