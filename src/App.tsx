@@ -150,7 +150,7 @@ function App() {
               )
             })}
 
-            <div className="mt-8 flex flex-col items-start gap-6 border-t border-neutral-100 pt-8">
+            <div className="mt-auto flex flex-col items-start gap-4 border-t border-neutral-100 pt-6">
               <button
                 onClick={() => setDialog('whatsapp')}
                 aria-label={product ? `Consultar por WhatsApp: ${product.name}` : 'Contactar por WhatsApp'}
