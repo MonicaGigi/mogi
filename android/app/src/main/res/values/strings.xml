@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">mo&amp;ju</string>
+    <string name="title_activity_main">mo&amp;ju</string>
+    <string name="package_name">com.moju.mojuapp</string>
+    <string name="custom_url_scheme">com.moju.mojuapp</string>
+</resources>
