@@ -15,34 +15,46 @@
 
   const css = document.createElement('style')
   css.textContent = `
-  .mogi-music{position:fixed;z-index:40;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));
-    display:flex;align-items:center;gap:10px;height:40px;padding:0 14px;background:rgba(255,255,255,.92);color:#111;border:1px solid #111;
-    font:500 10px/1 "Inter Variable","Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;
-    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:background .3s,color .3s}
-  .mogi-music:hover{background:#111;color:#fff}
-  .mogi-music:focus-visible{outline:2px solid #b2ac88;outline-offset:2px}
-  .mogi-music .bars{display:flex;align-items:flex-end;gap:2px;height:12px}
-  .mogi-music .bars i{display:block;width:2px;height:3px;background:currentColor}
-  .mogi-music.on .bars i{animation:mogi-eq 1.1s ease-in-out infinite}
-  .mogi-music.on .bars i:nth-child(2){animation-delay:-.4s}.mogi-music.on .bars i:nth-child(3){animation-delay:-.8s}
-  @keyframes mogi-eq{0%,100%{height:3px}50%{height:12px}}
-  @media (max-width:640px){.mogi-music{width:40px;padding:0;justify-content:center}.mogi-music .lbl{display:none}}
-  @media (prefers-reduced-motion:reduce){.mogi-music.on .bars i{animation:none;height:8px}}`
+  .mogi-music{display:flex;flex-direction:column;align-items:flex-start;gap:7px;padding:2px 0;background:none;border:0;cursor:pointer;
+    color:#737373;font:400 10px/1.3 "Inter Variable","Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;transition:color .4s}
+  .mogi-music:hover,.mogi-music.on{color:#111}
+  .mogi-music:focus-visible{outline:1px solid #111;outline-offset:4px}
+  .mogi-music .bars{display:flex;align-items:flex-end;gap:3px;height:14px}
+  .mogi-music .bars i{display:block;width:1px;height:2px;background:currentColor;transition:height .6s}
+  .mogi-music.on .bars i{animation:mogi-eq 1.8s ease-in-out infinite}
+  .mogi-music.on .bars i:nth-child(1){animation-delay:-.2s}.mogi-music.on .bars i:nth-child(2){animation-delay:-.9s}
+  .mogi-music.on .bars i:nth-child(3){animation-delay:-1.4s}.mogi-music.on .bars i:nth-child(4){animation-delay:-.5s}
+  @keyframes mogi-eq{0%,100%{height:3px}50%{height:14px}}
+  .mogi-music.floating{position:fixed;z-index:40;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.9);padding:8px}
+  @media (prefers-reduced-motion:reduce){.mogi-music.on .bars i{animation:none;height:9px}}`
   document.head.appendChild(css)
 
   const btn = document.createElement('button')
   btn.type = 'button'
   btn.className = 'mogi-music'
-  btn.innerHTML = '<span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="lbl">Música</span>'
+  btn.innerHTML = '<span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="lbl">Música</span>'
   const lbl = btn.querySelector('.lbl')
   const paint = () => {
     const on = !audio.paused
     btn.classList.toggle('on', on)
+    btn.classList.toggle('off', !on)
     btn.setAttribute('aria-pressed', String(on))
-    btn.setAttribute('aria-label', on ? 'Pausar la música' : 'Poner música')
-    lbl.textContent = on ? 'Música' : 'Música off'
+    const t = on ? 'Quitar la música' : 'Poner música'
+    btn.setAttribute('aria-label', t)
+    btn.title = t
+    lbl.textContent = on ? 'Música' : 'Sin música'
   }
-  document.body.appendChild(btn)
+  // Va en la barra de la izquierda, justo debajo del botón de WhatsApp.
+  const place = () => {
+    const wa = document.querySelector('[aria-label="Contactar por WhatsApp"]')
+    if (wa) {
+      if (btn.previousElementSibling !== wa) { btn.classList.remove('floating'); wa.insertAdjacentElement('afterend', btn) }
+    } else if (!btn.isConnected || !btn.classList.contains('floating')) {
+      btn.classList.add('floating'); document.body.appendChild(btn)
+    }
+  }
+  place()
+  new MutationObserver(place).observe(document.getElementById('root') || document.body, { childList: true, subtree: true })
 
   let fadeTimer
   const fadeTo = (target, done) => {
