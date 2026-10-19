@@ -1,56 +1,94 @@
-// Música ambiente de MÖGI: suena suave desde el primer toque en la página.
+// MÖGI: música ambiente + historias en vídeo de Mónica.
+// La música suena suave desde el primer toque. Al reproducir un vídeo, la música baja
+// y se escucha el vídeo; al pausarlo o cerrarlo, la música vuelve.
 (() => {
-  const tracks = ['b1', 'b2', 'b3', 'b4', 'b5', 'b6'].map(n => new URL(`../musica/${n}.mp3`, import.meta.url).href)
+  const base = new URL('..', import.meta.url).href
+  const tracks = ['b1', 'b2', 'b3', 'b4', 'b5', 'b6'].map(n => `${base}musica/${n}.mp3`)
   const VOL = 0.28
   const key = 'mogi-musica'
   let off = false
   try { off = localStorage.getItem(key) === 'off' } catch {}
 
-  let order = tracks.map((_, i) => i).sort(() => Math.random() - 0.5)
+  const order = tracks.map((_, i) => i).sort(() => Math.random() - 0.5)
   let i = 0
   const audio = new Audio()
   audio.preload = 'none'
   audio.volume = 0
   audio.addEventListener('ended', () => { i = (i + 1) % order.length; audio.src = tracks[order[i]]; audio.play().catch(() => {}) })
 
+  const historias = [
+    { v: 'set-lino-azul', name: 'Set de lino azul', talla: 'XL', price: '$25.00' },
+    { v: 'camisa-blanca', name: 'Camisa blanca', talla: 'XL', price: '$10.50', old: '$15.00' },
+    { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50' },
+    { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50' },
+  ]
+
   const css = document.createElement('style')
   css.textContent = `
-  .mogi-music{display:flex;flex-direction:column;align-items:flex-start;gap:7px;padding:2px 0;background:none;border:0;cursor:pointer;
-    color:#737373;font:400 10px/1.3 "Inter Variable","Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;transition:color .4s}
-  .mogi-music:hover,.mogi-music.on{color:#111}
-  .mogi-music:focus-visible{outline:1px solid #111;outline-offset:4px}
-  .mogi-music .bars{display:flex;align-items:flex-end;gap:3px;height:14px}
-  .mogi-music .bars i{display:block;width:1px;height:2px;background:currentColor;transition:height .6s}
-  .mogi-music.on .bars i{animation:mogi-eq 1.8s ease-in-out infinite}
-  .mogi-music.on .bars i:nth-child(1){animation-delay:-.2s}.mogi-music.on .bars i:nth-child(2){animation-delay:-.9s}
-  .mogi-music.on .bars i:nth-child(3){animation-delay:-1.4s}.mogi-music.on .bars i:nth-child(4){animation-delay:-.5s}
-  @keyframes mogi-eq{0%,100%{height:3px}50%{height:14px}}
-  .mogi-music.floating{position:fixed;z-index:40;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.9);padding:8px}
-  @media (prefers-reduced-motion:reduce){.mogi-music.on .bars i{animation:none;height:9px}}`
+  .mogi-side{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+  .mogi-link{display:flex;align-items:center;gap:10px;padding:2px 0;background:none;border:0;cursor:pointer;color:#737373;
+    font:400 10px/1.3 "Inter Variable","Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;transition:color .4s}
+  .mogi-link:hover,.mogi-music.on{color:#111}
+  .mogi-link:focus-visible{outline:1px solid #111;outline-offset:4px}
+  .mogi-music svg{width:28px;height:12px;overflow:hidden;flex:none}
+  .mogi-music .wave{stroke:currentColor;stroke-width:1;fill:none;transform-box:fill-box;transform-origin:center;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .mogi-music.on .wave{animation:mogi-flow 2.6s linear infinite}
+  .mogi-music:not(.on) .wave{transform:scaleY(.06)}
+  @keyframes mogi-flow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .mogi-music .state{color:inherit;opacity:.55;margin-left:-4px}
+  .mogi-play{width:28px;height:12px;display:flex;align-items:center}
+  .mogi-play i{display:block;width:0;height:0;border-left:7px solid currentColor;border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;margin-left:9px}
+  .mogi-floating{position:fixed;z-index:40;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.92);padding:10px 12px}
+  @media (prefers-reduced-motion:reduce){.mogi-music.on .wave{animation:none}}
+
+  .mogi-stories{position:fixed;inset:0;z-index:60;background:#fff;color:#111;display:flex;flex-direction:column;
+    padding:calc(20px + env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));
+    opacity:0;transition:opacity .45s ease}
+  .mogi-stories.open{opacity:1}
+  .mogi-stories header{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:0 auto 22px;width:min(1180px,100%)}
+  .mogi-stories h2{font:400 clamp(26px,3.4vw,40px)/1 "Playfair Display Variable",Georgia,serif;margin:0}
+  .mogi-stories .sub{font:400 10px/1.4 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#737373;margin-top:8px}
+  .mogi-close{background:none;border:0;cursor:pointer;font:400 10px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#111;padding:8px 0;border-bottom:1px solid #111}
+  .mogi-rail{flex:1;min-height:0;display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 auto;width:min(1180px,100%);padding-bottom:8px}
+  .mogi-card{flex:0 0 auto;width:min(300px,72vw);scroll-snap-align:start;display:flex;flex-direction:column;gap:12px;min-height:0}
+  .mogi-frame{position:relative;flex:1;min-height:0;max-height:calc(100vh - 220px);aspect-ratio:9/16;background:#f3f2ef;overflow:hidden;cursor:pointer}
+  .mogi-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .mogi-frame .hint{position:absolute;left:14px;bottom:14px;display:flex;align-items:center;gap:8px;color:#fff;
+    font:400 10px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.35);transition:opacity .3s}
+  .mogi-frame .hint i{width:26px;height:26px;border:1px solid #fff;border-radius:50%;display:grid;place-items:center}
+  .mogi-frame .hint i:after{content:"";border-left:7px solid #fff;border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;margin-left:2px}
+  .mogi-frame.playing .hint{opacity:0}
+  .mogi-cap{display:flex;justify-content:space-between;gap:10px;font:400 13px/1.35 "Inter Variable",Helvetica,Arial,sans-serif}
+  .mogi-cap small{display:block;color:#737373;font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-top:4px}
+  .mogi-cap .p{white-space:nowrap;text-align:right}
+  .mogi-cap s{display:block;color:#9a9a9a;font-size:11px}
+  .mogi-cap .sale{color:#c0392b}`
   document.head.appendChild(css)
 
-  const btn = document.createElement('button')
-  btn.type = 'button'
-  btn.className = 'mogi-music'
-  btn.innerHTML = '<span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="lbl">Música</span>'
-  const lbl = btn.querySelector('.lbl')
+  // Botones de la barra lateral
+  const wrap = document.createElement('div')
+  wrap.className = 'mogi-side'
+  wrap.innerHTML = `
+    <button type="button" class="mogi-link mogi-music">
+      <svg viewBox="0 0 28 12" aria-hidden="true"><path class="wave" d="M0 6 C3.5 0 7 0 10.5 6 S17.5 12 21 6 S28 0 31.5 6 S38.5 12 42 6 S49 0 52.5 6 S56 12 56 6"/></svg>
+      <span class="lbl">Música</span><span class="state"></span>
+    </button>
+    <button type="button" class="mogi-link mogi-hist"><span class="mogi-play"><i></i></span><span>Historias</span></button>`
+  const btn = wrap.querySelector('.mogi-music')
+  const state = wrap.querySelector('.state')
   const paint = () => {
     const on = !audio.paused
     btn.classList.toggle('on', on)
-    btn.classList.toggle('off', !on)
     btn.setAttribute('aria-pressed', String(on))
-    const t = on ? 'Quitar la música' : 'Poner música'
-    btn.setAttribute('aria-label', t)
-    btn.title = t
-    lbl.textContent = on ? 'Música' : 'Sin música'
+    btn.setAttribute('aria-label', on ? 'Quitar la música' : 'Poner música')
+    state.textContent = on ? '' : 'Off'
   }
-  // Va en la barra de la izquierda, justo debajo del botón de WhatsApp.
   const place = () => {
     const wa = document.querySelector('[aria-label="Contactar por WhatsApp"]')
     if (wa) {
-      if (btn.previousElementSibling !== wa) { btn.classList.remove('floating'); wa.insertAdjacentElement('afterend', btn) }
-    } else if (!btn.isConnected || !btn.classList.contains('floating')) {
-      btn.classList.add('floating'); document.body.appendChild(btn)
+      if (wrap.previousElementSibling !== wa) { wrap.classList.remove('mogi-floating'); wa.insertAdjacentElement('afterend', wrap) }
+    } else if (!wrap.isConnected || !wrap.classList.contains('mogi-floating')) {
+      wrap.classList.add('mogi-floating'); document.body.appendChild(wrap)
     }
   }
   place()
@@ -63,7 +101,7 @@
       const d = target - audio.volume
       if (Math.abs(d) < 0.02) { audio.volume = target; clearInterval(fadeTimer); done && done(); return }
       audio.volume = Math.min(1, Math.max(0, audio.volume + Math.sign(d) * 0.02))
-    }, 60)
+    }, 50)
   }
   const play = () => {
     if (!audio.src) audio.src = tracks[order[i]]
@@ -78,15 +116,60 @@
     try { localStorage.setItem(key, off ? 'off' : 'on') } catch {}
   })
 
+  // Mientras suena un vídeo, la música baja y se pausa; luego vuelve.
+  let ducked = false
+  const duck = () => { if (!audio.paused) { ducked = true; fadeTo(0, () => { audio.pause(); paint() }) } }
+  const unduck = () => { if (ducked && !off) { ducked = false; play() } }
+
+  // Historias
+  let panel
+  const openStories = () => {
+    panel = document.createElement('div')
+    panel.className = 'mogi-stories'
+    panel.setAttribute('role', 'dialog')
+    panel.setAttribute('aria-label', 'Historias de MÖGI')
+    panel.innerHTML = `
+      <header><div><h2>Historias</h2><div class="sub">Lo último de Mónica · Toca un vídeo para escucharlo</div></div>
+      <button type="button" class="mogi-close">Cerrar</button></header>
+      <div class="mogi-rail">${historias.map(h => `
+        <figure class="mogi-card" style="margin:0">
+          <div class="mogi-frame"><video src="${base}videos/${h.v}.mp4" poster="${base}videos/${h.v}.jpg" playsinline muted loop preload="metadata"></video>
+            <span class="hint"><i></i>Ver</span></div>
+          <figcaption class="mogi-cap"><div>${h.name}<small>Talla ${h.talla}</small></div>
+            <div class="p">${h.old ? `<s>${h.old}</s><span class="sale">${h.price}</span>` : h.price}</div></figcaption>
+        </figure>`).join('')}</div>`
+    document.body.appendChild(panel)
+    requestAnimationFrame(() => panel.classList.add('open'))
+    const vids = [...panel.querySelectorAll('video')]
+    // Vista previa silenciosa
+    vids.forEach(v => v.play().catch(() => {}))
+    panel.querySelectorAll('.mogi-frame').forEach((f, k) => f.addEventListener('click', () => {
+      const v = vids[k]
+      const wasActive = f.classList.contains('playing')
+      vids.forEach((o, j) => { if (j !== k) { o.muted = true; o.parentElement.classList.remove('playing') } })
+      if (wasActive) { v.muted = true; f.classList.remove('playing'); unduck(); return }
+      duck(); v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {}); f.classList.add('playing')
+      v.onended = () => { f.classList.remove('playing'); v.muted = true; v.loop = true; v.play().catch(() => {}); unduck() }
+    }))
+    const close = () => { vids.forEach(v => v.pause()); panel.classList.remove('open'); setTimeout(() => panel.remove(), 450); unduck(); document.removeEventListener('keydown', esc) }
+    const esc = e => { if (e.key === 'Escape') close() }
+    panel.querySelector('.mogi-close').addEventListener('click', close)
+    document.addEventListener('keydown', esc)
+  }
+  wrap.querySelector('.mogi-hist').addEventListener('click', e => { e.stopPropagation(); openStories() })
+
   // El navegador solo deja sonar música después de que la persona toque la página.
   const first = e => {
-    if (btn.contains(e.target)) return
+    if (wrap.contains(e.target)) return
     window.removeEventListener('pointerdown', first, true)
     window.removeEventListener('keydown', first, true)
-    if (!off) play()
+    if (!off && !panel?.isConnected) play()
   }
   window.addEventListener('pointerdown', first, true)
   window.addEventListener('keydown', first, true)
-  document.addEventListener('visibilitychange', () => { if (document.hidden && !audio.paused) audio.pause(); else if (!document.hidden && !off && audio.src && audio.paused && btn.classList.contains('on')) audio.play().catch(() => {}) })
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { if (!audio.paused) audio.pause() }
+    else if (!off && !ducked && audio.src && btn.classList.contains('on')) audio.play().catch(() => {})
+  })
   paint()
 })()
