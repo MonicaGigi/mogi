@@ -24,8 +24,17 @@
     { v: 'blusa-satinada-roja', name: 'Blusa satinada y short de flecos', talla: 'L/XL', price: 'Desde $12.00' },
     { v: 'set-lino-azul', name: 'Set de lino azul', talla: 'XL', price: '$25.00' },
     { v: 'camisa-blanca', name: 'Camisa blanca', talla: 'XL', price: '$10.50', old: '$15.00' },
-    { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50' },
-    { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50' },
+    { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50', silent: true },
+    { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50', silent: true },
+  ]
+
+  // Looks de Mónica (Facebook)
+  const looks = [
+    { f: 'look1', t: 'Corsé floral y falda con abertura', m: 'Noche' },
+    { f: 'look2', t: 'Conjunto de lunares turquesa', m: 'Brunch' },
+    { f: 'look3', t: 'Vestido amarillo y salón rojo', m: 'Mediodía' },
+    { f: 'look4', t: 'Vestido largo de rayas', m: 'Paseo' },
+    { f: 'look5', t: 'Falda estampada y gabardina', m: 'Tarde' },
   ]
 
   const css = document.createElement('style')
@@ -46,7 +55,7 @@
   .mogi-floating{position:fixed;z-index:40;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.92);padding:10px 12px}
   @media (prefers-reduced-motion:reduce){.mogi-music.on .wave{animation:none}}
 
-  .mogi-stories{position:fixed;inset:0;z-index:60;background:#fff;color:#111;display:flex;flex-direction:column;
+  .mogi-stories{position:fixed;inset:0;z-index:60;background:#fff;color:#111;display:flex;flex-direction:column;overflow-y:auto;
     padding:calc(20px + env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));
     opacity:0;transition:opacity .45s ease}
   .mogi-stories.open{opacity:1}
@@ -54,7 +63,7 @@
   .mogi-stories h2{font:400 clamp(26px,3.4vw,40px)/1 "Playfair Display Variable",Georgia,serif;margin:0}
   .mogi-stories .sub{font:400 10px/1.4 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#737373;margin-top:8px}
   .mogi-close{background:none;border:0;cursor:pointer;font:400 10px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#111;padding:8px 0;border-bottom:1px solid #111}
-  .mogi-rail{flex:1;min-height:0;display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 auto;width:min(1180px,100%);padding-bottom:8px}
+  .mogi-rail{flex:none;height:calc(100vh - 150px);min-height:420px;display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 auto;width:min(1180px,100%);padding-bottom:8px}
   .mogi-card{flex:0 0 auto;width:min(300px,72vw);scroll-snap-align:start;display:flex;flex-direction:column;gap:12px;min-height:0}
   .mogi-frame{position:relative;flex:1;min-height:0;max-height:calc(100vh - 220px);aspect-ratio:9/16;background:#f3f2ef;overflow:hidden;cursor:pointer}
   .mogi-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
@@ -67,7 +76,19 @@
   .mogi-cap small{display:block;color:#737373;font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-top:4px}
   .mogi-cap .p{white-space:nowrap;text-align:right}
   .mogi-cap s{display:block;color:#9a9a9a;font-size:11px}
-  .mogi-cap .sale{color:#c0392b}`
+  .mogi-cap .sale{color:#c0392b}
+  .mogi-looks{width:min(1180px,100%);margin:56px auto 24px}
+  .mogi-looks .t{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-top:1px solid #e7e5e0;padding-top:22px;margin-bottom:22px}
+  .mogi-looks h3{font:400 clamp(22px,2.6vw,32px)/1.1 "Playfair Display Variable",Georgia,serif;margin:0}
+  .mogi-looks .t span{font:400 10px/1.4 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#737373}
+  .mogi-looks .g{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+  .mogi-looks figure{margin:0}
+  .mogi-looks .ph{aspect-ratio:4/5;overflow:hidden;background:#f3f2ef}
+  .mogi-looks img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+  .mogi-looks figure:hover img{transform:scale(1.05)}
+  .mogi-looks figcaption{font:400 12px/1.4 "Inter Variable",Helvetica,Arial,sans-serif;margin-top:10px}
+  .mogi-looks figcaption small{display:block;color:#737373;font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:3px}
+  @media (max-width:900px){.mogi-looks .g{grid-template-columns:repeat(2,1fr)}.mogi-looks figure:first-child{grid-column:span 2}}`
   document.head.appendChild(css)
 
   // Botones de la barra lateral
@@ -136,13 +157,27 @@
 
   // Mientras suena un vídeo, la música baja y sigue sonando suave por debajo; luego vuelve.
   let ducked = false
+  let lifted = false
   const duck = () => {
-    if (off) return
+    if (off) { if (lifted) { lifted = false; ducked = false; fadeTo(0, () => { audio.pause(); paint() }) } return }
+    lifted = false
     ducked = true
     if (audio.paused) { if (!audio.src) audio.src = tracks[order[i]]; audio.volume = 0; audio.play().then(paint).catch(() => {}) }
     fadeTo(LOW)
   }
-  const unduck = () => { if (ducked && !off) { ducked = false; if (audio.paused) play(); else fadeTo(VOL) } }
+  // Vídeos sin sonido propio: la música sube y acompaña al vídeo (aunque estuviera apagada).
+  const lift = () => {
+    ducked = true; lifted = true
+    if (audio.paused) { if (!audio.src) audio.src = tracks[order[i]]; audio.volume = 0; audio.play().then(paint).catch(() => {}) }
+    fadeTo(0.42, null, 2500)
+  }
+  const unduck = () => {
+    if (!ducked) return
+    ducked = false
+    const wasLifted = lifted; lifted = false
+    if (off) { if (wasLifted) fadeTo(0, () => { audio.pause(); paint() }, 2500); return }
+    if (audio.paused) play(); else fadeTo(VOL)
+  }
 
   // Lookbook
   let panel
@@ -160,7 +195,10 @@
             <span class="hint"><i></i>Reproducir</span></div>
           <figcaption class="mogi-cap"><div>${h.name}<small>Talla ${h.talla}</small></div>
             <div class="p">${h.old ? `<s>${h.old}</s><span class="sale">${h.price}</span>` : h.price}</div></figcaption>
-        </figure>`).join('')}</div>`
+        </figure>`).join('')}</div>
+      <section class="mogi-looks"><div class="t"><h3>Los looks de Mónica</h3><span>Inspiración</span></div>
+        <div class="g">${looks.map(l => `<figure><div class="ph"><img src="${base}fotos/fb/${l.f}.jpg" alt="${l.t}" loading="lazy"></div>
+          <figcaption><small>${l.m}</small>${l.t}</figcaption></figure>`).join('')}</div></section>`
     document.body.appendChild(panel)
     requestAnimationFrame(() => panel.classList.add('open'))
     const vids = [...panel.querySelectorAll('video')]
@@ -171,7 +209,7 @@
       const wasActive = f.classList.contains('playing')
       vids.forEach((o, j) => { if (j !== k) { o.muted = true; o.parentElement.classList.remove('playing') } })
       if (wasActive) { v.muted = true; f.classList.remove('playing'); unduck(); return }
-      duck(); v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {}); f.classList.add('playing')
+      historias[k].silent ? lift() : duck(); v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {}); f.classList.add('playing')
       v.onended = () => { f.classList.remove('playing'); v.muted = true; v.loop = true; v.play().catch(() => {}); unduck() }
     }))
     const close = () => { vids.forEach(v => v.pause()); panel.classList.remove('open'); setTimeout(() => panel.remove(), 450); unduck(); document.removeEventListener('keydown', esc) }
