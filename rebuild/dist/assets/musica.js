@@ -5,7 +5,7 @@
   const base = new URL('..', import.meta.url).href
   const tracks = ['b1', 'b2', 'b3', 'b4', 'b5', 'b6'].map(n => `${base}musica/${n}.mp3`)
   const VOL = 0.28
-  const LOW = 0.06
+  const LOW = 0.12
   const key = 'mogi-musica'
   let off = false
   try { off = localStorage.getItem(key) === 'off' } catch {}
@@ -18,6 +18,10 @@
   audio.addEventListener('ended', () => { i = (i + 1) % order.length; audio.src = tracks[order[i]]; audio.play().catch(() => {}) })
 
   const historias = [
+    { v: 'caftan-mostaza', name: 'Caftán mostaza', talla: 'Única', price: '$6.50', old: '$13.50' },
+    { v: 'vestido-patchwork', name: 'Vestido largo patchwork', talla: 'L/XL', price: '$15.50' },
+    { v: 'set-floral', name: 'Set de blusa y short floral', talla: 'M/L', price: '$22.00' },
+    { v: 'blusa-satinada-roja', name: 'Blusa satinada y short de flecos', talla: 'L/XL', price: 'Desde $12.00' },
     { v: 'set-lino-azul', name: 'Set de lino azul', talla: 'XL', price: '$25.00' },
     { v: 'camisa-blanca', name: 'Camisa blanca', talla: 'XL', price: '$10.50', old: '$15.00' },
     { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50' },
@@ -105,19 +109,22 @@
   place2()
   new MutationObserver(place2).observe(document.getElementById('root') || document.body, { childList: true, subtree: true })
 
-  let fadeTimer
-  const fadeTo = (target, done) => {
-    clearInterval(fadeTimer)
-    fadeTimer = setInterval(() => {
-      const d = target - audio.volume
-      if (Math.abs(d) < 0.02) { audio.volume = target; clearInterval(fadeTimer); done && done(); return }
-      audio.volume = Math.min(1, Math.max(0, audio.volume + Math.sign(d) * 0.02))
-    }, 50)
+  // Fundidos suaves por tiempo (subidas lentas, bajadas algo más rápidas)
+  let fadeRaf
+  const fadeTo = (target, done, ms) => {
+    cancelAnimationFrame(fadeRaf)
+    const from = audio.volume, d = ms ?? (target > from ? 3500 : 1400), t0 = performance.now()
+    const step = now => {
+      const k = Math.min(1, (now - t0) / d), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2
+      audio.volume = Math.min(1, Math.max(0, from + (target - from) * e))
+      if (k < 1) fadeRaf = requestAnimationFrame(step); else done && done()
+    }
+    fadeRaf = requestAnimationFrame(step)
   }
   const play = () => {
     if (!audio.src) audio.src = tracks[order[i]]
     audio.volume = 0
-    audio.play().then(() => { fadeTo(VOL); paint() }).catch(paint)
+    audio.play().then(() => { fadeTo(VOL, null, 5000); paint() }).catch(paint)
   }
   const pause = () => fadeTo(0, () => { audio.pause(); paint() })
 
