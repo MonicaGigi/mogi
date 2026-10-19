@@ -1,10 +1,11 @@
-// MÖGI: música ambiente + historias en vídeo de Mónica.
-// La música suena suave desde el primer toque. Al reproducir un vídeo, la música baja
-// y se escucha el vídeo; al pausarlo o cerrarlo, la música vuelve.
+// MÖGI: música ambiente + lookbook en vídeo de Mónica.
+// La música suena suave y continua. Al reproducir un vídeo baja y queda sutil por debajo;
+// al terminar o cerrar, vuelve a su volumen.
 (() => {
   const base = new URL('..', import.meta.url).href
   const tracks = ['b1', 'b2', 'b3', 'b4', 'b5', 'b6'].map(n => `${base}musica/${n}.mp3`)
   const VOL = 0.28
+  const LOW = 0.06
   const key = 'mogi-musica'
   let off = false
   try { off = localStorage.getItem(key) === 'off' } catch {}
@@ -73,7 +74,7 @@
       <svg viewBox="0 0 28 12" aria-hidden="true"><path class="wave" d="M0 6 C3.5 0 7 0 10.5 6 S17.5 12 21 6 S28 0 31.5 6 S38.5 12 42 6 S49 0 52.5 6 S56 12 56 6"/></svg>
       <span class="lbl">Música</span><span class="state"></span>
     </button>
-    <button type="button" class="mogi-link mogi-hist"><span class="mogi-play"><i></i></span><span>Historias</span></button>`
+    <button type="button" class="mogi-link mogi-hist"><span class="mogi-play"><i></i></span><span>Lookbook</span></button>`
   const btn = wrap.querySelector('.mogi-music')
   const state = wrap.querySelector('.state')
   const paint = () => {
@@ -116,25 +117,30 @@
     try { localStorage.setItem(key, off ? 'off' : 'on') } catch {}
   })
 
-  // Mientras suena un vídeo, la música baja y se pausa; luego vuelve.
+  // Mientras suena un vídeo, la música baja y sigue sonando suave por debajo; luego vuelve.
   let ducked = false
-  const duck = () => { if (!audio.paused) { ducked = true; fadeTo(0, () => { audio.pause(); paint() }) } }
-  const unduck = () => { if (ducked && !off) { ducked = false; play() } }
+  const duck = () => {
+    if (off) return
+    ducked = true
+    if (audio.paused) { if (!audio.src) audio.src = tracks[order[i]]; audio.volume = 0; audio.play().then(paint).catch(() => {}) }
+    fadeTo(LOW)
+  }
+  const unduck = () => { if (ducked && !off) { ducked = false; if (audio.paused) play(); else fadeTo(VOL) } }
 
-  // Historias
+  // Lookbook
   let panel
   const openStories = () => {
     panel = document.createElement('div')
     panel.className = 'mogi-stories'
     panel.setAttribute('role', 'dialog')
-    panel.setAttribute('aria-label', 'Historias de MÖGI')
+    panel.setAttribute('aria-label', 'Lookbook de MÖGI')
     panel.innerHTML = `
-      <header><div><h2>Historias</h2><div class="sub">Lo último de Mónica · Toca un vídeo para escucharlo</div></div>
+      <header><div><h2>Lookbook</h2><div class="sub">La selección de Mónica · Toca un vídeo para escucharlo</div></div>
       <button type="button" class="mogi-close">Cerrar</button></header>
       <div class="mogi-rail">${historias.map(h => `
         <figure class="mogi-card" style="margin:0">
           <div class="mogi-frame"><video src="${base}videos/${h.v}.mp4" poster="${base}videos/${h.v}.jpg" playsinline muted loop preload="metadata"></video>
-            <span class="hint"><i></i>Ver</span></div>
+            <span class="hint"><i></i>Reproducir</span></div>
           <figcaption class="mogi-cap"><div>${h.name}<small>Talla ${h.talla}</small></div>
             <div class="p">${h.old ? `<s>${h.old}</s><span class="sale">${h.price}</span>` : h.price}</div></figcaption>
         </figure>`).join('')}</div>`
