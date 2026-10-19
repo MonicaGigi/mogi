@@ -1,0 +1,62 @@
+@import "tailwindcss" source(none);
+@source "./src-bundle/mogi.js";
+
+@theme {
+  /* Menú y botones: Inter / Helvetica Neue. Titulares: Playfair Display. Logo: Didone (Bodoni Moda). */
+  --font-sans: "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Playfair Display Variable", "Bodoni Moda Variable", Georgia, serif;
+  --font-logo: "Bodoni Moda Variable", "Playfair Display Variable", Georgia, serif;
+
+  --color-brand-50: oklch(0.97 0.02 275);
+  --color-brand-100: oklch(0.94 0.04 275);
+  --color-brand-200: oklch(0.88 0.08 275);
+  --color-brand-500: oklch(0.62 0.19 275);
+  --color-brand-600: oklch(0.55 0.21 275);
+  --color-brand-700: oklch(0.48 0.2 275);
+
+  /* Pantone 15-0318 TCX Sage Green */
+  --color-sage: #b2ac88;
+  --color-sage-dark: #8f8a68;
+
+  /* Estilo minimalista: negro sobre blanco, sin esquinas redondeadas ni sombras. */
+  --color-surface: #ffffff;
+  --color-ink: #111111;
+  --color-muted: #737373;
+
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+  --radius-4xl: 0;
+  --radius-card: 0;
+  --shadow-soft: none;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    @apply h-full;
+  }
+
+  h2 {
+    @apply font-display;
+  }
+
+  body {
+    @apply bg-surface text-ink font-sans antialiased select-none;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+  }
+}
+
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
