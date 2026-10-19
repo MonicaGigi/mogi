@@ -74,7 +74,7 @@
       <svg viewBox="0 0 28 12" aria-hidden="true"><path class="wave" d="M0 6 C3.5 0 7 0 10.5 6 S17.5 12 21 6 S28 0 31.5 6 S38.5 12 42 6 S49 0 52.5 6 S56 12 56 6"/></svg>
       <span class="lbl">Música</span><span class="state"></span>
     </button>
-    <button type="button" class="mogi-link mogi-hist"><span class="mogi-play"><i></i></span><span>Lookbook</span></button>`
+`
   const btn = wrap.querySelector('.mogi-music')
   const state = wrap.querySelector('.state')
   const paint = () => {
@@ -92,8 +92,18 @@
       wrap.classList.add('mogi-floating'); document.body.appendChild(wrap)
     }
   }
-  place()
-  new MutationObserver(place).observe(document.getElementById('root') || document.body, { childList: true, subtree: true })
+  // Lookbook en el menú principal, junto a las secciones
+  const look = document.createElement('button')
+  look.type = 'button'
+  look.className = 'mogi-hist py-2 text-left text-[11px] tracking-[0.14em] uppercase transition text-neutral-500 hover:text-ink'
+  look.textContent = 'Lookbook'
+  const placeLook = () => {
+    const sp = [...document.querySelectorAll('aside > button')].find(x => /special prices/i.test(x.textContent))
+    if (sp && look.nextElementSibling !== sp) sp.insertAdjacentElement('beforebegin', look)
+  }
+  const place2 = () => { place(); placeLook() }
+  place2()
+  new MutationObserver(place2).observe(document.getElementById('root') || document.body, { childList: true, subtree: true })
 
   let fadeTimer
   const fadeTo = (target, done) => {
@@ -135,7 +145,7 @@
     panel.setAttribute('role', 'dialog')
     panel.setAttribute('aria-label', 'Lookbook de MÖGI')
     panel.innerHTML = `
-      <header><div><h2>Lookbook</h2><div class="sub">La selección de Mónica · Toca un vídeo para escucharlo</div></div>
+      <header><h2>Lookbook</h2>
       <button type="button" class="mogi-close">Cerrar</button></header>
       <div class="mogi-rail">${historias.map(h => `
         <figure class="mogi-card" style="margin:0">
@@ -162,11 +172,11 @@
     panel.querySelector('.mogi-close').addEventListener('click', close)
     document.addEventListener('keydown', esc)
   }
-  wrap.querySelector('.mogi-hist').addEventListener('click', e => { e.stopPropagation(); openStories() })
+  look.addEventListener('click', e => { e.stopPropagation(); openStories() })
 
   // El navegador solo deja sonar música después de que la persona toque la página.
   const first = e => {
-    if (wrap.contains(e.target)) return
+    if (wrap.contains(e.target) || look.contains(e.target)) return
     window.removeEventListener('pointerdown', first, true)
     window.removeEventListener('keydown', first, true)
     if (!off && !panel?.isConnected) play()
