@@ -17,16 +17,20 @@
   audio.volume = 0
   audio.addEventListener('ended', () => { i = (i + 1) % order.length; audio.src = tracks[order[i]]; audio.play().catch(() => {}) })
 
+  // Orden: lo más reciente primero. Todos los vídeos llevan su propia música de fondo equilibrada.
   const historias = [
+    { v: 'set-tres-piezas', name: 'Set de 3 piezas: chaleco, blazer y pantalón', talla: 'L', price: '$50.00' },
+    { v: 'blusa-pantalon-coral', name: 'Blusa estampada y pantalón pierna ancha', talla: 'L · M/L', price: 'Desde $12.00' },
+    { v: 'set-azul-marruecos', name: 'Set azul con botones de Marruecos', talla: 'XL', price: '$25.00' },
     { v: 'caftan-mostaza', name: 'Caftán mostaza', talla: 'Única', price: '$6.50', old: '$13.50' },
     { v: 'vestido-patchwork', name: 'Vestido largo patchwork', talla: 'L/XL', price: '$15.50' },
     { v: 'set-floral', name: 'Set de blusa y short floral', talla: 'M/L', price: '$22.00' },
     { v: 'blusa-satinada-roja', name: 'Blusa satinada y short de flecos', talla: 'L/XL', price: 'Desde $12.00' },
-    { v: 'set-lino-azul', name: 'Set de lino azul', talla: 'XL', price: '$25.00' },
     { v: 'camisa-blanca', name: 'Camisa blanca', talla: 'XL', price: '$10.50', old: '$15.00' },
-    { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50', own: true },
-    { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50', own: true },
-  ]
+    { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50' },
+    { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50' },
+    { v: 'looks-invierno', name: 'Looks de invierno de Mónica', talla: '', price: '' },
+  ].map(h => ({ ...h, own: true }))
 
   // Looks de Mónica (Facebook)
   const looks = [
@@ -194,7 +198,7 @@
         <figure class="mogi-card" style="margin:0">
           <div class="mogi-frame"><video src="${base}videos/${h.v}.mp4" poster="${base}videos/${h.v}.jpg" playsinline muted loop preload="metadata"></video>
             <span class="hint"><i></i>Reproducir</span></div>
-          <figcaption class="mogi-cap"><div>${h.name}<small>Talla ${h.talla}</small></div>
+          <figcaption class="mogi-cap"><div>${h.name}${h.talla ? `<small>Talla ${h.talla}</small>` : ''}</div>
             <div class="p">${h.old ? `<s>${h.old}</s><span class="sale">${h.price}</span>` : h.price}</div></figcaption>
         </figure>`).join('')}</div>
       <section class="mogi-looks"><div class="t"><h3>Los looks de Mónica</h3><span>Inspiración</span></div>
