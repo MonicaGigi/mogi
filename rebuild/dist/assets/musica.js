@@ -24,8 +24,8 @@
     { v: 'blusa-satinada-roja', name: 'Blusa satinada y short de flecos', talla: 'L/XL', price: 'Desde $12.00' },
     { v: 'set-lino-azul', name: 'Set de lino azul', talla: 'XL', price: '$25.00' },
     { v: 'camisa-blanca', name: 'Camisa blanca', talla: 'XL', price: '$10.50', old: '$15.00' },
-    { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50', silent: true },
-    { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50', silent: true },
+    { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50', own: true },
+    { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50', own: true },
   ]
 
   // Looks de Mónica (Facebook)
@@ -165,11 +165,12 @@
     if (audio.paused) { if (!audio.src) audio.src = tracks[order[i]]; audio.volume = 0; audio.play().then(paint).catch(() => {}) }
     fadeTo(LOW)
   }
-  // Vídeos sin sonido propio: la música sube y acompaña al vídeo (aunque estuviera apagada).
-  const lift = () => {
-    ducked = true; lifted = true
-    if (audio.paused) { if (!audio.src) audio.src = tracks[order[i]]; audio.volume = 0; audio.play().then(paint).catch(() => {}) }
-    fadeTo(0.42, null, 2500)
+  // Vídeos que llevan su propia música de fondo: la música ambiente se funde a cero mientras suenan.
+  const hush = () => {
+    lifted = false
+    if (audio.paused) return
+    ducked = true
+    fadeTo(0, () => audio.pause(), 1200)
   }
   const unduck = () => {
     if (!ducked) return
@@ -209,7 +210,7 @@
       const wasActive = f.classList.contains('playing')
       vids.forEach((o, j) => { if (j !== k) { o.muted = true; o.parentElement.classList.remove('playing') } })
       if (wasActive) { v.muted = true; f.classList.remove('playing'); unduck(); return }
-      historias[k].silent ? lift() : duck(); v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {}); f.classList.add('playing')
+      historias[k].own ? hush() : duck(); v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {}); f.classList.add('playing')
       v.onended = () => { f.classList.remove('playing'); v.muted = true; v.loop = true; v.play().catch(() => {}); unduck() }
     }))
     const close = () => { vids.forEach(v => v.pause()); panel.classList.remove('open'); setTimeout(() => panel.remove(), 450); unduck(); document.removeEventListener('keydown', esc) }
