@@ -43,6 +43,11 @@
   }
 
   const apply = () => {
+    // Fuera de Calzado no debe quedar el bloque (React reutiliza el banner al cambiar de sección)
+    document.querySelectorAll('.mogi-pasos').forEach(el => {
+      const prev = el.previousElementSibling, h = prev && prev.querySelector('h2')
+      if (!h || h.textContent.trim() !== 'Calzado' || !prev.querySelector('img[src*="calzado-hero"]')) el.remove()
+    })
     // Listado de Calzado: banner con el título "Calzado"
     document.querySelectorAll('h2').forEach(h => {
       if (h.textContent.trim() !== 'Calzado') return
