@@ -36,7 +36,7 @@
   const editorial = () => {
     const el = document.createElement('section')
     el.className = 'mogi-pasos'
-    el.innerHTML = `<div class="intro"><div><div class="k">Editorial</div><h3>Los pasos de Mónica</h3>
+    el.innerHTML = `<div class="intro"><div><h3>Los pasos de Mónica</h3>
       <p>Del salón de noche al botín de tarde: así combina Mónica el calzado con cada look.</p></div></div>
       ${pasos.map(p => `<figure><div class="ph"><img src="${base}fotos/fb/${p.f}.jpg" alt="${p.t}" loading="lazy"></div><figcaption><small>${p.m}</small>${p.t}</figcaption></figure>`).join('')}`
     return el
