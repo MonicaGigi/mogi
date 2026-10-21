@@ -231,7 +231,7 @@
   }
 
   // Fundido cruzado entre la música de la web y el vídeo: nada se pisa de golpe.
-  const VV = 0.72
+  const VV = 0.8
   const vfade = (v, target, ms, done) => {
     cancelAnimationFrame(v._fr)
     const from = v.volume, t0 = performance.now()
@@ -243,10 +243,10 @@
     v._fr = requestAnimationFrame(step)
   }
   const startVid = (v, onEnd) => {
-    if (!audio.paused) { lifted = false; ducked = true; fadeTo(0, () => audio.pause(), 2200) } else lifted = false
+    if (!audio.paused) { lifted = false; ducked = true; fadeTo(0, () => audio.pause(), 3200) } else lifted = false
     try { v.volume = 0 } catch {}
     v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {})
-    vfade(v, VV, 2000)
+    vfade(v, VV, 3000)
     let back = false
     v.ontimeupdate = () => {
       if (!back && v.duration && v.duration - v.currentTime < 2.6) { back = true; vfade(v, 0, 2400); unduck() }
