@@ -51,6 +51,7 @@
     { v: 'falda-estampada', name: 'Falda larga estampada', talla: '', price: '' },
     { v: 'jacket-militar', name: 'Jacket militar', talla: 'M/L', price: '$25.00' },
     { v: 'falda-tul', name: 'Falda doble de tul', talla: 'L', price: '$15.00' },
+    { v: 'sobretodo-stretch', name: 'Sobretodo stretch', talla: 'L', price: '$15.00' },
     { v: 'bolso-de-mano', name: 'Bolso de mano', talla: '', price: '$15.00' },
     { v: 'set-tres-piezas', name: 'Set de 3 piezas: chaleco, blazer y pantalón', talla: 'L', price: '$50.00' },
     { v: 'set-azul-marruecos', name: 'Set azul con botones de Marruecos', talla: 'XL', price: '$25.00' },
@@ -60,7 +61,7 @@
     { v: 'blusa-satinada-roja', name: 'Blusa satinada y short de flecos', talla: 'L/XL', price: 'Desde $12.00' },
     { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50', silent: true },
     { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50', silent: true },
-    { v: 'looks-invierno', name: 'Looks de invierno', talla: '', price: '', silent: true },
+    { v: 'looks-invierno', name: 'Looks de invierno', talla: '', price: '', silent: true }
   ]
 
   // Looks de Mónica (Facebook)
