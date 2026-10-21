@@ -4,46 +4,46 @@
   const L = () => { try { return localStorage.getItem('mogi-lang') || 'en' } catch { return 'en' } }
   // [foto, nombre, talla] — de la más reciente a la más antigua
   const piezas = [
-    ['s50', 'Falda estampada de aves', 'M'],
-    ['s27', 'Vestido caftán azul estampado', 'XL'],
-    ['s26', 'Set rojo de chaleco y pantalón', 'L'],
-    ['s25', 'Camisa transparente roja con lazo', 'L'],
-    ['s23', 'Pantalón balloon gris', 'M'],
-    ['s19', 'Camisa azul noche con broche', 'L'],
-    ['s18', 'Set beige de chaleco y pantalón', 'L'],
-    ['s17', 'Set verde estampado', 'M'],
-    ['s13', 'Pantalón estampado acuarela', 'M/L'],
-    ['s12', 'Blazer de cuadros rojo', ''],
-    ['s11', 'Blusa de lunares', 'L/XL'],
-    [58, 'Blusa azul eléctrico', 'M/L'],
-    [55, 'Jean de rayas tela rígida', 'L'],
-    [54, 'Pantalón de rayas cintura alta', 'L'],
-    [53, 'Blusa satinada mangas murciélago', 'Única'],
-    [51, 'T-shirt koi', 'L'],
-    [50, 'Pantalón de lunares pierna ancha', 'L'],
-    [48, 'Set estampado cebra', 'L'],
-    [45, 'Blazer de cuadros y falda de tul', 'M'],
-    [44, 'Camisa de rayas rosa', 'L'],
-    [39, 'Chaleco gráfico', 'L'],
-    [38, 'Top de tirantes celeste', 'M'],
-    [37, 'Blusa satinada fucsia', 'M/L'],
-    [36, 'Pantalón de flores', 'M'],
-    [35, 'Falda-pantalón patchwork', 'M/L'],
-    [34, 'Set ejecutivo verde', 'L'],
-    [31, 'Vestido floral escalonado', 'L'],
-    [29, 'Blusa de rayas con lazo', 'M'],
-    [28, 'Blusita stretch de tirantes', 'M/L'],
-    [27, 'Vestido plisado rojo con capa', 'M/L'],
-    [19, 'Vestido camisero rosa', 'L'],
-    [17, 'Vestido estampado de tirantes', 'L'],
-    [16, 'Camisa de jean', 'L'],
-    [15, 'T-shirt ilustrada', 'XL'],
-    [11, 'Vestido camisero denim', 'M/L'],
-    [10, 'Set denim', 'M/L'],
-    [8, 'Blazer fucsia', 'L'],
-    [7, 'Jeans personalizados', '29'],
-    [5, 'Set de rayas', 'L'],
-    [3, 'Pantalón de rayas azules', 'M/L'],
+    ['x-h50', 'Falda estampada de aves', 'M', 'tr', 'pill'],
+    ['s27', 'Vestido caftán azul estampado', 'XL', 'bl', 'serif'],
+    ['x-h26', 'Set rojo de chaleco y pantalón', 'L', 'sl', 'vertical'],
+    ['x-h25', 'Camisa transparente roja con lazo', 'L', 'br', 'stamp'],
+    ['x-h23', 'Pantalón balloon gris', 'M', 'tl', 'pill'],
+    ['x-h19', 'Camisa azul noche con broche', 'L', 'tr', 'serif'],
+    ['x-h18', 'Set beige de chaleco y pantalón', 'L', 'sl', 'vertical'],
+    ['x-h17', 'Set verde estampado', 'M', 'bl', 'stamp'],
+    ['x-h13', 'Pantalón estampado acuarela', 'M/L', 'br', 'pill'],
+    ['x-h12', 'Blazer de cuadros rojo', '', 'br', 'serif'],
+    ['x-h11', 'Blusa de lunares', 'L/XL', 'sr', 'vertical'],
+    ['x-f58', 'Blusa azul eléctrico', 'M/L', 'tr', 'stamp'],
+    ['x-f55', 'Jean de rayas tela rígida', 'L', 'tr', 'pill'],
+    ['x-f54', 'Pantalón de rayas cintura alta', 'L', 'bl', 'serif'],
+    ['x-f53', 'Blusa satinada mangas murciélago', 'Única', 'sl', 'vertical'],
+    ['x-f51', 'T-shirt koi', 'L', 'br', 'stamp'],
+    ['x-f50', 'Pantalón de lunares pierna ancha', 'L', 'tl', 'pill'],
+    ['x-f48', 'Set estampado cebra', 'L', 'tr', 'serif'],
+    ['x-f45', 'Blazer de cuadros y falda de tul', 'M', 'sl', 'vertical'],
+    ['x-f44', 'Camisa de rayas rosa', 'L', 'bl', 'stamp'],
+    ['x-f39', 'Chaleco gráfico', 'L', 'br', 'pill'],
+    ['x-f38', 'Top de tirantes celeste', 'M', 'br', 'serif'],
+    ['x-f37', 'Blusa satinada fucsia', 'M/L', 'sr', 'vertical'],
+    ['x-f36', 'Pantalón de flores', 'M', 'tr', 'stamp'],
+    ['x-f35', 'Falda-pantalón patchwork', 'M/L', 'tr', 'pill'],
+    ['x-f34', 'Set ejecutivo verde', 'L', 'bl', 'serif'],
+    ['x-f31', 'Vestido floral escalonado', 'L', 'sl', 'vertical'],
+    ['x-f29', 'Blusa de rayas con lazo', 'M', 'br', 'stamp'],
+    ['x-f28', 'Blusita stretch de tirantes', 'M/L', 'tl', 'pill'],
+    ['x-f27', 'Vestido plisado rojo con capa', 'M/L', 'tr', 'serif'],
+    ['x-f19', 'Vestido camisero rosa', 'L', 'sl', 'vertical'],
+    ['x-f17', 'Vestido estampado de tirantes', 'L', 'bl', 'stamp'],
+    ['x-f16', 'Camisa de jean', 'L', 'br', 'pill'],
+    ['x-f15', 'T-shirt ilustrada', 'XL', 'br', 'serif'],
+    ['x-f11', 'Vestido camisero denim', 'M/L', 'sr', 'vertical'],
+    ['x-f10', 'Set denim', 'M/L', 'tr', 'stamp'],
+    ['x-f08', 'Blazer fucsia', 'L', 'tr', 'pill'],
+    ['x-f07', 'Jeans personalizados', '29', 'bl', 'serif'],
+    ['x-f05', 'Set de rayas', 'L', 'sl', 'vertical'],
+    ['x-f03', 'Pantalón de rayas azules', 'M/L', 'br', 'stamp'],
   ]
   const src = n => typeof n === 'string' ? `${base}fotos/archivo/${n}.jpg` : `${base}fotos/archivo/a${String(n).padStart(2, '0')}.jpg`
   const t = () => L() === 'es'
@@ -67,10 +67,16 @@
   .mogi-arch .grid,.mogi-arch-home .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px 16px}
   @media (max-width:900px){.mogi-arch .grid,.mogi-arch-home .grid{grid-template-columns:repeat(2,1fr);gap:22px 10px}}
   .mogi-ar figure{margin:0}
-  .mogi-ar .ph{aspect-ratio:4/5;overflow:hidden;background:#f3f2ef;position:relative}
+  .mogi-ar .ph{aspect-ratio:2/3;overflow:hidden;background:#f3f2ef;position:relative}
   .mogi-ar img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.92);transition:transform 1.4s cubic-bezier(.2,.7,.2,1),filter .6s}
   .mogi-ar figure:hover img{transform:scale(1.04);filter:saturate(1)}
-  .mogi-ar .tag{position:absolute;left:10px;top:10px;background:rgba(255,255,255,.92);color:#111;font:500 9px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;padding:6px 8px}
+  .mogi-ar .tag{position:absolute;z-index:1;color:#111;pointer-events:none;white-space:nowrap}
+  .mogi-ar .tag.tl{left:4%;top:3%}.mogi-ar .tag.tr{right:4%;top:3%}.mogi-ar .tag.bl{left:4%;bottom:3.5%}.mogi-ar .tag.br{right:4%;bottom:3.5%}
+  .mogi-ar .tag.sl{left:3%;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl}.mogi-ar .tag.sr{right:3%;top:50%;transform:translateY(-50%);writing-mode:vertical-rl}
+  .mogi-ar .tag.pill{background:rgba(255,255,255,.94);font:500 9px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;padding:7px 10px;border-radius:999px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+  .mogi-ar .tag.serif{color:#fff;font:italic 400 clamp(17px,2vw,24px)/1 "Playfair Display Variable",Georgia,serif;letter-spacing:.02em;text-shadow:0 1px 3px rgba(0,0,0,.35),0 2px 18px rgba(0,0,0,.55)}
+  .mogi-ar .tag.vertical{background:rgba(255,255,255,.92);color:#111;font:500 9px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.38em;text-transform:uppercase;padding:12px 7px 9px}
+  .mogi-ar .tag.stamp{background:rgba(250,248,244,.9);border:1px solid #111;font:500 9px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;padding:7px 9px;outline:1px solid rgba(250,248,244,.9);outline-offset:2px}
   .mogi-ar figcaption{font:400 12px/1.45 "Inter Variable",Helvetica,Arial,sans-serif;margin-top:10px;color:#111}
   .mogi-ar figcaption small{display:block;color:#8a8a8a;font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px}
   .mogi-arch-home{width:min(1180px,100%);margin:40px auto 24px}
@@ -80,7 +86,7 @@
   `
   document.head.appendChild(css)
 
-  const card = ([n, name, size]) => `<figure><div class="ph"><img src="${src(n)}" alt="${name}" loading="lazy"><span class="tag">${t().sold}</span></div>
+  const card = ([n, name, size, pos = 'tl', sty = 'pill']) => `<figure><div class="ph"><img src="${src(n)}" alt="${name}" loading="lazy"><span class="tag ${pos} ${sty}">${sty === 'serif' ? (L() === 'es' ? 'Vendido' : 'Sold out') : t().sold}</span></div>
     <figcaption>${name}<small>${size ? t().size + ' ' + size + ' · ' : ''}${t().sold}</small></figcaption></figure>`
 
   const open = () => {
