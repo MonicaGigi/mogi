@@ -30,8 +30,62 @@
   .mogi-pasos figcaption{font:400 12px/1.4 "Inter Variable",Helvetica,Arial,sans-serif;margin-top:10px}
   .mogi-pasos figcaption small{display:block;color:#737373;font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:3px}
   .mogi-pasos figure:nth-of-type(2){transform:translateY(-18px)}
+  .mogi-frase{display:grid;grid-template-columns:1fr 1.4fr;gap:24px;align-items:end;margin:6px 0 30px;padding-bottom:22px;border-bottom:1px solid #e7e5e0}
+  .mogi-frase h3{font:400 clamp(24px,2.6vw,34px)/1.08 "Playfair Display Variable",Georgia,serif;margin:0}
+  .mogi-frase p{font:400 13px/1.65 "Inter Variable",Helvetica,Arial,sans-serif;color:#525252;margin:0;max-width:52ch}
+  .mogi-frase.con-video{grid-template-columns:1fr 1.4fr 130px;align-items:center}
+  .mogi-fv{margin:0}.mogi-fv .fr{position:relative;aspect-ratio:9/16;overflow:hidden;background:#f3f2ef;cursor:pointer}
+  .mogi-fv video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .mogi-fv .hint{position:absolute;left:10px;bottom:10px;display:flex;align-items:center;gap:6px;color:#fff;font:400 9px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;text-shadow:0 1px 6px rgba(0,0,0,.4);transition:opacity .3s}
+  .mogi-fv .hint i{width:22px;height:22px;border:1px solid #fff;border-radius:50%;display:grid;place-items:center}
+  .mogi-fv .hint i:after{content:"";border-left:6px solid #fff;border-top:4px solid transparent;border-bottom:4px solid transparent;margin-left:2px}
+  .mogi-fv .playing .hint{opacity:0}
+  .mogi-fv figcaption{font:400 12px/1.4 "Inter Variable",Helvetica,Arial,sans-serif;margin-top:8px}
+  .mogi-fv figcaption small{display:block;color:#737373;font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:2px}
+  @media (max-width:700px){.mogi-frase,.mogi-frase.con-video{grid-template-columns:1fr;gap:10px}.mogi-fv{width:150px}}
   @media (max-width:900px){.mogi-pasos{grid-template-columns:repeat(3,1fr)}.mogi-pasos .intro{grid-column:1/-1;padding:0}.mogi-pasos figure:nth-of-type(2){transform:none}}`
   document.head.appendChild(css)
+
+  // Frases de inspiración para cada sección, en el tono de "Los pasos de Mónica"
+  const frases = {
+    'Novedades': ['Lo último de Mónica', 'Recién elegidas, cada una con su historia: piezas únicas de segunda vida que llegan antes de que desaparezcan.'],
+    'Colección': ['El armario de Mónica', 'Vestidos, blusas y conjuntos que ella misma ha vivido y combinado: prendas con carácter, listas para una nueva historia.'],
+    'Accesorios': ['Los detalles de Mónica', 'De los aretes de rafia al collar de noche: así remata Mónica cada look con un toque de color y artesanía.'],
+    'Special Prices': ['Los hallazgos de Mónica', 'Sus favoritas a precio especial: piezas que no se repiten, para quien sabe que el estilo no se mide en dólares.'],
+    'Vestidos': ['Los vestidos de Mónica', 'Del caftán de mediodía al vestido largo de noche: siluetas que fluyen y se adaptan a cada plan.'],
+    'Blusas': ['Las blusas de Mónica', 'Satén, color y caída ligera: la pieza que transforma unos vaqueros en un look.'],
+    'Top-bodies': ['Los tops de Mónica', 'Básicos con alma: punto, rayas y escotes que suman sin esfuerzo.'],
+    'Camisetas': ['Las camisetas de Mónica', 'Algodón estampado y frescura para los días de sol: lo sencillo, bien elegido.'],
+    'Pantalones': ['Los pantalones de Mónica', 'Pierna ancha, estampados y vaqueros con historia: la base de un armario con personalidad.'],
+    'Shorts': ['Los shorts de Mónica', 'Flecos, cuentas y denim: el verano de Panamá en clave divertida.'],
+    'Faldas': ['Las faldas de Mónica', 'Midi, larga o de lunares: movimiento y feminidad en cada paso.'],
+    'Conjuntos': ['Los conjuntos de Mónica', 'Dos piezas, mil combinaciones: llévalos juntos o por separado.'],
+    'Blazers': ['Los blazers de Mónica', 'Cuadros, rayas y príncipe de Gales: la prenda que pone estructura a cualquier look.'],
+    'Aretes': ['Los aretes de Mónica', 'Flores de rafia, oro martillado y cristal: el brillo que enmarca la mirada.'],
+    'Collares y sets': ['Los collares de Mónica', 'Piezas artesanales que hablan por sí solas: el broche final de cada look.'],
+    'Botas': ['Las botas de Mónica', 'Ante, color y tacón ancho: carácter de la cabeza a los pies.'],
+    'Tacones': ['Los tacones de Mónica', 'Salones de punta en fucsia y azul hielo: elegancia que se oye al caminar.'],
+    'Planos': ['Los planos de Mónica', 'Comodidad con estilo para recorrer la ciudad.'],
+    'Zapatillas': ['Las zapatillas de Mónica', 'Del blanco impecable al negro urbano: el toque relajado que todo look necesita.'],
+  }
+  const frase = key => {
+    const el = document.createElement('section')
+    el.className = 'mogi-frase'
+    el.dataset.key = key
+    el.innerHTML = `<h3>${frases[key][0]}</h3><p>${frases[key][1]}</p>`
+    if (key === 'Accesorios' || key === 'Collares y sets') {
+      el.classList.add('con-video')
+      el.insertAdjacentHTML('beforeend', `<figure class="mogi-fv"><div class="fr"><video src="${base}videos/collar-artesanal.mp4" poster="${base}videos/collar-artesanal.jpg" playsinline muted loop preload="metadata"></video><span class="hint"><i></i>Ver en vídeo</span></div><figcaption><small>Collar artesanal plateado</small>$15.00</figcaption></figure>`)
+      const f = el.querySelector('.fr'), v = f.querySelector('video')
+      v.play().catch(() => {})
+      f.addEventListener('click', () => {
+        if (f.classList.contains('playing')) { v.muted = true; f.classList.remove('playing'); window.mogiMusic?.unduck(); return }
+        window.mogiMusic?.duck(); v.muted = false; v.currentTime = 0; v.loop = false; v.play().catch(() => {}); f.classList.add('playing')
+        v.onended = () => { f.classList.remove('playing'); v.muted = true; v.loop = true; v.play().catch(() => {}); window.mogiMusic?.unduck() }
+      })
+    }
+    return el
+  }
 
   const editorial = () => {
     const el = document.createElement('section')
@@ -47,6 +101,20 @@
     document.querySelectorAll('.mogi-pasos').forEach(el => {
       const prev = el.previousElementSibling, h = prev && prev.querySelector('h2')
       if (!h || h.textContent.trim() !== 'Calzado' || !prev.querySelector('img[src*="calzado-hero"]')) el.remove()
+    })
+    // Frases por sección: solo junto al banner de su sección
+    document.querySelectorAll('.mogi-frase').forEach(el => {
+      const prev = el.previousElementSibling, h = prev && prev.querySelector('h2')
+      if (!h || h.textContent.trim() !== el.dataset.key) el.remove()
+    })
+    document.querySelectorAll('h2').forEach(h => {
+      const key = h.textContent.trim()
+      if (!frases[key]) return
+      const banner = h.closest('.relative')
+      if (!banner || !banner.querySelector('img') || !/art[ií]culo/i.test(banner.textContent)) return
+      const next = banner.nextElementSibling
+      if (next && next.classList.contains('mogi-frase') && next.dataset.key === key) return
+      banner.insertAdjacentElement('afterend', frase(key))
     })
     // Listado de Calzado: banner con el título "Calzado"
     document.querySelectorAll('h2').forEach(h => {

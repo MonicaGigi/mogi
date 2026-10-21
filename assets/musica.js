@@ -5,32 +5,57 @@
   const base = new URL('..', import.meta.url).href
   const tracks = ['b1', 'b2', 'b3', 'b4', 'b5', 'b6'].map(n => `${base}musica/${n}.mp3`)
   const VOL = 0.28
-  const LOW = 0.12
+  const LOW = 0.14
+  const XF = 6 // segundos de fundido encadenado entre canciones
   const key = 'mogi-musica'
   let off = false
   try { off = localStorage.getItem(key) === 'off' } catch {}
 
   const order = tracks.map((_, i) => i).sort(() => Math.random() - 0.5)
   let i = 0
-  const audio = new Audio()
+  // La música nunca se corta: cada canción se funde con la siguiente sin silencios.
+  let audio = new Audio()
   audio.preload = 'none'
   audio.volume = 0
-  audio.addEventListener('ended', () => { i = (i + 1) % order.length; audio.src = tracks[order[i]]; audio.play().catch(() => {}) })
+  let wanted = 0, xfading = false
+  const watch = a => {
+    a.addEventListener('timeupdate', () => {
+      if (a !== audio || xfading || !a.duration || a.paused) return
+      if (a.duration - a.currentTime < XF) crossfade()
+    })
+    a.addEventListener('ended', () => { if (a === audio && !xfading) crossfade() })
+  }
+  const crossfade = () => {
+    xfading = true
+    const old = audio, v0 = old.volume, t0 = performance.now()
+    i = (i + 1) % order.length
+    const nxt = new Audio(tracks[order[i]]); nxt.volume = 0; watch(nxt)
+    audio = nxt
+    nxt.play().catch(() => {})
+    fadeTo(wanted, null, XF * 1000)
+    const step = now => {
+      const k = Math.min(1, (now - t0) / (XF * 1000))
+      old.volume = Math.max(0, v0 * (1 - k) * (1 - k))
+      if (k < 1) requestAnimationFrame(step); else { old.pause(); xfading = false }
+    }
+    requestAnimationFrame(step)
+  }
+  watch(audio)
 
-  // Orden: lo más reciente primero. Todos los vídeos llevan su propia música de fondo equilibrada.
+  // Orden: lo más reciente primero. La música de la web sigue sonando por debajo de cada vídeo.
   const historias = [
     { v: 'set-tres-piezas', name: 'Set de 3 piezas: chaleco, blazer y pantalón', talla: 'L', price: '$50.00' },
-    { v: 'blusa-pantalon-coral', name: 'Blusa estampada y pantalón pierna ancha', talla: 'L · M/L', price: 'Desde $12.00' },
+    // (en preparación) { v: 'blusa-pantalon-coral', name: 'Blusa estampada y pantalón pierna ancha', talla: 'L · M/L', price: 'Desde $12.00' },
     { v: 'set-azul-marruecos', name: 'Set azul con botones de Marruecos', talla: 'XL', price: '$25.00' },
     { v: 'caftan-mostaza', name: 'Caftán mostaza', talla: 'Única', price: '$6.50', old: '$13.50' },
     { v: 'vestido-patchwork', name: 'Vestido largo patchwork', talla: 'L/XL', price: '$15.50' },
     { v: 'set-floral', name: 'Set de blusa y short floral', talla: 'M/L', price: '$22.00' },
     { v: 'blusa-satinada-roja', name: 'Blusa satinada y short de flecos', talla: 'L/XL', price: 'Desde $12.00' },
     { v: 'camisa-blanca', name: 'Camisa blanca', talla: 'XL', price: '$10.50', old: '$15.00' },
-    { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50' },
-    { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50' },
+    { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50', silent: true },
+    { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50', silent: true },
     { v: 'looks-invierno', name: 'Looks de invierno de Mónica', talla: '', price: '' },
-  ].map(h => ({ ...h, own: true }))
+  ]
 
   // Looks de Mónica (Facebook)
   const looks = [
@@ -138,6 +163,7 @@
   let fadeRaf
   const fadeTo = (target, done, ms) => {
     cancelAnimationFrame(fadeRaf)
+    wanted = target
     const from = audio.volume, d = ms ?? (target > from ? 3500 : 1400), t0 = performance.now()
     const step = now => {
       const k = Math.min(1, (now - t0) / d), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2
@@ -169,12 +195,12 @@
     if (audio.paused) { if (!audio.src) audio.src = tracks[order[i]]; audio.volume = 0; audio.play().then(paint).catch(() => {}) }
     fadeTo(LOW)
   }
-  // Vídeos que llevan su propia música de fondo: la música ambiente se funde a cero mientras suenan.
-  const hush = () => {
-    lifted = false
-    if (audio.paused) return
-    ducked = true
-    fadeTo(0, () => audio.pause(), 1200)
+  // Vídeos sin sonido propio: la música sigue a su volumen normal (y arranca si estaba esperando).
+  const keep = () => {
+    if (off) return
+    ducked = true; lifted = false
+    if (audio.paused) { if (!audio.src) audio.src = tracks[order[i]]; audio.volume = 0; audio.play().then(paint).catch(() => {}) }
+    fadeTo(VOL, null, 2500)
   }
   const unduck = () => {
     if (!ducked) return
@@ -184,6 +210,7 @@
     if (audio.paused) play(); else fadeTo(VOL)
   }
 
+  window.mogiMusic = { duck: () => duck(), unduck: () => unduck() }
   // Lookbook
   let panel
   const openStories = () => {
@@ -214,7 +241,7 @@
       const wasActive = f.classList.contains('playing')
       vids.forEach((o, j) => { if (j !== k) { o.muted = true; o.parentElement.classList.remove('playing') } })
       if (wasActive) { v.muted = true; f.classList.remove('playing'); unduck(); return }
-      historias[k].own ? hush() : duck(); v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {}); f.classList.add('playing')
+      historias[k].silent ? keep() : duck(); v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {}); f.classList.add('playing')
       v.onended = () => { f.classList.remove('playing'); v.muted = true; v.loop = true; v.play().catch(() => {}); unduck() }
     }))
     const close = () => { vids.forEach(v => v.pause()); panel.classList.remove('open'); setTimeout(() => panel.remove(), 450); unduck(); document.removeEventListener('keydown', esc) }
