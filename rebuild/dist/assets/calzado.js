@@ -51,7 +51,7 @@
     'Novedades': ['Lo último de Mónica', 'Recién elegidas, cada una con su historia: piezas únicas de segunda vida que llegan antes de que desaparezcan.'],
     'Colección': ['El armario de Mónica', 'Vestidos, blusas y conjuntos que ella misma ha vivido y combinado: prendas con carácter, listas para una nueva historia.'],
     'Accesorios': ['Los detalles de Mónica', 'De los aretes de rafia al collar de noche: así remata Mónica cada look con un toque de color y artesanía.'],
-    'Special Prices': ['Los hallazgos de Mónica', 'Sus favoritas a precio especial: piezas que no se repiten, para quien sabe que el estilo no se mide en dólares.'],
+    'Special Prices': ['The Private Edit', 'Sus favoritas a precio especial: piezas que no se repiten, para quien sabe que el estilo no se mide en dólares.'],
     'Vestidos': ['Los vestidos de Mónica', 'Del caftán de mediodía al vestido largo de noche: siluetas que fluyen y se adaptan a cada plan.'],
     'Blusas': ['Las blusas de Mónica', 'Satén, color y caída ligera: la pieza que transforma unos vaqueros en un look.'],
     'Top-bodies': ['Los tops de Mónica', 'Básicos con alma: punto, rayas y escotes que suman sin esfuerzo.'],

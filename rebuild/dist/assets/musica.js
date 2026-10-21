@@ -3,7 +3,7 @@
 // al terminar o cerrar, vuelve a su volumen.
 (() => {
   const base = new URL('..', import.meta.url).href
-  const tracks = ['b1', 'b2', 'b3', 'b4', 'b5', 'b6'].map(n => `${base}musica/${n}.mp3`)
+  const tracks = ['z1', 'z2', 'z3', 'z4', 'z5', 'z6'].map(n => `${base}musica/${n}.mp3`)
   const VOL = 0.28
   const LOW = 0.14
   const XF = 6 // segundos de fundido encadenado entre canciones
@@ -204,6 +204,14 @@
     if (audio.paused) { if (!audio.src) audio.src = tracks[order[i]]; audio.volume = 0; audio.play().then(paint).catch(() => {}) }
     fadeTo(LOW)
   }
+  // Cada vídeo lleva su propia mezcla equilibrada de voz y música: la música de la web
+  // se funde suavemente mientras suena y vuelve, también con fundido, al terminar.
+  const hush = () => {
+    lifted = false
+    if (audio.paused) return
+    ducked = true
+    fadeTo(0, () => audio.pause(), 1500)
+  }
   // Vídeos sin sonido propio: la música sigue a su volumen normal (y arranca si estaba esperando).
   const keep = () => {
     if (off) return
@@ -219,7 +227,7 @@
     if (audio.paused) play(); else fadeTo(VOL)
   }
 
-  window.mogiMusic = { duck: () => duck(), unduck: () => unduck() }
+  window.mogiMusic = { duck: () => hush(), unduck: () => unduck() }
   // Lookbook
   let panel
   const openStories = () => {
@@ -254,7 +262,7 @@
       const wasActive = f.classList.contains('playing')
       vids.forEach((o, j) => { if (j !== k) { o.muted = true; o.parentElement.classList.remove('playing') } })
       if (wasActive) { v.muted = true; f.classList.remove('playing'); unduck(); return }
-      historias[k].silent ? keep() : duck(); v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {}); f.classList.add('playing')
+      hush(); v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {}); f.classList.add('playing')
       v.onended = () => { f.classList.remove('playing'); v.muted = true; v.loop = true; v.play().catch(() => {}); unduck() }
     }))
     const close = () => { vids.forEach(v => v.pause()); panel.classList.remove('open'); setTimeout(() => panel.remove(), 450); unduck(); document.removeEventListener('keydown', esc) }
