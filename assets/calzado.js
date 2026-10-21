@@ -77,21 +77,62 @@
     'Ver novedades': 'Discover New In', 'Ver todo el calzado': 'Shop All Shoes', 'Ver toda la colección': 'Shop the Collection', 'Ver todos los accesorios': 'Shop Accessories',
   }
   const orig = el => el.dataset.orig || el.textContent.trim()
+  // Idioma: EN (nombres de firma) o ES (español), como en las grandes marcas
+  let lang = 'en'
+  try { lang = localStorage.getItem('mogi-lang') || 'en' } catch {}
+  const esTit = {
+    'Novedades': 'Lo último de Mónica', 'Colección': 'El armario de Mónica', 'Accesorios': 'Los detalles de Mónica', 'Special Prices': 'La selección privada',
+    'Vestidos': 'Siluetas que fluyen', 'Blusas': 'Seda y color', 'Top-bodies': 'Los esenciales', 'Camisetas': 'Días ligeros', 'Pantalones': 'Amplios y audaces',
+    'Shorts': 'Modo verano', 'Faldas': 'En movimiento', 'Conjuntos': 'Parejas perfectas', 'Blazers': 'Sastrería con carácter', 'Aretes': 'Enmarcar la mirada',
+    'Collares y sets': 'El broche final', 'Botas': 'Botas con carácter', 'Tacones': 'Notas altas', 'Planos': 'Paseo por la ciudad', 'Zapatillas': 'Días libres',
+  }
+  const esNombre = { 'Special Prices': 'Precios especiales' }
   const rename = () => {
     document.querySelectorAll('aside button, h2, h1, button, a').forEach(el => {
-      if (el.closest('.mogi-stories,.mogi-frase,.mogi-pasos')) return
+      if (el.closest('.mogi-stories,.mogi-frase,.mogi-pasos,.mogi-lang')) return
       const tn = [...el.childNodes].find(n => n.nodeType === 3 && n.data.trim())
       if (!tn || [...el.children].some(c => c.textContent.trim())) return
       const t = tn.data.trim()
-      if (el.dataset.orig && nombres[el.dataset.orig] === t) return
-      if (nombres[t]) { el.dataset.orig = t; tn.data = nombres[t] }
+      const o = el.dataset.orig || (nombres[t] ? t : null)
+      if (!o) return
+      el.dataset.orig = o
+      const want = lang === 'en' ? nombres[o] : (esNombre[o] || o)
+      if (t !== want) tn.data = want
     })
+  }
+  const css2 = document.createElement('style')
+  css2.textContent = `.mogi-lang{display:flex;align-items:center;gap:10px;font:400 10px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#a3a3a3}
+  .mogi-lang .pa{color:#737373}.mogi-lang .sep{opacity:.5}
+  .mogi-lang button{all:unset;cursor:pointer;padding:4px 0;color:#a3a3a3;transition:color .3s}
+  .mogi-lang button.on{color:#111;border-bottom:1px solid #111}
+  .mogi-lang button:hover{color:#111}
+  @media (max-width:640px){.mogi-lang .pa,.mogi-lang .sep.first{display:none}}`
+  document.head.appendChild(css2)
+  const langBox = document.createElement('div')
+  langBox.className = 'mogi-lang'
+  langBox.innerHTML = `<span class="pa">Panamá</span><span class="sep first">|</span><button type="button" data-l="es" aria-label="Español">ES</button><span class="sep">·</span><button type="button" data-l="en" aria-label="English">EN</button>`
+  const paintLang = () => langBox.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === lang))
+  langBox.addEventListener('click', e => {
+    const b = e.target.closest('button[data-l]'); if (!b) return
+    e.stopPropagation()
+    lang = b.dataset.l
+    try { localStorage.setItem('mogi-lang', lang) } catch {}
+    document.documentElement.lang = lang
+    paintLang()
+    document.querySelectorAll('.mogi-frase,.mogi-pasos').forEach(x => x.remove())
+    apply()
+  })
+  paintLang()
+  const placeLang = () => {
+    const header = document.querySelector('header .grid')
+    const slot = header && header.firstElementChild
+    if (slot && !slot.contains(langBox) && slot.tagName === 'DIV') slot.appendChild(langBox)
   }
   const frase = key => {
     const el = document.createElement('section')
     el.className = 'mogi-frase'
     el.dataset.key = key
-    el.innerHTML = `<h3>${frases[key][0]}</h3><p>${frases[key][1]}</p>`
+    el.innerHTML = `<h3>${lang === 'es' ? esTit[key] : frases[key][0]}</h3><p>${frases[key][1]}</p>`
     if (key === 'Accesorios' || key === 'Collares y sets') {
       el.classList.add('con-video')
       el.insertAdjacentHTML('beforeend', `<figure class="mogi-fv"><div class="fr"><video src="${base}videos/collar-artesanal.mp4" poster="${base}videos/collar-artesanal.jpg" playsinline muted loop preload="metadata"></video><span class="hint"><i></i>Ver en vídeo</span></div><figcaption><small>Collar artesanal plateado</small>$15.00</figcaption></figure>`)
@@ -109,13 +150,14 @@
   const editorial = () => {
     const el = document.createElement('section')
     el.className = 'mogi-pasos'
-    el.innerHTML = `<div class="intro"><div><h3>Step by Step</h3>
+    el.innerHTML = `<div class="intro"><div><h3>${lang === 'es' ? 'Los pasos de Mónica' : 'Step by Step'}</h3>
       <p>Del salón de noche al botín de tarde: así combina Mónica el calzado con cada look.</p></div></div>
       ${pasos.map(p => `<figure><div class="ph"><img src="${base}fotos/fb/${p.f}.jpg" alt="${p.t}" loading="lazy"></div><figcaption><small>${p.m}</small>${p.t}</figcaption></figure>`).join('')}`
     return el
   }
 
   const apply = () => {
+    placeLang()
     rename()
     // Fuera de Calzado no debe quedar el bloque (React reutiliza el banner al cambiar de sección)
     document.querySelectorAll('.mogi-pasos').forEach(el => {

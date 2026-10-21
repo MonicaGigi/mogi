@@ -44,6 +44,9 @@
 
   // Orden: lo más reciente primero. La música de la web sigue sonando por debajo de cada vídeo.
   const historias = [
+    { v: 'blusa-transparente', name: 'Blusa transparente y pantalón negro', talla: 'M/L · M', price: 'Desde $12.00', old: '$15.00' },
+    { v: 'pantalon-stretch-rosa', name: 'Pantalón stretch rosa', talla: 'L/XL', price: '$25.00' },
+    { v: 'blusa-rayas-turquesa', name: 'Blusa de rayas turquesa', talla: 'L', price: '$15.00' },
     { v: 'blusita-corazones-jeans', name: 'Blusita de punto con corazones y jeans wide leg', talla: 'M/L · L', price: 'Desde $15.50' },
     { v: 'blusa-pedreria', name: 'Blusa celeste con pedrería', talla: 'M', price: '' },
     { v: 'falda-estampada', name: 'Falda larga estampada', talla: '', price: '' },
@@ -161,7 +164,7 @@
   look.className = 'mogi-hist py-2 text-left text-[11px] tracking-[0.14em] uppercase transition text-neutral-500 hover:text-ink'
   look.textContent = 'Lookbook'
   const placeLook = () => {
-    const sp = [...document.querySelectorAll('aside > button')].find(x => /special prices|private edit/i.test(x.textContent))
+    const sp = [...document.querySelectorAll('aside > button')].find(x => /special prices|private edit|precios especiales/i.test(x.textContent))
     if (sp && look.nextElementSibling !== sp) sp.insertAdjacentElement('beforebegin', look)
   }
   const place2 = () => { place(); placeLook() }
