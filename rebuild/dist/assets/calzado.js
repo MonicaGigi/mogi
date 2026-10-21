@@ -1,4 +1,4 @@
-// MÖGI: Calzado editorial — portada en movimiento, "Los pasos de Mónica".
+// MÖGI: Calzado editorial — portada en movimiento, "Step by Step".
 (() => {
   const base = new URL('..', import.meta.url).href
   const pasos = [
@@ -46,12 +46,12 @@
   @media (max-width:900px){.mogi-pasos{grid-template-columns:repeat(3,1fr)}.mogi-pasos .intro{grid-column:1/-1;padding:0}.mogi-pasos figure:nth-of-type(2){transform:none}}`
   document.head.appendChild(css)
 
-  // Frases de inspiración para cada sección, en el tono de "Los pasos de Mónica"
+  // Frases de inspiración para cada sección, en el tono de "Step by Step"
   const frases = {
-    'Novedades': ['Fresh From the Closet', 'Recién elegidas, cada una con su historia: piezas únicas de segunda vida que llegan antes de que desaparezcan.'],
-    'Colección': ['The Wardrobe', 'Vestidos, blusas y conjuntos que ella misma ha vivido y combinado: prendas con carácter, listas para una nueva historia.'],
-    'Accesorios': ['The Finishing Touch', 'De los aretes de rafia al collar de noche: así remata Mónica cada look con un toque de color y artesanía.'],
-    'Special Prices': ['Rare Finds', 'Sus favoritas a precio especial: piezas que no se repiten, para quien sabe que el estilo no se mide en dólares.'],
+    'Novedades': ['Fresh From the Closet', 'Piezas únicas recién llegadas. Cada una, una historia; ninguna, repetida.'],
+    'Colección': ['The Wardrobe', 'Vestidos, blusas y conjuntos con carácter, elegidos uno a uno y listos para una segunda vida.'],
+    'Accesorios': ['The Finishing Touch', 'De la rafia al cristal. El detalle que remata cada look con color y artesanía.'],
+    'Special Prices': ['Rare Finds', 'Una selección privada a precio especial. Piezas que no se repiten.'],
     'Vestidos': ['Effortless Silhouettes', 'Del caftán de mediodía al vestido largo de noche: siluetas que fluyen y se adaptan a cada plan.'],
     'Blusas': ['Silk & Colour', 'Satén, color y caída ligera: la pieza que transforma unos vaqueros en un look.'],
     'Top-bodies': ['The Essentials', 'Básicos con alma: punto, rayas y escotes que suman sin esfuerzo.'],
@@ -81,7 +81,7 @@
   let lang = 'en'
   try { lang = localStorage.getItem('mogi-lang') || 'en' } catch {}
   const esTit = {
-    'Novedades': 'Lo último de Mónica', 'Colección': 'El armario de Mónica', 'Accesorios': 'Los detalles de Mónica', 'Special Prices': 'La selección privada',
+    'Novedades': 'Recién llegado', 'Colección': 'El armario', 'Accesorios': 'El toque final', 'Special Prices': 'Selección privada',
     'Vestidos': 'Siluetas que fluyen', 'Blusas': 'Seda y color', 'Top-bodies': 'Los esenciales', 'Camisetas': 'Días ligeros', 'Pantalones': 'Amplios y audaces',
     'Shorts': 'Modo verano', 'Faldas': 'En movimiento', 'Conjuntos': 'Parejas perfectas', 'Blazers': 'Sastrería con carácter', 'Aretes': 'Enmarcar la mirada',
     'Collares y sets': 'El broche final', 'Botas': 'Botas con carácter', 'Tacones': 'Notas altas', 'Planos': 'Paseo por la ciudad', 'Zapatillas': 'Días libres',
@@ -150,8 +150,8 @@
   const editorial = () => {
     const el = document.createElement('section')
     el.className = 'mogi-pasos'
-    el.innerHTML = `<div class="intro"><div><h3>${lang === 'es' ? 'Los pasos de Mónica' : 'Step by Step'}</h3>
-      <p>Del salón de noche al botín de tarde: así combina Mónica el calzado con cada look.</p></div></div>
+    el.innerHTML = `<div class="intro"><div><h3>${lang === 'es' ? 'Paso a paso' : 'Step by Step'}</h3>
+      <p>Del salón de noche al botín de tarde. Cada paso, una declaración.</p></div></div>
       ${pasos.map(p => `<figure><div class="ph"><img src="${base}fotos/fb/${p.f}.jpg" alt="${p.t}" loading="lazy"></div><figcaption><small>${p.m}</small>${p.t}</figcaption></figure>`).join('')}`
     return el
   }

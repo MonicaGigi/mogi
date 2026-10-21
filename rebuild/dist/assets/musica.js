@@ -66,7 +66,7 @@
     { v: 'camisa-blanca', name: 'Camisa blanca', talla: 'XL', price: '$10.50', old: '$15.00' },
     { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50', silent: true },
     { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50', silent: true },
-    { v: 'looks-invierno', name: 'Looks de invierno de Mónica', talla: '', price: '', silent: true },
+    { v: 'looks-invierno', name: 'Looks de invierno', talla: '', price: '', silent: true },
   ]
 
   // Looks de Mónica (Facebook)
@@ -248,7 +248,7 @@
           <figcaption class="mogi-cap"><div>${h.name}${h.talla ? `<small>Talla ${h.talla}</small>` : ''}</div>
             <div class="p">${h.old ? `<s>${h.old}</s><span class="sale">${h.price}</span>` : h.price}</div></figcaption>
         </figure>`).join('')}</div>
-      <section class="mogi-looks"><div class="t"><h3>Los looks de Mónica</h3><span>Inspiración</span></div>
+      <section class="mogi-looks"><div class="t"><h3>The Looks</h3><span>Inspiración</span></div>
         <div class="g">${looks.map(l => `<figure><div class="ph"><img src="${base}fotos/fb/${l.f}.jpg" alt="${l.t}" loading="lazy"></div>
           <figcaption><small>${l.m}</small>${l.t}</figcaption></figure>`).join('')}</div></section>`
     document.body.appendChild(panel)
