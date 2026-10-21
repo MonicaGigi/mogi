@@ -44,8 +44,17 @@
 
   // Orden: lo más reciente primero. La música de la web sigue sonando por debajo de cada vídeo.
   const historias = [
+    { v: 'blusita-corazones-jeans', name: 'Blusita de punto con corazones y jeans wide leg', talla: 'M/L · L', price: 'Desde $15.50' },
+    { v: 'blusa-pedreria', name: 'Blusa celeste con pedrería', talla: 'M', price: '' },
+    { v: 'falda-estampada', name: 'Falda larga estampada', talla: '', price: '' },
+    { v: 'set-rosa-lunares', name: 'Set de blazer rosa y pantalón de lunares', talla: 'M/L', price: '$26.50', old: '$30.00' },
+    { v: 'set-rayas-flores', name: 'Set de camisa a rayas y pantalón de flores', talla: 'M/L', price: '$24.00' },
+    { v: 'jacket-militar', name: 'Jacket militar', talla: 'M/L', price: '$25.00' },
+    { v: 'falda-tul', name: 'Falda doble de tul', talla: 'L', price: '$15.00' },
+    { v: 'sobretodo-stretch', name: 'Sobretodo stretch', talla: 'L', price: '$15.00' },
+    { v: 'bolso-de-mano', name: 'Bolso de mano', talla: '', price: '$15.00' },
     { v: 'set-tres-piezas', name: 'Set de 3 piezas: chaleco, blazer y pantalón', talla: 'L', price: '$50.00' },
-    // (en preparación) { v: 'blusa-pantalon-coral', name: 'Blusa estampada y pantalón pierna ancha', talla: 'L · M/L', price: 'Desde $12.00' },
+    { v: 'blusa-pantalon-coral', name: 'Blusa estampada y pantalón pierna ancha', talla: 'L · M/L', price: 'Desde $12.00', silent: true },
     { v: 'set-azul-marruecos', name: 'Set azul con botones de Marruecos', talla: 'XL', price: '$25.00' },
     { v: 'caftan-mostaza', name: 'Caftán mostaza', talla: 'Única', price: '$6.50', old: '$13.50' },
     { v: 'vestido-patchwork', name: 'Vestido largo patchwork', talla: 'L/XL', price: '$15.50' },
@@ -54,7 +63,7 @@
     { v: 'camisa-blanca', name: 'Camisa blanca', talla: 'XL', price: '$10.50', old: '$15.00' },
     { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50', silent: true },
     { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50', silent: true },
-    { v: 'looks-invierno', name: 'Looks de invierno de Mónica', talla: '', price: '' },
+    { v: 'looks-invierno', name: 'Looks de invierno de Mónica', talla: '', price: '', silent: true },
   ]
 
   // Looks de Mónica (Facebook)
@@ -223,7 +232,7 @@
       <button type="button" class="mogi-close">Cerrar</button></header>
       <div class="mogi-rail">${historias.map(h => `
         <figure class="mogi-card" style="margin:0">
-          <div class="mogi-frame"><video src="${base}videos/${h.v}.mp4" poster="${base}videos/${h.v}.jpg" playsinline muted loop preload="metadata"></video>
+          <div class="mogi-frame"><video src="${base}videos/${h.v}.mp4" poster="${base}videos/${h.v}.jpg" playsinline muted loop preload="none"></video>
             <span class="hint"><i></i>Reproducir</span></div>
           <figcaption class="mogi-cap"><div>${h.name}${h.talla ? `<small>Talla ${h.talla}</small>` : ''}</div>
             <div class="p">${h.old ? `<s>${h.old}</s><span class="sale">${h.price}</span>` : h.price}</div></figcaption>
@@ -235,7 +244,11 @@
     requestAnimationFrame(() => panel.classList.add('open'))
     const vids = [...panel.querySelectorAll('video')]
     // Vista previa silenciosa
-    vids.forEach(v => v.play().catch(() => {}))
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      const v = e.target
+      if (e.isIntersecting) v.play().catch(() => {}); else if (!v.parentElement.classList.contains('playing')) v.pause()
+    }), { root: panel.querySelector('.mogi-rail'), threshold: 0.4 })
+    vids.forEach(v => io.observe(v))
     panel.querySelectorAll('.mogi-frame').forEach((f, k) => f.addEventListener('click', () => {
       const v = vids[k]
       const wasActive = f.classList.contains('playing')
