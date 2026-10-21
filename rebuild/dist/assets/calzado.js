@@ -139,9 +139,10 @@
       const f = el.querySelector('.fr'), v = f.querySelector('video')
       v.play().catch(() => {})
       f.addEventListener('click', () => {
-        if (f.classList.contains('playing')) { v.muted = true; f.classList.remove('playing'); window.mogiMusic?.unduck(); return }
-        window.mogiMusic?.duck(); v.muted = false; v.currentTime = 0; v.loop = false; v.play().catch(() => {}); f.classList.add('playing')
-        v.onended = () => { f.classList.remove('playing'); v.muted = true; v.loop = true; v.play().catch(() => {}); window.mogiMusic?.unduck() }
+        const m = window.mogiMusic
+        if (f.classList.contains('playing')) { m ? m.stop(v) : (v.muted = true); f.classList.remove('playing'); return }
+        if (m) m.start(v, () => f.classList.remove('playing')); else { v.muted = false; v.currentTime = 0; v.play().catch(() => {}) }
+        f.classList.add('playing')
       })
     }
     return el
