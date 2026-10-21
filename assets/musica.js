@@ -230,7 +230,36 @@
     if (audio.paused) play(); else fadeTo(VOL)
   }
 
-  window.mogiMusic = { duck: () => hush(), unduck: () => unduck() }
+  // Fundido cruzado entre la música de la web y el vídeo: nada se pisa de golpe.
+  const VV = 0.72
+  const vfade = (v, target, ms, done) => {
+    cancelAnimationFrame(v._fr)
+    const from = v.volume, t0 = performance.now()
+    const step = now => {
+      const k = Math.min(1, (now - t0) / ms), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2
+      try { v.volume = Math.min(1, Math.max(0, from + (target - from) * e)) } catch {}
+      if (k < 1) v._fr = requestAnimationFrame(step); else done && done()
+    }
+    v._fr = requestAnimationFrame(step)
+  }
+  const startVid = (v, onEnd) => {
+    if (!audio.paused) { lifted = false; ducked = true; fadeTo(0, () => audio.pause(), 2200) } else lifted = false
+    try { v.volume = 0 } catch {}
+    v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {})
+    vfade(v, VV, 2000)
+    let back = false
+    v.ontimeupdate = () => {
+      if (!back && v.duration && v.duration - v.currentTime < 2.6) { back = true; vfade(v, 0, 2400); unduck() }
+    }
+    v.onended = () => { v.ontimeupdate = null; v.muted = true; v.loop = true; v.play().catch(() => {}); if (!back) unduck(); onEnd && onEnd() }
+  }
+  const stopVid = (v, quiet) => {
+    v.ontimeupdate = null; v.onended = null
+    if (v.muted) return
+    vfade(v, 0, 900, () => { v.muted = true })
+    if (!quiet) unduck()
+  }
+  window.mogiMusic = { duck: () => hush(), unduck: () => unduck(), start: startVid, stop: stopVid }
   // Lookbook
   let panel
   const openStories = () => {
@@ -263,12 +292,11 @@
     panel.querySelectorAll('.mogi-frame').forEach((f, k) => f.addEventListener('click', () => {
       const v = vids[k]
       const wasActive = f.classList.contains('playing')
-      vids.forEach((o, j) => { if (j !== k) { o.muted = true; o.parentElement.classList.remove('playing') } })
-      if (wasActive) { v.muted = true; f.classList.remove('playing'); unduck(); return }
-      hush(); v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {}); f.classList.add('playing')
-      v.onended = () => { f.classList.remove('playing'); v.muted = true; v.loop = true; v.play().catch(() => {}); unduck() }
+      vids.forEach((o, j) => { if (j !== k && !o.muted) { stopVid(o, true); o.parentElement.classList.remove('playing') } })
+      if (wasActive) { stopVid(v); f.classList.remove('playing'); return }
+      startVid(v, () => f.classList.remove('playing')); f.classList.add('playing')
     }))
-    const close = () => { vids.forEach(v => v.pause()); panel.classList.remove('open'); setTimeout(() => panel.remove(), 450); unduck(); document.removeEventListener('keydown', esc) }
+    const close = () => { vids.forEach(v => { v.ontimeupdate = null; vfade(v, 0, 400, () => v.pause()) }); panel.classList.remove('open'); setTimeout(() => panel.remove(), 450); unduck(); document.removeEventListener('keydown', esc) }
     const esc = e => { if (e.key === 'Escape') close() }
     panel.querySelector('.mogi-close').addEventListener('click', close)
     document.addEventListener('keydown', esc)
