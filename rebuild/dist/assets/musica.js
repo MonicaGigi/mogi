@@ -161,7 +161,7 @@
   look.className = 'mogi-hist py-2 text-left text-[11px] tracking-[0.14em] uppercase transition text-neutral-500 hover:text-ink'
   look.textContent = 'Lookbook'
   const placeLook = () => {
-    const sp = [...document.querySelectorAll('aside > button')].find(x => /special prices/i.test(x.textContent))
+    const sp = [...document.querySelectorAll('aside > button')].find(x => /special prices|private edit/i.test(x.textContent))
     if (sp && look.nextElementSibling !== sp) sp.insertAdjacentElement('beforebegin', look)
   }
   const place2 = () => { place(); placeLook() }

@@ -48,25 +48,44 @@
 
   // Frases de inspiración para cada sección, en el tono de "Los pasos de Mónica"
   const frases = {
-    'Novedades': ['Lo último de Mónica', 'Recién elegidas, cada una con su historia: piezas únicas de segunda vida que llegan antes de que desaparezcan.'],
-    'Colección': ['El armario de Mónica', 'Vestidos, blusas y conjuntos que ella misma ha vivido y combinado: prendas con carácter, listas para una nueva historia.'],
-    'Accesorios': ['Los detalles de Mónica', 'De los aretes de rafia al collar de noche: así remata Mónica cada look con un toque de color y artesanía.'],
-    'Special Prices': ['The Private Edit', 'Sus favoritas a precio especial: piezas que no se repiten, para quien sabe que el estilo no se mide en dólares.'],
-    'Vestidos': ['Los vestidos de Mónica', 'Del caftán de mediodía al vestido largo de noche: siluetas que fluyen y se adaptan a cada plan.'],
-    'Blusas': ['Las blusas de Mónica', 'Satén, color y caída ligera: la pieza que transforma unos vaqueros en un look.'],
-    'Top-bodies': ['Los tops de Mónica', 'Básicos con alma: punto, rayas y escotes que suman sin esfuerzo.'],
-    'Camisetas': ['Las camisetas de Mónica', 'Algodón estampado y frescura para los días de sol: lo sencillo, bien elegido.'],
-    'Pantalones': ['Los pantalones de Mónica', 'Pierna ancha, estampados y vaqueros con historia: la base de un armario con personalidad.'],
-    'Shorts': ['Los shorts de Mónica', 'Flecos, cuentas y denim: el verano de Panamá en clave divertida.'],
-    'Faldas': ['Las faldas de Mónica', 'Midi, larga o de lunares: movimiento y feminidad en cada paso.'],
-    'Conjuntos': ['Los conjuntos de Mónica', 'Dos piezas, mil combinaciones: llévalos juntos o por separado.'],
-    'Blazers': ['Los blazers de Mónica', 'Cuadros, rayas y príncipe de Gales: la prenda que pone estructura a cualquier look.'],
-    'Aretes': ['Los aretes de Mónica', 'Flores de rafia, oro martillado y cristal: el brillo que enmarca la mirada.'],
-    'Collares y sets': ['Los collares de Mónica', 'Piezas artesanales que hablan por sí solas: el broche final de cada look.'],
-    'Botas': ['Las botas de Mónica', 'Ante, color y tacón ancho: carácter de la cabeza a los pies.'],
-    'Tacones': ['Los tacones de Mónica', 'Salones de punta en fucsia y azul hielo: elegancia que se oye al caminar.'],
-    'Planos': ['Los planos de Mónica', 'Comodidad con estilo para recorrer la ciudad.'],
-    'Zapatillas': ['Las zapatillas de Mónica', 'Del blanco impecable al negro urbano: el toque relajado que todo look necesita.'],
+    'Novedades': ['Fresh From the Closet', 'Recién elegidas, cada una con su historia: piezas únicas de segunda vida que llegan antes de que desaparezcan.'],
+    'Colección': ['The Wardrobe', 'Vestidos, blusas y conjuntos que ella misma ha vivido y combinado: prendas con carácter, listas para una nueva historia.'],
+    'Accesorios': ['The Finishing Touch', 'De los aretes de rafia al collar de noche: así remata Mónica cada look con un toque de color y artesanía.'],
+    'Special Prices': ['Rare Finds', 'Sus favoritas a precio especial: piezas que no se repiten, para quien sabe que el estilo no se mide en dólares.'],
+    'Vestidos': ['Effortless Silhouettes', 'Del caftán de mediodía al vestido largo de noche: siluetas que fluyen y se adaptan a cada plan.'],
+    'Blusas': ['Silk & Colour', 'Satén, color y caída ligera: la pieza que transforma unos vaqueros en un look.'],
+    'Top-bodies': ['The Essentials', 'Básicos con alma: punto, rayas y escotes que suman sin esfuerzo.'],
+    'Camisetas': ['Easy Days', 'Algodón estampado y frescura para los días de sol: lo sencillo, bien elegido.'],
+    'Pantalones': ['Wide & Bold', 'Pierna ancha, estampados y vaqueros con historia: la base de un armario con personalidad.'],
+    'Shorts': ['Summer Mode', 'Flecos, cuentas y denim: el verano de Panamá en clave divertida.'],
+    'Faldas': ['In Motion', 'Midi, larga o de lunares: movimiento y feminidad en cada paso.'],
+    'Conjuntos': ['Perfect Pairs', 'Dos piezas, mil combinaciones: llévalos juntos o por separado.'],
+    'Blazers': ['Sharp Tailoring', 'Cuadros, rayas y príncipe de Gales: la prenda que pone estructura a cualquier look.'],
+    'Aretes': ['Frame the Face', 'Flores de rafia, oro martillado y cristal: el brillo que enmarca la mirada.'],
+    'Collares y sets': ['The Final Flourish', 'Piezas artesanales que hablan por sí solas: el broche final de cada look.'],
+    'Botas': ['Statement Boots', 'Ante, color y tacón ancho: carácter de la cabeza a los pies.'],
+    'Tacones': ['High Notes', 'Salones de punta en fucsia y azul hielo: elegancia que se oye al caminar.'],
+    'Planos': ['City Walk', 'Comodidad con estilo para recorrer la ciudad.'],
+    'Zapatillas': ['Off Duty', 'Del blanco impecable al negro urbano: el toque relajado que todo look necesita.'],
+  }
+  // Nombres de sección al estilo de las grandes firmas (solo cambia lo que se ve)
+  const nombres = {
+    'Novedades': 'New In', 'Colección': 'The Collection', 'Calzado': 'Shoes', 'Accesorios': 'Accessories', 'Special Prices': 'The Private Edit',
+    'Vestidos': 'Dresses', 'Blusas': 'Blouses', 'Top-bodies': 'Tops & Bodies', 'Camisetas': 'T-Shirts', 'Pantalones': 'Trousers', 'Shorts': 'Shorts',
+    'Faldas': 'Skirts', 'Conjuntos': 'Sets', 'Blazers': 'Blazers', 'Aretes': 'Earrings', 'Collares y sets': 'Necklaces & Sets',
+    'Botas': 'Boots', 'Tacones': 'Heels', 'Planos': 'Flats', 'Zapatillas': 'Sneakers',
+    'Ver novedades': 'Discover New In', 'Ver todo el calzado': 'Shop All Shoes', 'Ver toda la colección': 'Shop the Collection', 'Ver todos los accesorios': 'Shop Accessories',
+  }
+  const orig = el => el.dataset.orig || el.textContent.trim()
+  const rename = () => {
+    document.querySelectorAll('aside button, h2, h1, button, a').forEach(el => {
+      if (el.closest('.mogi-stories,.mogi-frase,.mogi-pasos')) return
+      const tn = [...el.childNodes].find(n => n.nodeType === 3 && n.data.trim())
+      if (!tn || [...el.children].some(c => c.textContent.trim())) return
+      const t = tn.data.trim()
+      if (el.dataset.orig && nombres[el.dataset.orig] === t) return
+      if (nombres[t]) { el.dataset.orig = t; tn.data = nombres[t] }
+    })
   }
   const frase = key => {
     const el = document.createElement('section')
@@ -90,25 +109,26 @@
   const editorial = () => {
     const el = document.createElement('section')
     el.className = 'mogi-pasos'
-    el.innerHTML = `<div class="intro"><div><h3>Los pasos de Mónica</h3>
+    el.innerHTML = `<div class="intro"><div><h3>Step by Step</h3>
       <p>Del salón de noche al botín de tarde: así combina Mónica el calzado con cada look.</p></div></div>
       ${pasos.map(p => `<figure><div class="ph"><img src="${base}fotos/fb/${p.f}.jpg" alt="${p.t}" loading="lazy"></div><figcaption><small>${p.m}</small>${p.t}</figcaption></figure>`).join('')}`
     return el
   }
 
   const apply = () => {
+    rename()
     // Fuera de Calzado no debe quedar el bloque (React reutiliza el banner al cambiar de sección)
     document.querySelectorAll('.mogi-pasos').forEach(el => {
       const prev = el.previousElementSibling, h = prev && prev.querySelector('h2')
-      if (!h || h.textContent.trim() !== 'Calzado' || !prev.querySelector('img[src*="calzado-hero"]')) el.remove()
+      if (!h || orig(h) !== 'Calzado' || !prev.querySelector('img[src*="calzado-hero"]')) el.remove()
     })
     // Frases por sección: solo junto al banner de su sección
     document.querySelectorAll('.mogi-frase').forEach(el => {
       const prev = el.previousElementSibling, h = prev && prev.querySelector('h2')
-      if (!h || h.textContent.trim() !== el.dataset.key) el.remove()
+      if (!h || orig(h) !== el.dataset.key) el.remove()
     })
     document.querySelectorAll('h2').forEach(h => {
-      const key = h.textContent.trim()
+      const key = orig(h)
       if (!frases[key]) return
       const banner = h.closest('.relative')
       if (!banner || !banner.querySelector('img') || !/art[ií]culo/i.test(banner.textContent)) return
@@ -118,7 +138,7 @@
     })
     // Listado de Calzado: banner con el título "Calzado"
     document.querySelectorAll('h2').forEach(h => {
-      if (h.textContent.trim() !== 'Calzado') return
+      if (orig(h) !== 'Calzado') return
       const banner = h.closest('.relative')
       if (!banner || !banner.querySelector('img[src*="calzado-hero"]') || !/art[ií]culo/i.test(banner.textContent)) return
       const next = banner.nextElementSibling
