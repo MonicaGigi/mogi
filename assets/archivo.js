@@ -4,6 +4,17 @@
   const L = () => { try { return localStorage.getItem('mogi-lang') || 'en' } catch { return 'en' } }
   // [foto, nombre, talla] — de la más reciente a la más antigua
   const piezas = [
+    ['s50', 'Falda estampada de aves', 'M'],
+    ['s27', 'Vestido caftán azul estampado', 'XL'],
+    ['s26', 'Set rojo de chaleco y pantalón', 'L'],
+    ['s25', 'Camisa transparente roja con lazo', 'L'],
+    ['s23', 'Pantalón balloon gris', 'M'],
+    ['s19', 'Camisa azul noche con broche', 'L'],
+    ['s18', 'Set beige de chaleco y pantalón', 'L'],
+    ['s17', 'Set verde estampado', 'M'],
+    ['s13', 'Pantalón estampado acuarela', 'M/L'],
+    ['s12', 'Blazer de cuadros rojo', ''],
+    ['s11', 'Blusa de lunares', 'L/XL'],
     [58, 'Blusa azul eléctrico', 'M/L'],
     [55, 'Jean de rayas tela rígida', 'L'],
     [54, 'Pantalón de rayas cintura alta', 'L'],
@@ -34,7 +45,7 @@
     [5, 'Set de rayas', 'L'],
     [3, 'Pantalón de rayas azules', 'M/L'],
   ]
-  const src = n => `${base}fotos/archivo/a${String(n).padStart(2, '0')}.jpg`
+  const src = n => typeof n === 'string' ? `${base}fotos/archivo/${n}.jpg` : `${base}fotos/archivo/a${String(n).padStart(2, '0')}.jpg`
   const t = () => L() === 'es'
     ? { menu: 'El archivo', title: 'El archivo', sub: 'Piezas que ya encontraron dueña', sold: 'Agotado', size: 'Talla', more: 'Ver el archivo', close: 'Cerrar',
         intro: 'Cada prenda de MÖGI es única. Estas ya viven una segunda historia; las nuevas llegan cada semana.' }
@@ -70,7 +81,7 @@
   document.head.appendChild(css)
 
   const card = ([n, name, size]) => `<figure><div class="ph"><img src="${src(n)}" alt="${name}" loading="lazy"><span class="tag">${t().sold}</span></div>
-    <figcaption>${name}<small>${t().size} ${size} · ${t().sold}</small></figcaption></figure>`
+    <figcaption>${name}<small>${size ? t().size + ' ' + size + ' · ' : ''}${t().sold}</small></figcaption></figure>`
 
   const open = () => {
     const p = document.createElement('div')
