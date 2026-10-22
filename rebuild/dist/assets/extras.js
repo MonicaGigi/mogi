@@ -118,6 +118,23 @@
   // Nombres de casa en inglés (versión por defecto); en español se mantienen los originales
   const EN = {'Favoritos':'Wishlist','Mi cuenta':'Account','Mi bolsa':'Bag','Añadir a la bolsa':'Add to Bag','Comprar ahora':'Buy Now','Guía de tallas':'Size Guide','Volver':'Back','Talla':'Size','Conócenos y pagos':'About & Payments','Sostenibilidad':'Sustainability','Nuevo':'New','Destacados':'Featured','Precio: menor a mayor':'Price: Low to High','Precio: mayor a menor':'Price: High to Low','Mayor descuento':'Best Savings','Pagos:':'Payments:','Música':'Music','Tarjeta':'Card','Efectivo':'Cash','Color:':'Colour:'}
   const ES = {'Mi bolsa':'Mi bolsa'}
+
+  const COND = {'Muy buen estado':'Very good condition','Como nuevo':'Like new','Como nueva':'Like new','Buen estado':'Good condition','Nuevo con etiqueta':'New with tags'}
+  const KIND = {'Prenda':'Second-life piece','Accesorio':'Second-life accessory','Calzado':'Second-life footwear'}
+  const PH = [['Entrega en 24–48 h en ','Delivery in 24–48 h in '],[' · gratis desde ',' · free from '],['Pieza única de segunda vida · revisada y lista para usar','One-of-a-kind second-life piece · inspected and ready to wear'],['Paga con Yappy, transferencia ACH, tarjeta o efectivo contra entrega','Pay with Yappy, ACH transfer, card or cash on delivery'],['Ciudad de Panamá','Panama City']]
+  const trText = raw => {
+    const D = window.mogiDescEN || {}
+    const m = raw.match(/^(\s*)(.*?)\s*(Prenda|Accesorio|Calzado) de segunda vida · ([^.]+)\.?(\s*)$/)
+    if (m) {
+      let main = m[2].trim(), out = D[main]
+      if (!out && /^Aretes /.test(main)) out = main.replace(/^Aretes (.*?)\. Ligeros y cómodos\.$/, (x, a) => `Earrings: ${a}. Light and comfortable.`)
+      if (!out) out = main
+      return `${m[1]}${out} ${KIND[m[3]]} · ${COND[m[4].trim()] || m[4]}.${m[5]}`
+    }
+    let r = raw, hit = false
+    for (const [a, b] of PH) if (r.includes(a)) { r = r.split(a).join(b); hit = true }
+    return hit ? r : null
+  }
   const orig = new WeakMap()
   const relabel = () => {
     const root = document.getElementById('root'); if (!root) return
@@ -128,7 +145,11 @@
       const raw = n.nodeValue, key = raw.trim()
       if (!key) continue
       const o = orig.get(n)
-      if (en) { if (EN[key] && raw !== raw.replace(key, EN[key])) { orig.set(n, raw); n.nodeValue = raw.replace(key, EN[key]) } }
+      if (en) {
+        const src = o ?? raw
+        let tr = EN[src.trim()] ? src.replace(src.trim(), EN[src.trim()]) : trText(src)
+        if (tr && tr !== raw) { if (!o) orig.set(n, raw); n.nodeValue = tr }
+      }
       else if (o && raw !== o) n.nodeValue = o
     }
   }
