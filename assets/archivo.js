@@ -35,7 +35,6 @@
     ['x-f28', 'Blusita stretch de tirantes', 'M/L', 'tl', 'pill'],
     ['x-f27', 'Vestido plisado rojo con capa', 'M/L', 'tr', 'pill'],
     ['x-f19', 'Vestido camisero rosa', 'L', 'sl', 'vertical'],
-    ['x-f17', 'Vestido estampado de tirantes', 'L', 'bl', 'stamp'],
     ['x-f16', 'Camisa de jean', 'L', 'br', 'pill'],
     ['x-f15', 'T-shirt ilustrada', 'XL', 'br', 'stamp'],
     ['x-f11', 'Vestido camisero denim', 'M/L', 'sr', 'vertical'],
