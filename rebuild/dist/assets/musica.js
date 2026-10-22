@@ -49,6 +49,8 @@
     { v: 'blusita-corazones-jeans', name: 'Blusita de punto con corazones y jeans wide leg', talla: 'M/L · L', price: 'Desde $15.50' },
     { v: 'blusa-pedreria', name: 'Blusa celeste con pedrería', talla: 'M', price: '' },
     { v: 'falda-estampada', name: 'Falda larga estampada', talla: '', price: '' },
+    { v: 'set-rosa-lunares', name: 'Set de blazer rosa y pantalón de lunares', talla: 'M/L', price: '$26.50', old: '$30.00' },
+    { v: 'set-rayas-flores', name: 'Set de camisa a rayas y pantalón de flores', talla: 'M/L', price: '$24.00' },
     { v: 'jacket-militar', name: 'Jacket militar', talla: 'M/L', price: '$25.00' },
     { v: 'falda-tul', name: 'Falda doble de tul', talla: 'L', price: '$15.00' },
     { v: 'sobretodo-stretch', name: 'Sobretodo stretch', talla: 'L', price: '$15.00' },
