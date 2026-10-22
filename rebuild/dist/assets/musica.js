@@ -56,6 +56,7 @@
     { v: 'sobretodo-stretch', name: 'Sobretodo stretch', talla: 'L', price: '$15.00' },
     { v: 'bolso-de-mano', name: 'Bolso de mano', talla: '', price: '$15.00' },
     { v: 'set-tres-piezas', name: 'Set de 3 piezas: chaleco, blazer y pantalón', talla: 'L', price: '$50.00' },
+    { v: 'blusa-pantalon-coral', name: 'Blusa estampada y pantalón pierna ancha', talla: 'L · M/L', price: 'Desde $12.00', silent: true },
     { v: 'set-azul-marruecos', name: 'Set azul con botones de Marruecos', talla: 'XL', price: '$25.00' },
     { v: 'caftan-mostaza', name: 'Caftán mostaza', talla: 'Única', price: '$6.50', old: '$13.50' },
     { v: 'vestido-patchwork', name: 'Vestido largo patchwork', talla: 'L/XL', price: '$15.50' },
