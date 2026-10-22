@@ -59,6 +59,7 @@
     { v: 'vestido-patchwork', name: 'Vestido largo patchwork', talla: 'L/XL', price: '$15.50' },
     { v: 'set-floral', name: 'Set de blusa y short floral', talla: 'M/L', price: '$22.00' },
     { v: 'blusa-satinada-roja', name: 'Blusa satinada y short de flecos', talla: 'L/XL', price: 'Desde $12.00' },
+    { v: 'camisa-blanca', name: 'Camisa blanca', talla: 'XL', price: '$10.50', old: '$15.00' },
     { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50', silent: true },
     { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50', silent: true },
     { v: 'looks-invierno', name: 'Looks de invierno', talla: '', price: '', silent: true }
