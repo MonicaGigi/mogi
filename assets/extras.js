@@ -114,8 +114,27 @@
   const ig = document.createElement('a')
   ig.className = 'mogi-ig'; ig.target = '_blank'; ig.rel = 'noopener'; ig.href = IG
 
+
+  // Nombres de casa en inglés (versión por defecto); en español se mantienen los originales
+  const EN = {'Favoritos':'Wishlist','Mi cuenta':'Account','Mi bolsa':'Bag','Añadir a la bolsa':'Add to Bag','Comprar ahora':'Buy Now','Guía de tallas':'Size Guide','Volver':'Back','Talla':'Size','Conócenos y pagos':'About & Payments','Sostenibilidad':'Sustainability','Nuevo':'New','Destacados':'Featured','Precio: menor a mayor':'Price: Low to High','Precio: mayor a menor':'Price: High to Low','Mayor descuento':'Best Savings','Pagos:':'Payments:','Música':'Music','Tarjeta':'Card','Efectivo':'Cash','Color:':'Colour:'}
+  const ES = {'Mi bolsa':'Mi bolsa'}
+  const orig = new WeakMap()
+  const relabel = () => {
+    const root = document.getElementById('root'); if (!root) return
+    const en = !es()
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+    let n
+    while ((n = w.nextNode())) {
+      const raw = n.nodeValue, key = raw.trim()
+      if (!key) continue
+      const o = orig.get(n)
+      if (en) { if (EN[key] && raw !== raw.replace(key, EN[key])) { orig.set(n, raw); n.nodeValue = raw.replace(key, EN[key]) } }
+      else if (o && raw !== o) n.nodeValue = o
+    }
+  }
   let painted = ''
   const place = () => {
+    relabel()
     const t = T(), lang = L()
     if (painted !== lang) {
       bJ.textContent = t.journal; bS.textContent = t.styling; bV.textContent = t.sell
