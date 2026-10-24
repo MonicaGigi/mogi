@@ -242,13 +242,13 @@
     v._fr = requestAnimationFrame(step)
   }
   const startVid = (v, onEnd) => {
-    if (!audio.paused) { lifted = false; ducked = true; fadeTo(0, () => audio.pause(), 3200) } else lifted = false
+    if (!audio.paused) { lifted = false; ducked = true; fadeTo(0, () => audio.pause(), 2600) } else lifted = false
     try { v.volume = 0 } catch {}
     v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {})
-    vfade(v, VV, 3000)
+    vfade(v, VV, 1600)
     let back = false
     v.ontimeupdate = () => {
-      if (!back && v.duration && v.duration - v.currentTime < 2.6) { back = true; vfade(v, 0, 2400); unduck() }
+      if (!back && v.duration && v.duration - v.currentTime < 3.0) { back = true; vfade(v, 0, 2800); setTimeout(unduck, 900) }
     }
     v.onended = () => { v.ontimeupdate = null; v.muted = true; v.loop = true; v.play().catch(() => {}); if (!back) unduck(); onEnd && onEnd() }
   }
