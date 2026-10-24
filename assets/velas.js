@@ -93,10 +93,10 @@
   .mogi-lm .pd dd{margin:0;font:400 13px/1.6 "Inter Variable",Helvetica,Arial,sans-serif;color:#2a2826}
   .mogi-lm .pd .acts{display:flex;flex-wrap:wrap;align-items:center;gap:22px;margin-top:34px}
   .mogi-lm .lk{font:400 10px/1.4 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#111;background:none;border:0;border-bottom:1px solid #111;padding:0 0 3px;cursor:pointer}
-  .mogi-lm-teaser{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);align-items:center;gap:0;width:min(1180px,100%);margin:56px auto 0;background:#f1ede7;cursor:pointer;border:0;padding:0;text-align:left;color:#111}
-  .mogi-lm-teaser img{display:block;width:100%;aspect-ratio:2400/1100;object-fit:cover;object-position:0 50%}
+  .mogi-lm-teaser{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:center;gap:0;width:min(980px,100%);margin:64px auto 0;background:#f4f1ec;cursor:pointer;border:0;padding:0;text-align:left;color:#111}
+  .mogi-lm-teaser img{display:block;width:100%;aspect-ratio:1320/520;object-fit:cover;object-position:50% 50%}
   .mogi-lm-teaser div{padding:28px 34px}
-  .mogi-lm-teaser b{display:block;font:400 clamp(24px,3vw,36px)/1.05 "Playfair Display Variable",Georgia,serif;font-weight:400}
+  .mogi-lm-teaser b{display:block;font:400 clamp(20px,2.2vw,26px)/1.05 "Playfair Display Variable",Georgia,serif;font-weight:400}
   .mogi-lm-teaser small{display:block;margin-top:12px;font:400 9px/1.4 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#8a8580}
   .mogi-lm-teaser u{display:inline-block;margin-top:20px;font:400 10px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid #111;padding-bottom:3px}
   @media (max-width:700px){.mogi-lm-teaser{grid-template-columns:1fr}.mogi-lm-teaser img{aspect-ratio:16/9}.mogi-lm-teaser div{padding:22px 20px 26px;text-align:center}}
@@ -150,7 +150,7 @@
   let painted = ''
   const place = () => {
     const lang = L()
-    if (painted !== lang) { const t = T(); tz.innerHTML = `<img src="${base}fotos/velas/la-maison.jpg" alt="" loading="lazy"><div><b>La Maison</b><small>${t.teaserSub}</small><u>${t.teaser}</u></div>`; painted = lang }
+    if (painted !== lang) { const t = T(); tz.innerHTML = `<img src="${base}fotos/velas/la-maison-teaser.jpg" alt="" loading="lazy"><div><b>La Maison</b><small>${t.teaserSub}</small><u>${t.teaser}</u></div>`; painted = lang }
     const sv = document.querySelector('aside > .mogi-svc-v')
     if (sv && sv.nextElementSibling !== btn) sv.insertAdjacentElement('afterend', btn)
     const home = document.querySelector('.mogi-arch-home')
