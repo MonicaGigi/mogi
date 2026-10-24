@@ -3,7 +3,7 @@
 // al terminar o cerrar, vuelve a su volumen.
 (() => {
   const base = new URL('..', import.meta.url).href
-  const tracks = ['z1', 'z2', 'z3', 'z4', 'z5', 'z6'].map(n => `${base}musica/${n}.mp3`)
+  const tracks = ['l1', 'l2', 'l3', 'l4', 'l5'].map(n => `${base}musica/${n}.mp3`)
   const VOL = 0.28
   const LOW = 0.14
   const XF = 6 // segundos de fundido encadenado entre canciones
