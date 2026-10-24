@@ -76,11 +76,9 @@
   .mogi-x .note p{font:400 14px/1.75 "Inter Variable",Helvetica,Arial,sans-serif;color:#525252;margin:0}
   .mogi-pdp-links{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:16px}
   .mogi-pdp-links a{font:400 10px/1.4 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#111;text-decoration:none;border-bottom:1px solid #111;padding-bottom:3px}
-  .mogi-notify{border:0;border-top:1px solid #ecebe7;padding:30px 16px 6px;text-align:center;margin:56px auto 0;width:min(560px,100%)}
-  .mogi-notify h3{font:400 15px/1.2 "Playfair Display Variable",Georgia,serif;letter-spacing:.06em;margin:0;color:#222}
-  .mogi-notify p{font:400 11px/1.6 "Inter Variable",Helvetica,Arial,sans-serif;color:#8a8a8a;margin:6px 0 0}
-  .mogi-notify .mogi-cta{margin-top:14px;background:none;color:#111 !important;padding:0 0 3px;border-bottom:1px solid #111;font-size:9.5px;letter-spacing:.2em}
-  .mogi-notify .mogi-cta:hover{background:none;color:#555 !important;border-color:#555}
+  .mogi-notify{display:block;margin:0;padding:0;text-align:left;border:0}
+  .mogi-notify a{display:inline-block;font:400 9px/1.5 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#8a8a8a;text-decoration:none;border-bottom:1px solid #d4d4d4;padding-bottom:2px;transition:color .3s,border-color .3s}
+  .mogi-notify a:hover{color:#111;border-color:#111}
   .mogi-ig{display:block;text-align:center;font:400 10px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#737373;text-decoration:none;padding:10px 0 2px}
   .mogi-ig:hover{color:#111}
   footer.pb-safe{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 34px;padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px)) !important}
@@ -117,7 +115,7 @@
   const mk = (cls, fn) => { const b = document.createElement('button'); b.type = 'button'; b.className = cls + ' py-2 text-left text-[11px] tracking-[0.14em] uppercase transition text-neutral-500 hover:text-ink'; b.addEventListener('click', e => { e.stopPropagation(); fn() }); return b }
   const bJ = mk('mogi-svc-j', openJournal), bS = mk('mogi-svc-s', openStyling), bV = mk('mogi-svc-v', openSell)
 
-  const notify = document.createElement('section')
+  const notify = document.createElement('div')
   notify.className = 'mogi-notify'
   const ig = document.createElement('a')
   ig.className = 'mogi-ig'; ig.target = '_blank'; ig.rel = 'noopener'; ig.href = IG
@@ -167,7 +165,7 @@
     const t = T(), lang = L()
     if (painted !== lang) {
       bJ.textContent = t.journal; bS.textContent = t.styling; bV.textContent = t.sell
-      notify.innerHTML = `<h3>${t.notify}</h3><p>${t.notifySub}</p><a class="mogi-cta" target="_blank" rel="noopener" href="${wa(t.notifyMsg)}">${t.notifyCta}</a>`
+      notify.innerHTML = `<a target="_blank" rel="noopener" title="${t.notifySub}" href="${wa(t.notifyMsg)}">${t.notify}</a>`
       ig.textContent = 'Instagram'
       document.querySelectorAll('.mogi-pdp-links').forEach(x => x.remove())
       painted = lang
@@ -178,12 +176,10 @@
       if (bJ.nextElementSibling !== bS) bJ.insertAdjacentElement('afterend', bS)
       if (bS.nextElementSibling !== bV) bS.insertAdjacentElement('afterend', bV)
     }
-    // Aviso de novedades al final de cada listado y de la portada
+    // Aviso de novedades: discreto, en el lateral
     const main = document.querySelector('main')
-    const home = document.querySelector('.mogi-arch-home')
-    const grid = main && main.querySelector('article') && !main.querySelector('h2.text-2xl') // listado de catálogo
-    if (home) { if (home.lastElementChild !== notify) home.appendChild(notify) }
-    else if (grid && main.firstElementChild) { if (main.firstElementChild.lastElementChild !== notify) main.firstElementChild.appendChild(notify) }
+    const side = document.querySelector('aside > .mt-auto')
+    if (side) { if (side.firstElementChild !== notify) side.insertBefore(notify, side.firstChild) }
     else if (notify.isConnected) notify.remove()
     // Ficha de producto: enlaces de servicio y título de recomendaciones
     const h2 = main && main.querySelector('h2.text-2xl')
