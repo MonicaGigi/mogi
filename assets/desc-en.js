@@ -75,6 +75,7 @@ window.mogiDescEN = {
 "Zapatilla clásica de piel blanca. Combina con todo.":"Classic white leather sneaker. Goes with everything.",
 "Zapatilla negra de caña media con suela blanca.":"Black mid-top sneaker with a white sole.",
 "Zapatilla negra de piel con detalle gris y morado.":"Black leather sneaker with grey and purple details.",
+"Jeans de pierna ancha bicolor, con canesú negro y pernera azul lavado salpicados de strass. Una pieza que brilla de día y de noche.":"Two-tone wide-leg jeans with a black yoke and washed-blue legs scattered with rhinestones. A piece that shines by day and by night.",
 "Ligeros y cómodos.":"Light and comfortable.",
 "Aretes":"Earrings"
 }

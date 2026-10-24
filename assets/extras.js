@@ -82,6 +82,13 @@
   .mogi-notify .mogi-cta{margin-top:22px}
   .mogi-ig{display:block;text-align:center;font:400 10px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#737373;text-decoration:none;padding:10px 0 2px}
   .mogi-ig:hover{color:#111}
+  footer.pb-safe{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 34px;padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px)) !important}
+  footer.pb-safe > *{border:0 !important;width:auto !important;padding:0 !important;margin:0 !important}
+  footer.pb-safe > :last-child{order:-1;font:400 13px/1 "Playfair Display Variable",Georgia,serif !important;letter-spacing:.32em !important;color:#111 !important;text-transform:uppercase}
+  footer.pb-safe > button{gap:0 14px !important;color:#8a8a8a !important;font-size:9px !important;letter-spacing:.16em !important}
+  footer.pb-safe > button svg{display:none}
+  footer.pb-safe .mogi-ig{font-size:9px;letter-spacing:.2em;color:#8a8a8a;padding:0}
+  @media (max-width:640px){footer.pb-safe{gap:6px 22px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px)) !important}footer.pb-safe > :last-child{width:100% !important;text-align:center;font-size:12px !important}}
   `
   document.head.appendChild(css)
 
@@ -160,7 +167,7 @@
     if (painted !== lang) {
       bJ.textContent = t.journal; bS.textContent = t.styling; bV.textContent = t.sell
       notify.innerHTML = `<h3>${t.notify}</h3><p>${t.notifySub}</p><a class="mogi-cta" target="_blank" rel="noopener" href="${wa(t.notifyMsg)}">${t.notifyCta}</a>`
-      ig.textContent = '@monisalepty · ' + t.follow
+      ig.textContent = 'Instagram'
       document.querySelectorAll('.mogi-pdp-links').forEach(x => x.remove())
       painted = lang
     }
