@@ -76,10 +76,11 @@
   .mogi-x .note p{font:400 14px/1.75 "Inter Variable",Helvetica,Arial,sans-serif;color:#525252;margin:0}
   .mogi-pdp-links{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:16px}
   .mogi-pdp-links a{font:400 10px/1.4 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#111;text-decoration:none;border-bottom:1px solid #111;padding-bottom:3px}
-  .mogi-notify{border:1px solid #e7e5e0;padding:34px 24px;text-align:center;margin:44px auto 8px;width:min(1180px,100%)}
-  .mogi-notify h3{font:400 clamp(22px,2.6vw,30px)/1.1 "Playfair Display Variable",Georgia,serif;margin:0}
-  .mogi-notify p{font:400 12px/1.6 "Inter Variable",Helvetica,Arial,sans-serif;color:#737373;margin:10px 0 0}
-  .mogi-notify .mogi-cta{margin-top:22px}
+  .mogi-notify{border:0;border-top:1px solid #ecebe7;padding:30px 16px 6px;text-align:center;margin:56px auto 0;width:min(560px,100%)}
+  .mogi-notify h3{font:400 15px/1.2 "Playfair Display Variable",Georgia,serif;letter-spacing:.06em;margin:0;color:#222}
+  .mogi-notify p{font:400 11px/1.6 "Inter Variable",Helvetica,Arial,sans-serif;color:#8a8a8a;margin:6px 0 0}
+  .mogi-notify .mogi-cta{margin-top:14px;background:none;color:#111 !important;padding:0 0 3px;border-bottom:1px solid #111;font-size:9.5px;letter-spacing:.2em}
+  .mogi-notify .mogi-cta:hover{background:none;color:#555 !important;border-color:#555}
   .mogi-ig{display:block;text-align:center;font:400 10px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#737373;text-decoration:none;padding:10px 0 2px}
   .mogi-ig:hover{color:#111}
   footer.pb-safe{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 34px;padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px)) !important}
