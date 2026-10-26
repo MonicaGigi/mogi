@@ -77,5 +77,11 @@ window.mogiDescEN = {
 "Zapatilla negra de piel con detalle gris y morado.":"Black leather sneaker with grey and purple details.",
 "Jeans de pierna ancha bicolor, con canesú negro y pernera azul lavado salpicados de strass. Una pieza que brilla de día y de noche.":"Two-tone wide-leg jeans with a black yoke and washed-blue legs scattered with rhinestones. A piece that shines by day and by night.",
 "Ligeros y cómodos.":"Light and comfortable.",
-"Aretes":"Earrings"
+"Aretes":"Earrings",
+"Blusa oversized de punto plisado azul noche, salpicada de pequeños strass que atrapan la luz. Elástica, cómoda y elegante sin esfuerzo.":"Oversized midnight-blue plissé knit top, scattered with tiny rhinestones that catch the light. Stretchy, comfortable and effortlessly elegant.",
+"Blusa oversized negra con el cuello bordado de cristales. Un básico convertido en joya, para llevar con jeans o con falda de noche.":"Oversized black top with a crystal-embellished neckline. A basic turned into a jewel, to wear with jeans or an evening skirt.",
+"Jeans stretch de tiro alto y pierna acampanada, con triple botón y bajo rematado en flecos de mostacilla que se mueven al caminar.":"High-rise stretch flare jeans with a triple-button waist and a beaded-fringe hem that moves as you walk.",
+"T-shirt blanca con el mensaje «Cógela suave» en naranja y pantalón ancho de estampado orgánico naranja y blanco. Juntos o por separado: T-shirt $10 · Pantalón $15.":"White T-shirt with the orange slogan «Cógela suave» and wide-leg trousers in an organic orange-and-white print. Together or separately: T-shirt $10 · Trousers $15.",
+"Camisa negra oversize, pantalón ancho de estampado gráfico negro, blanco y amarillo, y collar de cadena amarillo. Juntos o por separado: Camisa $10 · Pantalón $13.50 · Collar $7.50.":"Oversized black shirt, wide-leg trousers in a black, white and yellow graphic print, and a yellow chain necklace. Together or separately: Shirt $10 · Trousers $13.50 · Necklace $7.50.",
+"Camisa de rayas blanco y negro con botones fucsia y pantalón ancho de rayas con rosas estampadas. Un clásico gráfico con un toque romántico; perfecto con un bolso fucsia.":"Black-and-white striped shirt with fuchsia buttons and wide-leg striped trousers printed with roses. A graphic classic with a romantic touch; perfect with a fuchsia bag."
 }
