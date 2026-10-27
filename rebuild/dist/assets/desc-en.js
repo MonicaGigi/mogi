@@ -1,5 +1,7 @@
 // Descripciones de las prendas en inglés (se aplican solo con EN seleccionado)
 window.mogiDescEN = {
+"Chaleco largo de corte blazer en crudo, con solapas, vivos negros, bolsillos de parche y una flor de organza negra con tallo bordado. Sofisticado sobre un vestido o con pantalón.":"Long sleeveless blazer-style vest in ecru, with lapels, black piping, patch pockets and a black organza flower with an embroidered stem. Sophisticated over a dress or with trousers.",
+"Set de blusa de manga corta y pantalón ancho en tejido stretch acanalado, con estampado de hojas blancas sobre verde bosque. Fresco, cómodo y muy favorecedor.":"Short-sleeve top and wide-leg trousers in ribbed stretch fabric, printed with white leaves on forest green. Fresh, comfortable and very flattering.",
 "Blazer cruzado de cuadros en marrón y crudo con botones de carey. Sin forro, ideal para el clima de Panamá.":"Double-breasted check blazer in brown and ecru with tortoiseshell buttons. Unlined, perfect for warm weather.",
 "Blazer cruzado sin forro y de tela muy fresca. Combina con todos los tonos tierra.":"Unlined double-breasted blazer in a light, airy fabric. Pairs with every earth tone.",
 "Blazer muy versátil: elegante con un vestido o casual con tus jeans favoritos.":"A truly versatile blazer: elegant over a dress, effortless with your favourite jeans.",
