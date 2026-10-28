@@ -1,4 +1,4 @@
-// MÖGI · The Archive — piezas que ya encontraron dueña, presentadas como en las grandes firmas.
+// MoniSale · The Archive — piezas que ya encontraron dueña, presentadas como en las grandes firmas.
 {
   const base = new URL('..', import.meta.url).href
   const L = () => { try { return localStorage.getItem('mogi-lang') || 'en' } catch { return 'en' } }
@@ -50,9 +50,9 @@
   const src = n => typeof n === 'string' ? `${base}fotos/archivo/${n}.jpg` : `${base}fotos/archivo/a${String(n).padStart(2, '0')}.jpg`
   const t = () => L() === 'es'
     ? { menu: 'El archivo', title: 'El archivo', sub: 'Piezas que ya encontraron dueña', sold: 'Agotado', size: 'Talla', more: 'Ver el archivo', close: 'Cerrar',
-        intro: 'Cada prenda de MÖGI es única. Estas ya viven una segunda historia; las nuevas llegan cada semana.' }
+        intro: 'Cada prenda de MoniSale es única. Estas ya viven una segunda historia; las nuevas llegan cada semana.' }
     : { menu: 'The Archive', title: 'The Archive', sub: 'Pieces that found their home', sold: 'Sold out', size: 'Size', more: 'View the Archive', close: 'Close',
-        intro: 'Every MÖGI piece is one of a kind. These are already living their second story; new arrivals land every week.' }
+        intro: 'Every MoniSale piece is one of a kind. These are already living their second story; new arrivals land every week.' }
 
   const css = document.createElement('style')
   css.textContent = `

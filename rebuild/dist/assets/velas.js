@@ -1,11 +1,11 @@
-// MÖGI · La Maison: velas perfumadas (colección en preparación)
+// MoniSale · La Maison: velas perfumadas (colección en preparación)
 {
   const base = new URL('..', import.meta.url).href
   const WA = '50766001620'
   const L = () => { try { return localStorage.getItem('mogi-lang') || 'en' } catch { return 'en' } }
   const es = () => L() === 'es'
   const wa = txt => `https://wa.me/${WA}?text=${encodeURIComponent(txt)}`
-  const img = n => `${base}fotos/velas/vela-${n}.jpg`
+  const img = n => `${base}fotos/velas/vela-${n}.jpg?v=2`
 
   const C = [
     { id: 'segunda-piel', es: ['Segunda Piel', 'Algodón limpio, iris y almizcle blanco', 'La calma de una camisa recién planchada. Un aroma íntimo y luminoso, como la piel después del sol.', 'Vaso de cerámica marfil'],
@@ -25,8 +25,8 @@
     wax: 'Cera vegetal de coco y colza · Mecha de algodón', reuse: 'Segunda vida: el vaso, limpio, se convierte en joyero, macetero o portabrochas.',
     ritualT: 'El ritual', ritual: [['Primer encendido', 'Deja que la cera se funda hasta los bordes, unas 3–4 horas. Así arderá siempre de forma uniforme.'], ['La mecha', 'Recórtala a 5 mm antes de cada encendido para una llama limpia y serena.'], ['Apagar', 'Usa un apagavelas o una tapa: sin humo, el aroma permanece en la estancia.']],
     secondT: 'Una segunda vida, también aquí', second: 'Cuando la vela termina, su vaso de cerámica empieza otra historia. Retira la cera con agua caliente y dale un nuevo uso en tu tocador o en tu escritorio.',
-    cta: 'Unirme a la lista de espera', ctaOne: n => `Hola, me gustaría reservar la vela «${n}» de MÖGI en cuanto esté disponible.`,
-    ctaAll: 'Hola, me gustaría unirme a la lista de espera de las velas de MÖGI La Maison.',
+    cta: 'Unirme a la lista de espera', ctaOne: n => `Hola, me gustaría reservar la vela «${n}» de MoniSale en cuanto esté disponible.`,
+    ctaAll: 'Hola, me gustaría unirme a la lista de espera de las velas de MoniSale La Maison.',
     reserve: 'Reservar', back: 'Volver a La Maison', close: 'Cerrar', disc: 'Imágenes ilustrativas de la colección en preparación.',
     teaser: 'Descubrir La Maison', teaserSub: 'Velas perfumadas · Próximamente',
   } : {
@@ -36,8 +36,8 @@
     wax: 'Coconut and rapeseed plant wax · Cotton wick', reuse: 'Second life: once clean, the vessel becomes a jewellery dish, planter or brush holder.',
     ritualT: 'The ritual', ritual: [['First burn', 'Let the wax melt all the way to the edges, about 3–4 hours. It will then always burn evenly.'], ['The wick', 'Trim it to 5 mm before each use for a clean, calm flame.'], ['Extinguish', 'Use a snuffer or a lid: no smoke, and the scent lingers in the room.']],
     secondT: 'A second life, here too', second: 'When the candle ends, its ceramic vessel begins another story. Remove the wax with hot water and give it a new purpose on your dresser or your desk.',
-    cta: 'Join the Waitlist', ctaOne: n => `Hello, I would like to reserve the MÖGI "${n}" candle as soon as it is available.`,
-    ctaAll: 'Hello, I would like to join the waitlist for MÖGI La Maison candles.',
+    cta: 'Join the Waitlist', ctaOne: n => `Hello, I would like to reserve the MoniSale "${n}" candle as soon as it is available.`,
+    ctaAll: 'Hello, I would like to join the waitlist for MoniSale La Maison candles.',
     reserve: 'Reserve', back: 'Back to La Maison', close: 'Close', disc: 'Illustrative images of the collection in preparation.',
     teaser: 'Discover La Maison', teaserSub: 'Scented candles · Coming soon',
   }
@@ -113,7 +113,7 @@
       document.body.appendChild(P); document.documentElement.style.overflow = 'hidden'
       requestAnimationFrame(() => P && P.classList.add('open')); document.addEventListener('keydown', esc)
     }
-    P.innerHTML = `<div class="in"><header><span class="brand">MÖGI · La Maison</span><button type="button" class="x">${t.close}</button></header>${inner}</div>`
+    P.innerHTML = `<div class="in"><header><span class="brand">MoniSale · La Maison</span><button type="button" class="x">${t.close}</button></header>${inner}</div>`
     P.querySelector('.x').addEventListener('click', close)
     P.scrollTop = 0
   }
@@ -131,14 +131,14 @@
     const t = T(), k = es() ? 'es' : 'en', c = C[i][k]
     shell(`<div class="pd"><div class="ph"><img src="${img(C[i].id)}" alt="${c[0]}"></div><div>
       <small>${t.soon} · N.º ${String(i + 1).padStart(2, '0')}</small><h3>${c[0]}</h3><p class="desc">${c[2]}</p>
-      <dl><div><dt>${t.notes}</dt><dd>${c[1]}</dd></div><div><dt>${t.vessel}</dt><dd>${c[3]} · ${t.size}</dd></div><div><dt>Cera / Wax</dt><dd>${t.wax}</dd></div><div><dt>MÖGI</dt><dd>${t.reuse}</dd></div></dl>
+      <dl><div><dt>${t.notes}</dt><dd>${c[1]}</dd></div><div><dt>${t.vessel}</dt><dd>${c[3]} · ${t.size}</dd></div><div><dt>Cera / Wax</dt><dd>${t.wax}</dd></div><div><dt>MoniSale</dt><dd>${t.reuse}</dd></div></dl>
       <div class="acts"><a class="cta" target="_blank" rel="noopener" href="${wa(t.ctaOne(c[0]))}">${t.cta}</a><button type="button" class="lk back">${t.back}</button></div>
       </div></div><p class="disc">${t.disc}</p>`)
     P.querySelector('.back').addEventListener('click', list)
   }
   window.mogiMaison = list
 
-  // Menú: después de "Sell With Us"
+  // Menú: después de "Private Styling"
   const btn = document.createElement('button')
   btn.type = 'button'; btn.className = 'mogi-svc-lm py-2 text-left text-[11px] tracking-[0.14em] uppercase transition text-neutral-500 hover:text-ink'
   btn.textContent = 'La Maison'
@@ -150,8 +150,8 @@
   let painted = ''
   const place = () => {
     const lang = L()
-    if (painted !== lang) { const t = T(); tz.innerHTML = `<img src="${base}fotos/velas/la-maison-teaser.jpg" alt="" loading="lazy"><div><b>La Maison</b><small>${t.teaserSub}</small><u>${t.teaser}</u></div>`; painted = lang }
-    const sv = document.querySelector('aside > .mogi-svc-v')
+    if (painted !== lang) { const t = T(); tz.innerHTML = `<img src="${base}fotos/velas/la-maison-teaser.jpg?v=2" alt="" loading="lazy"><div><b>La Maison</b><small>${t.teaserSub}</small><u>${t.teaser}</u></div>`; painted = lang }
+    const sv = document.querySelector('aside > .mogi-svc-s')
     if (sv && sv.nextElementSibling !== btn) sv.insertAdjacentElement('afterend', btn)
     const home = document.querySelector('.mogi-arch-home')
     if (home && tz.parentNode !== home) {

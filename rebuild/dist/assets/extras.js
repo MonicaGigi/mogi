@@ -1,4 +1,4 @@
-// MÖGI · Servicios de casa: Private Styling, Sell With Us, The Journal, avisos e Instagram
+// MoniSale · Servicios de casa: Private Styling, Sell With Us, The Journal, avisos e Instagram
 {
   const base = new URL('..', import.meta.url).href
   const WA = '50766001620'
@@ -10,36 +10,36 @@
   const T = () => es() ? {
     styling: 'Estilismo privado', sell: 'Confíanos tus piezas', journal: 'El diario', close: 'Cerrar',
     stylingSub: 'Un servicio a medida', stylingIntro: 'Una cita privada para descubrir lo que mejor te sienta. Diseño y estilo al servicio de tu imagen: piezas que te favorecen, combinaciones que funcionan y un armario con intención.',
-    stylingItems: [['Asesoría de imagen', 'Colores, siluetas y proporciones que realzan tu figura y tu estilo.'], ['Edición de armario', 'Ordenamos lo que ya tienes y descubrimos nuevas formas de llevarlo.'], ['Personal shopping', 'Una selección hecha para ti, pieza a pieza, dentro y fuera de MÖGI.']],
-    stylingCta: 'Reservar una cita', stylingMsg: 'Hola, me gustaría reservar una cita de estilismo privado con MÖGI.',
+    stylingItems: [['Asesoría de imagen', 'Colores, siluetas y proporciones que realzan tu figura y tu estilo.'], ['Edición de armario', 'Ordenamos lo que ya tienes y descubrimos nuevas formas de llevarlo.'], ['Personal shopping', 'Una selección hecha para ti, pieza a pieza, dentro y fuera de MoniSale.']],
+    stylingCta: 'Reservar una cita', stylingMsg: 'Hola, me gustaría reservar una cita de estilismo privado con MoniSale.',
     sellSub: 'Una segunda vida para tu armario', sellIntro: 'Las piezas extraordinarias merecen seguir contando historias. Si tienes prendas, calzado o accesorios en muy buen estado, los revisamos con mimo y les buscamos una nueva dueña.',
-    sellItems: [['01 · Escríbenos', 'Envíanos fotos de tus piezas por WhatsApp.'], ['02 · Selección', 'Valoramos cada pieza por su diseño, estado y estilo.'], ['03 · Segunda vida', 'La presentamos en MÖGI como merece y te avisamos cuando encuentre dueña.']],
-    sellCta: 'Iniciar la conversación', sellMsg: 'Hola, me gustaría confiar a MÖGI algunas de mis piezas. Te envío fotos.',
+    sellItems: [['01 · Escríbenos', 'Envíanos fotos de tus piezas por WhatsApp.'], ['02 · Selección', 'Valoramos cada pieza por su diseño, estado y estilo.'], ['03 · Segunda vida', 'La presentamos en MoniSale como merece y te avisamos cuando encuentre dueña.']],
+    sellCta: 'Iniciar la conversación', sellMsg: 'Hola, me gustaría confiar a MoniSale algunas de mis piezas. Te envío fotos.',
     journalSub: 'Notas de estilo', journalIntro: 'Ideas para llevar cada pieza más allá. Porque el estilo no está en tener más, sino en saber combinar.',
     notes: [
       ['La sastrería que se relaja', 'Un blazer de cuadros sin forro sobre un top chocolate, pantalón ancho color crema y zapatillas. La estructura del blazer y la soltura del pantalón: elegancia que se puede vivir todo el día.', 'fotos/ig/blazer-cuadros-sin-forro.jpg'],
       ['El bordado que cuenta historias', 'Azul intenso y bordado blanco de inspiración artesanal. Una flor en el pelo y unas gafas de sol bastan: cuando la pieza habla por sí sola, el resto se queda en silencio.', 'fotos/ig/vestido-azul-bordado.jpg'],
       ['Tono sobre tono', 'Vestido largo y blazer en el mismo amarillo luminoso. Vestir un solo color de pies a cabeza alarga la silueta y convierte un look sencillo en uno que se recuerda.', 'fotos/ig/vestido-amarillo.jpg'],
     ],
-    notify: 'Sé la primera en saberlo', notifySub: 'Recibe las nuevas piezas antes que nadie.', notifyCta: 'Recibir las novedades', notifyMsg: 'Hola, me gustaría recibir las novedades de MÖGI antes que nadie.',
+    notify: 'Sé la primera en saberlo', notifySub: 'Recibe las nuevas piezas antes que nadie.', notifyCta: 'Recibir las novedades', notifyMsg: 'Hola, me gustaría recibir las novedades de MoniSale antes que nadie.',
     measures: 'Solicitar medidas exactas', measuresMsg: n => `Hola, ¿me podrías enviar las medidas exactas de "${n}"?`,
     advice: 'Hablar con una estilista', adviceMsg: n => `Hola, me gustaría que me asesoraras sobre "${n}".`,
     alsoLike: 'Quizá también te enamore', follow: 'Síguenos en Instagram',
   } : {
     styling: 'Private Styling', sell: 'Sell With Us', journal: 'The Journal', close: 'Close',
     stylingSub: 'A bespoke service', stylingIntro: 'A private appointment to discover what suits you best. Design and style at the service of your image: pieces that flatter you, combinations that work and a wardrobe with intention.',
-    stylingItems: [['Image consulting', 'Colours, silhouettes and proportions that enhance your figure and your style.'], ['Wardrobe edit', 'We organise what you already own and find new ways to wear it.'], ['Personal shopping', 'A selection made for you, piece by piece, in and beyond MÖGI.']],
-    stylingCta: 'Book an Appointment', stylingMsg: 'Hello, I would like to book a private styling appointment with MÖGI.',
+    stylingItems: [['Image consulting', 'Colours, silhouettes and proportions that enhance your figure and your style.'], ['Wardrobe edit', 'We organise what you already own and find new ways to wear it.'], ['Personal shopping', 'A selection made for you, piece by piece, in and beyond MoniSale.']],
+    stylingCta: 'Book an Appointment', stylingMsg: 'Hello, I would like to book a private styling appointment with MoniSale.',
     sellSub: 'A second life for your wardrobe', sellIntro: 'Extraordinary pieces deserve to keep telling stories. If you have clothing, shoes or accessories in very good condition, we review them with care and find them a new home.',
-    sellItems: [['01 · Write to us', 'Send us photos of your pieces on WhatsApp.'], ['02 · Selection', 'We assess each piece for its design, condition and style.'], ['03 · Second life', 'We present it on MÖGI as it deserves and let you know when it finds a new owner.']],
-    sellCta: 'Start the Conversation', sellMsg: 'Hello, I would like to entrust MÖGI with some of my pieces. Sending photos.',
+    sellItems: [['01 · Write to us', 'Send us photos of your pieces on WhatsApp.'], ['02 · Selection', 'We assess each piece for its design, condition and style.'], ['03 · Second life', 'We present it on MoniSale as it deserves and let you know when it finds a new owner.']],
+    sellCta: 'Start the Conversation', sellMsg: 'Hello, I would like to entrust MoniSale with some of my pieces. Sending photos.',
     journalSub: 'Style notes', journalIntro: 'Ideas to take every piece further. Because style is not about having more, but about knowing how to combine.',
     notes: [
       ['Relaxed tailoring', 'An unlined checked blazer over a chocolate top, cream wide-leg trousers and sneakers. The structure of the blazer, the ease of the trousers: elegance you can live in all day.', 'fotos/ig/blazer-cuadros-sin-forro.jpg'],
       ['Embroidery that tells a story', 'Deep blue with white artisan-inspired embroidery. A flower in the hair and sunglasses are enough: when the piece speaks for itself, everything else stays quiet.', 'fotos/ig/vestido-azul-bordado.jpg'],
       ['Tone on tone', 'A long dress and blazer in the same luminous yellow. Wearing one colour head to toe lengthens the silhouette and turns a simple look into one that is remembered.', 'fotos/ig/vestido-amarillo.jpg'],
     ],
-    notify: 'Be the First to Know', notifySub: 'Discover new pieces before anyone else.', notifyCta: 'Get Early Access', notifyMsg: 'Hello, I would like to receive MÖGI new arrivals before anyone else.',
+    notify: 'Be the First to Know', notifySub: 'Discover new pieces before anyone else.', notifyCta: 'Get Early Access', notifyMsg: 'Hello, I would like to receive MoniSale new arrivals before anyone else.',
     measures: 'Request Exact Measurements', measuresMsg: n => `Hello, could you send me the exact measurements of "${n}"?`,
     advice: 'Speak to a Stylist', adviceMsg: n => `Hello, I would like some advice about "${n}".`,
     alsoLike: 'You May Also Like', follow: 'Follow us on Instagram',
@@ -127,7 +127,7 @@
 
   const COND = {'Muy buen estado':'Very good condition','Como nuevo':'Like new','Como nueva':'Like new','Buen estado':'Good condition','Nuevo con etiqueta':'New with tags'}
   const KIND = {'Prenda':'Second-life piece','Accesorio':'Second-life accessory','Calzado':'Second-life footwear'}
-  const PH = [['Entrega en 24–48 h en ','Delivery in 24–48 h in '],[' · gratis desde ',' · free from '],['Pieza única de segunda vida · revisada y lista para usar','One-of-a-kind second-life piece · inspected and ready to wear'],['Paga con Yappy, transferencia ACH, tarjeta o efectivo contra entrega','Pay with Yappy, ACH transfer, card or cash on delivery'],['Ciudad de Panamá','Panama City']]
+  const PH = [['Entrega en 24–48 h en ','Delivery in 24–48 h in '],[' · gratis desde ',' · free from '],['Pieza única de segunda vida · revisada y lista para usar','One-of-a-kind second-life piece · inspected and ready to wear'],['Paga con Yappy, transferencia ACH o tarjeta','Pay with Yappy, ACH transfer or card'],['Ciudad de Panamá','Panama City']]
   const trText = raw => {
     const D = window.mogiDescEN || {}
     const m = raw.match(/^(\s*)(.*?)\s*(Prenda|Accesorio|Calzado) de segunda vida · ([^.]+)\.?(\s*)$/)
@@ -174,7 +174,6 @@
     if (arch) {
       if (arch.nextElementSibling !== bJ) arch.insertAdjacentElement('afterend', bJ)
       if (bJ.nextElementSibling !== bS) bJ.insertAdjacentElement('afterend', bS)
-      if (bS.nextElementSibling !== bV) bS.insertAdjacentElement('afterend', bV)
     }
     // Aviso de novedades: discreto, en el lateral
     const main = document.querySelector('main')

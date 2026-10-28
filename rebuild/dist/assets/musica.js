@@ -1,4 +1,4 @@
-// MÖGI: música ambiente + lookbook en vídeo de Mónica.
+// MoniSale: música ambiente + lookbook en vídeo de Mónica.
 // La música suena suave y continua. Al reproducir un vídeo baja y queda sutil por debajo;
 // al terminar o cerrar, vuelve a su volumen.
 (() => {
@@ -265,7 +265,7 @@
     panel = document.createElement('div')
     panel.className = 'mogi-stories'
     panel.setAttribute('role', 'dialog')
-    panel.setAttribute('aria-label', 'Lookbook de MÖGI')
+    panel.setAttribute('aria-label', 'Lookbook de MoniSale')
     panel.innerHTML = `
       <header><h2>Lookbook</h2>
       <button type="button" class="mogi-close">Cerrar</button></header>
