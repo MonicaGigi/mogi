@@ -1,4 +1,4 @@
-// MÖGI: Calzado editorial — portada en movimiento, "Step by Step".
+// MoniSale: Calzado editorial — portada en movimiento, "Step by Step".
 (() => {
   const base = new URL('..', import.meta.url).href
   const pasos = [
