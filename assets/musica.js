@@ -3,7 +3,8 @@
 // al terminar o cerrar, vuelve a su volumen.
 (() => {
   const base = new URL('..', import.meta.url).href
-  const tracks = ['f1', 'f2', 'f3', 'f4', 'f5'].map(n => `${base}musica/${n}.mp3`)
+  // Una sola mezcla continua (las 5 canciones encadenadas con fundidos) que se repite sin cortes.
+  const tracks = [`${base}musica/mix.mp3?v=1`]
   const VOL = 0.28
   const LOW = 0.14
   const XF = 6 // segundos de fundido encadenado entre canciones
@@ -16,9 +17,11 @@
   // La música nunca se corta: cada canción se funde con la siguiente sin silencios.
   let audio = new Audio()
   audio.preload = 'none'
+  audio.loop = true
   audio.volume = 0
   let wanted = 0, xfading = false
   const watch = a => {
+    if (tracks.length === 1) return
     a.addEventListener('timeupdate', () => {
       if (a !== audio || xfading || !a.duration || a.paused) return
       if (a.duration - a.currentTime < XF) crossfade()
