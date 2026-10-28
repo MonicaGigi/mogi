@@ -3,8 +3,8 @@
 // al terminar o cerrar, vuelve a su volumen.
 (() => {
   const base = new URL('..', import.meta.url).href
-  // Una sola mezcla continua (las 5 canciones encadenadas con fundidos) que se repite sin cortes.
-  const tracks = [`${base}musica/mix.mp3?v=1`]
+  // Una sola mezcla continua (las 5 canciones igualadas de volumen y encadenadas con fundidos largos de 10 s) que se repite sin cortes.
+  const tracks = [`${base}musica/mix.mp3?v=2`]
   const VOL = 0.28
   const LOW = 0.14
   const XF = 6 // segundos de fundido encadenado entre canciones
