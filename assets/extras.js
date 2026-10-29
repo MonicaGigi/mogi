@@ -190,7 +190,7 @@
       if (row && !(row.nextElementSibling && row.nextElementSibling.classList.contains('mogi-pdp-links') && row.nextElementSibling.dataset.n === name)) {
         if (row.nextElementSibling && row.nextElementSibling.classList.contains('mogi-pdp-links')) row.nextElementSibling.remove()
         const d = document.createElement('div'); d.className = 'mogi-pdp-links'; d.dataset.n = name
-        d.innerHTML = `<a target="_blank" rel="noopener" href="${wa(t.measuresMsg(name))}">${t.measures}</a><a target="_blank" rel="noopener" href="${wa(t.adviceMsg(name))}">${t.advice}</a>`
+        d.innerHTML = `<a target="_blank" rel="noopener" href="${wa(t.adviceMsg(name))}">${t.advice}</a>`
         row.insertAdjacentElement('afterend', d)
       }
       main.querySelectorAll('section > h3').forEach(h => { if (/también te puede gustar|quizá también te enamore|you may also like/i.test(h.textContent) && h.textContent !== t.alsoLike) h.textContent = t.alsoLike })
