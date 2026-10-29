@@ -1,5 +1,7 @@
 // Descripciones de las prendas en inglés (se aplican solo con EN seleccionado)
 window.mogiDescEN = {
+"Jeans blancos de tejido stretch, tiro alto y pierna ancha, decorados con perlas a lo largo de las costuras laterales y en los bolsillos delanteros, con bajo deshilachado. Elegantes y muy favorecedores.":"White high-rise wide-leg stretch jeans, decorated with pearls along the side seams and front pockets, with a frayed hem. Elegant and very flattering.",
+"Camisa blanca de tejido traslúcido y fluido, con cuello camisero, escote en V abotonado y manga larga con puños. Ligera, fresca y fácil de combinar.":"White sheer, flowing shirt with a classic collar, buttoned V-neckline and long sleeves with cuffs. Light, fresh and easy to style.",
 "Caftán largo y fluido con escote en V y estampado cachemir en tonos rosa, azul y tierra, con mangas amplias. Fresco, cómodo y muy bohemio.":"Long, flowing kaftan with a V-neckline and a paisley print in pink, blue and earthy tones, with wide sleeves. Fresh, comfortable and very bohemian.",
 "Vestido largo de escote cuadrado y mangas cortas abullonadas, con estampado de flores en fucsia, azul y blanco. Romántico y alegre.":"Long dress with a square neckline and short puff sleeves, with a floral print in fuchsia, blue and white. Romantic and cheerful.",
 "Camisa oversized en celeste suave, con cuello clásico, bolsillo en el pecho y mangas para remangar. Ligera y fácil de combinar.":"Oversized shirt in soft sky blue, with a classic collar, chest pocket and roll-up sleeves. Light and easy to style.",
