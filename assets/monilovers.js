@@ -8,16 +8,16 @@
 
   // Destacada (la más reciente) y galería. `sim`: prendas a la venta parecidas (ids de la tienda).
   const feat = {
-    f: 'turquesa', sim: ['v7', 'q46', 'q39', 'v2', 'q36'],
-    es: ['Turquesa, luz y una sonrisa que lo dice todo', 'Líneas limpias en turquesa, cinturón de rafia y zapatillas blancas. Elegante sin esfuerzo: así se lleva una segunda vida.', 'Blusa sin mangas y pantalón de pinzas en turquesa', 'Fresco · Luminoso · Atemporal'],
-    en: ['Turquoise, light and a smile that says it all', 'Clean lines in turquoise, a raffia belt and white sneakers. Effortless elegance: this is how a second life is worn.', 'Sleeveless blouse and pleated trousers in turquoise', 'Fresh · Luminous · Timeless'],
+    f: 'turquesa', sim: ['n14', 'q31', 'v7', 'q46', 'v2'],
+    es: ['Turquesa, luz y una sonrisa que lo dice todo', 'Un mono turquesa sin mangas, de cuello mao, con bolsillos de solapa y botones de madera, marcado con un cinturón de rafia y combinado con zapatillas blancas. Elegante sin esfuerzo: así se lleva una segunda vida.', 'Mono turquesa sin mangas con cinturón de rafia', 'Fresco · Luminoso · Atemporal'],
+    en: ['Turquoise, light and a smile that says it all', 'A sleeveless turquoise jumpsuit with a mandarin collar, flap pockets and wooden buttons, cinched with a raffia belt and worn with white sneakers. Effortless elegance: this is how a second life is worn.', 'Sleeveless turquoise jumpsuit with raffia belt', 'Fresh · Luminous · Timeless'],
   }
   const looks = [
     { f: 'vestido-colores', sim: ['q47', 'q11', 'q33', 'm2'] },
     { f: 'blusa-corazones', sim: ['m7', 'q9', 'q23', 'q22'] },
-    { f: 'vestido-largo', sim: ['q38', 'm20', 'q48', 'n12'] },
+    { f: 'vestido-largo', sim: ['q47', 'n12', 'q11', 'q48'] },
     { f: 'blusa-blanca', sim: ['q30', 's5', 'q41', 's6'] },
-    { f: 'camisa-estampada', sim: ['q35', 'q12', 'q45', 'm14'] },
+    { f: 'camisa-estampada', sim: ['q35', 'q46', 'q12', 'm14'] },
   ]
 
   const T = () => es() ? {
