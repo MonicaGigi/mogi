@@ -62,12 +62,12 @@
   .mogi-ml .lk{display:inline-block;margin-top:26px;font:400 10px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;background:none;border:0;border-bottom:1px solid #111;padding:0 0 4px;color:#111;cursor:pointer}
   .mogi-ml .gt{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #e4dfd8;padding-top:24px;margin-bottom:24px}
   .mogi-ml .gt h4{font:400 clamp(24px,2.8vw,34px)/1 "Playfair Display Variable",Georgia,serif;margin:0}
-  .mogi-ml .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px 16px}
+  .mogi-ml .grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-flow:row dense;gap:22px 16px}
   .mogi-ml .c{margin:0}
   .mogi-ml .c:first-child{grid-column:span 2;grid-row:span 2;display:flex;flex-direction:column}
   .mogi-ml .ph{overflow:hidden;background:#ece8e1;aspect-ratio:2/3}
   .mogi-ml .c:first-child .ph{aspect-ratio:auto;flex:1}
-  .mogi-ml .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+  .mogi-ml .ph{cursor:pointer}.mogi-ml .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
   .mogi-ml .c:hover img{transform:scale(1.035)}
   .mogi-ml figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding-top:10px}
   .mogi-ml figcaption b{font:400 italic 15px/1.2 "Playfair Display Variable",Georgia,serif;color:#3a3734}
@@ -76,9 +76,8 @@
   .mogi-ml .quote small{display:block;margin-top:16px;font:400 10px/1 "Inter Variable",Helvetica,Arial,sans-serif;font-style:normal;letter-spacing:.24em;text-transform:uppercase;color:#8a8580}
   .mogi-ml .ctaw{text-align:center;margin-top:40px}
   .mogi-ml .cta{display:inline-block;background:#111;color:#fff !important;text-decoration:none;font:500 11px/1 "Inter Variable",Helvetica,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;padding:18px 32px}
-  .mogi-ml-sim{position:fixed;left:0;right:0;bottom:0;z-index:62;background:#fff;box-shadow:0 -10px 40px rgba(0,0,0,.12);transform:translateY(105%);transition:transform .5s cubic-bezier(.2,.7,.2,1);
-    padding:22px max(16px,env(safe-area-inset-left,0px)) calc(24px + env(safe-area-inset-bottom,0px));max-height:80vh;overflow-y:auto}
-  .mogi-ml-sim.open{transform:none}
+  .mogi-ml-sim{grid-column:1/-1;background:#fff;border:1px solid #ece8e1;padding:22px 22px 24px;margin:6px 0 26px;opacity:0;transform:translateY(-8px);transition:opacity .45s ease,transform .45s ease}
+  .mogi-ml-sim.open{opacity:1;transform:none}
   .mogi-ml-sim .in{width:min(1180px,100%);margin:0 auto}
   .mogi-ml-sim .t{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:18px}
   .mogi-ml-sim h5{font:400 clamp(20px,2.4vw,28px)/1.1 "Playfair Display Variable",Georgia,serif;margin:0}
@@ -111,33 +110,35 @@
   const photo = p => /^https?:/.test(p) ? p : `${base}fotos/${p.includes('.') ? p : p + '.jpg'}`
   const products = () => (window.mogiProducts ? window.mogiProducts() : [])
 
-  let P = null, S = null
-  const closeSim = () => { if (S) S.classList.remove('open') }
+  let P = null, S = null, Sk = null
+  const closeSim = () => { if (S) { S.remove(); S = null; Sk = null } }
   const close = () => {
     closeSim()
     if (!P) return
     const p = P; P = null; p.classList.remove('open'); document.documentElement.style.overflow = ''
     setTimeout(() => p.remove(), 500); document.removeEventListener('keydown', esc)
   }
-  const esc = e => { if (e.key === 'Escape') { if (S && S.classList.contains('open')) closeSim(); else close() } }
+  const esc = e => { if (e.key === 'Escape') { if (S) closeSim(); else close() } }
 
+  // Al pinchar una pieza: se cierra Monilovers y se abre la prenda en su sección de la tienda
   const openProduct = id => {
     close()
     setTimeout(() => { if (window.mogiGo) window.mogiGo({ name: 'product', id }) }, 80)
   }
 
-  const showSimilar = ids => {
+  // Las piezas parecidas se abren justo debajo de la clienta que se ha pinchado
+  const showSimilar = (key, ids, after) => {
+    if (Sk === key) { closeSim(); return }
+    closeSim()
     const t = T(), all = products()
     const list = ids.map(id => all.find(p => p.id === id)).filter(Boolean)
-    if (!S) {
-      S = document.createElement('div'); S.className = 'mogi-ml-sim'; S.setAttribute('role', 'dialog')
-      document.body.appendChild(S)
-    }
-    S.innerHTML = `<div class="in"><div class="t"><div><h5>${t.simT}</h5><small>${t.simS}</small></div><button type="button" class="x">${t.close}</button></div>
-      ${list.length ? `<div class="row">${list.map(p => `<button type="button" class="p" data-id="${p.id}"><div class="ph"><img src="${photo(p.photo)}" alt="${p.name}" loading="lazy"></div><b>${p.name}</b><span>${p.oldPrice ? `<em>${money(p.price)}</em><s>${money(p.oldPrice)}</s>` : p.price ? money(p.price) : ''}${p.sizes && p.sizes.length ? ' · ' + t.size + ' ' + p.sizes.join(', ') : ''}</span></button>`).join('')}</div>` : `<p class="none">${t.none}</p>`}</div>`
+    S = document.createElement('div'); S.className = 'mogi-ml-sim'; Sk = key
+    S.innerHTML = `<div class="t"><div><h5>${t.simT}</h5><small>${t.simS}</small></div><button type="button" class="x">${t.close}</button></div>
+      ${list.length ? `<div class="row">${list.map(p => `<button type="button" class="p" data-id="${p.id}"><div class="ph"><img src="${photo(p.photo)}" alt="${p.name}" loading="lazy"></div><b>${p.name}</b><span>${p.oldPrice ? `<em>${money(p.price)}</em><s>${money(p.oldPrice)}</s>` : p.price ? money(p.price) : ''}${p.sizes && p.sizes.length ? ' · ' + t.size + ' ' + p.sizes.join(', ') : ''}</span></button>`).join('')}</div>` : `<p class="none">${t.none}</p>`}`
+    after.insertAdjacentElement('afterend', S)
     S.querySelector('.x').addEventListener('click', closeSim)
     S.querySelectorAll('.p').forEach(b => b.addEventListener('click', () => openProduct(b.dataset.id)))
-    requestAnimationFrame(() => S.classList.add('open'))
+    requestAnimationFrame(() => { if (!S) return; S.classList.add('open'); S.scrollIntoView({ behavior: 'smooth', block: 'nearest' }) })
   }
 
   const open = () => {
@@ -149,18 +150,22 @@
     }
     P.innerHTML = `<div class="in"><header><span class="brand">MoniSale · Monilovers</span><button type="button" class="x">${t.close}</button></header>
       <div class="head"><div class="k">${t.kicker}</div><h2>${t.title}</h2><p class="intro">${t.intro}</p></div>
-      <section class="feat"><div class="ph"><img src="${img(feat.f)}" alt=""></div><div>
+      <section class="feat" style="margin-bottom:24px"><div class="ph"><img src="${img(feat.f)}" alt=""></div><div>
         <div class="k">${t.week}</div><h3>${f[0]}</h3><p>${f[1]}</p>
         <dl><div><dt>${t.look}</dt><dd>${f[2]}</dd></div><div><dt>${t.style}</dt><dd>${f[3]}</dd></div></dl>
         <button type="button" class="lk" data-sim="feat">${t.similar}</button></div></section>
-      <div class="gt"><h4>${t.gallery}</h4><span class="k">${t.city}</span></div>
+      <div class="gt" style="margin-top:60px"><h4>${t.gallery}</h4><span class="k">${t.city}</span></div>
       <section class="grid">${looks.map((l, i) => `<figure class="c"><div class="ph"><img src="${img(l.f)}" alt="" loading="lazy"></div><figcaption><b>${t.who}</b><button type="button" class="lk" data-sim="${i}">${t.similar}</button></figcaption></figure>`).join('')}</section>
       <p class="quote">${t.quote}<small>MoniSale</small></p>
       <div class="ctaw"><a class="cta" target="_blank" rel="noopener" href="${IG}">${t.share}</a></div></div>`
     P.querySelector('.x').addEventListener('click', close)
-    P.querySelectorAll('[data-sim]').forEach(b => b.addEventListener('click', () => {
-      const v = b.dataset.sim; showSimilar(v === 'feat' ? feat.sim : looks[+v].sim)
-    }))
+    const go = v => {
+      if (v === 'feat') showSimilar('feat', feat.sim, P.querySelector('.feat'))
+      else showSimilar(v, looks[+v].sim, P.querySelectorAll('.grid .c')[+v])
+    }
+    P.querySelectorAll('[data-sim]').forEach(b => b.addEventListener('click', () => go(b.dataset.sim)))
+    P.querySelector('.feat .ph').addEventListener('click', () => go('feat'))
+    P.querySelectorAll('.grid .c .ph').forEach((ph, i) => ph.addEventListener('click', () => go(String(i))))
     P.scrollTop = 0
   }
   window.mogiMonilovers = open
