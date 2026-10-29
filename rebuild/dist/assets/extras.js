@@ -127,7 +127,7 @@
 
   const COND = {'Muy buen estado':'Very good condition','Como nuevo':'Like new','Como nueva':'Like new','Buen estado':'Good condition','Nuevo con etiqueta':'New with tags'}
   const KIND = {'Prenda':'Second-life piece','Accesorio':'Second-life accessory','Calzado':'Second-life footwear'}
-  const PH = [['Entrega en 24–48 h en ','Delivery in 24–48 h in '],[' · gratis desde ',' · free from '],['Pieza única de segunda vida · revisada y lista para usar','One-of-a-kind second-life piece · inspected and ready to wear'],['Paga con Yappy o transferencia ACH','Pay with Yappy or ACH transfer'],['Ciudad de Panamá','Panama City']]
+  const PH = [['Entrega en 24–48 h en ','Delivery in 24–48 h in '],[' · gratis desde ',' · free from '],['Pieza única de segunda vida · revisada y lista para usar','One-of-a-kind second-life piece · inspected and ready to wear'],['Paga con Yappy, transferencia ACH o efectivo al recibir','Pay with Yappy, ACH transfer or cash on delivery'],['Ciudad de Panamá','Panama City']]
   const trText = raw => {
     const D = window.mogiDescEN || {}
     const m = raw.match(/^(\s*)(.*?)\s*(Prenda|Accesorio|Calzado) de segunda vida · ([^.]+)\.?(\s*)$/)
