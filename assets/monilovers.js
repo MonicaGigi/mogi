@@ -4,7 +4,7 @@
   const IG = 'https://www.instagram.com/monisalepty/'
   const L = () => { try { return localStorage.getItem('mogi-lang') || 'en' } catch { return 'en' } }
   const es = () => L() === 'es'
-  const img = n => `${base}fotos/monilovers/${n}.jpg?v=1`
+  const img = n => `${base}fotos/monilovers/${n}.jpg?v=2`
 
   // Destacada (la más reciente) y galería. `sim`: prendas a la venta parecidas (ids de la tienda).
   const feat = {
