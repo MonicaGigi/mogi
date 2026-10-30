@@ -4,12 +4,12 @@
   const L = () => { try { return localStorage.getItem('mogi-lang') || 'en' } catch { return 'en' } }
   // [foto, nombre, talla] — de la más reciente a la más antigua
   const piezas = [
-    ['x-n09', 'Set azul con botones de Marruecos', 'XL', 'tr', 'pill'],
-    ['x-n08', 'Set gris de top y falda de canalé', 'M', 'br', 'pill'],
-    ['x-n07', 'Set de camisa a rayas y pantalón de flores', 'L', 'tl', 'stamp'],
-    ['x-n06', 'Caftán mostaza', 'Única', 'sl', 'vertical'],
+    ['x-n09b', 'Set azul con botones de Marruecos', 'XL', 'tr', 'pill'],
+    ['x-n08b', 'Set gris de top y falda de canalé', 'M', 'br', 'pill'],
+    ['x-n07b', 'Set de camisa a rayas y pantalón de flores', 'L', 'tl', 'stamp'],
+    ['x-n06b', 'Caftán mostaza', 'Única', 'sl', 'vertical'],
     ['x-n05', 'Vestido estampado multicolor', 'L/XL', 'tr', 'stamp'],
-    ['x-n04', 'Pantalón stretch de rayas verdes', 'M', 'bl', 'pill'],
+    ['x-n04b', 'Pantalón stretch de rayas verdes', 'M', 'bl', 'pill'],
     ['x-n03', 'Blusa oversized azul con flores bordadas', 'L', 'tl', 'stamp'],
     ['x-n02', 'Pantalón harem de leopardo', 'L/XL', 'br', 'pill'],
     ['x-n01', 'Jean ancho de rayas chocolate', 'L', 'sl', 'vertical'],
