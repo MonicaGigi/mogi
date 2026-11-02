@@ -47,6 +47,9 @@
 
   // Orden: lo más reciente primero. La música de la web sigue sonando por debajo de cada vídeo.
   const historias = [
+    { v: 'jeans-lunares', name: 'Jeans stretch de lunares', talla: 'M/8', price: '$20.00' },
+    { v: 'jeans-balloon', name: 'Jeans balloon celeste', talla: 'L/X', price: '$20.00' },
+    { v: 'jeans-degrade-gris', name: 'Jeans rígidos degradé gris con strass', talla: 'L/XL', price: '$20.00' },
     { v: 'pantalon-stretch-rosa', name: 'Pantalón stretch rosa', talla: 'L/XL', price: '$25.00' },
     { v: 'blusa-rayas-turquesa', name: 'Blusa de rayas turquesa', talla: 'L', price: '$15.00' },
     { v: 'blusita-corazones-jeans', name: 'Blusita de punto con corazones y jeans wide leg', talla: 'M/L · L', price: 'Desde $15.50' },
