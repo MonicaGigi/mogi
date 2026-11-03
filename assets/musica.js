@@ -47,6 +47,7 @@
 
   // Orden: lo más reciente primero. La música de la web sigue sonando por debajo de cada vídeo.
   const historias = [
+    { v: 'jeans-tigre-corazones', name: 'Jeans stretch negros intervenidos', talla: 'L', price: '', silent: true },
     { v: 'jeans-lunares', name: 'Jeans stretch de lunares', talla: 'M/8', price: '$20.00', silent: true },
     { v: 'jeans-balloon', name: 'Jeans balloon celeste', talla: 'L/X', price: '$20.00' },
     { v: 'jeans-degrade-gris', name: 'Jeans rígidos degradé gris con strass', talla: 'L/XL', price: '$20.00' },
