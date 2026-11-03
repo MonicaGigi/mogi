@@ -1,5 +1,8 @@
 // Descripciones de las prendas en inglés (se aplican solo con EN seleccionado)
 window.mogiDescEN = {
+"Jeans stretch de pierna ancha en marrón chocolate, tiro alto. Cómodos y fáciles de combinar; hacen perfect match con el blazer marrón con broches.":"High-rise wide-leg stretch jeans in chocolate brown. Comfy and easy to style; a perfect match for the brown blazer with brooches.",
+"Jeans stretch negros de pierna ancha, intervenidos con un parche bordado de tigre y corazones en tonos pastel. Pieza única.":"Black wide-leg stretch jeans, customised with an embroidered tiger patch and pastel hearts. One of a kind.",
+"Blazer marrón sin solapa, de un botón, decorado con broches dorados y mangas para remangar. Hace perfect match con los jeans stretch marrones.":"Collarless one-button brown blazer decorated with gold brooches, with sleeves you can roll up. A perfect match for the brown stretch jeans.",
 "Jeans de pierna ancha con diseño patchwork de parches en distintos tonos de azul y gris, con bordes deshilachados. Un básico con mucha personalidad.":"Wide-leg patchwork jeans with patches in different shades of blue and grey and frayed edges. A staple with lots of personality.",
 "Jeans celeste de corte balloon, con pinzas en la cintura, pierna amplia que se estrecha al tobillo y aberturas en el bajo. Cómodos y muy actuales.":"Light blue balloon-fit jeans with waist pleats, a roomy leg that tapers at the ankle and slits at the hem. Comfortable and very on-trend.",
 "Jeans stretch azules con estampado de lunares blancos, tiro alto y pierna ancha. Divertidos y fáciles de combinar.":"Blue high-rise wide-leg stretch jeans with a white polka-dot print. Fun and easy to style.",
