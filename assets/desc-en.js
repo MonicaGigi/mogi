@@ -1,5 +1,8 @@
 // Descripciones de las prendas en inglés (se aplican solo con EN seleccionado)
 window.mogiDescEN = {
+"Vestido satinado de manga larga con estampado de serpiente en gris, negro y blanco, con falda de volantes. Corte relajado (relaxed fit).":"Long-sleeve satin dress with a grey, black and white snake print and a tiered skirt. Relaxed fit.",
+"Blusa stretch de manga corta y escote en V en marrón chocolate. Un básico cómodo que combina con todo.":"Chocolate-brown short-sleeve V-neck stretch top. A comfy basic that goes with everything.",
+"Blusa de manga corta en verde lima con textura plisada y brillos. Alegre y luminosa.":"Lime-green short-sleeve blouse with a crinkled texture and sparkle. Bright and cheerful.",
 "Vestido camisero corto con mangas abullonadas y estampado abstracto en burdeos, azul y crudo. Talla M (no llega a L).":"Short shirt dress with puff sleeves and an abstract print in burgundy, blue and ecru. Size M (does not fit an L).",
 "Camisa negra satinada de manga corta con estampado de girasoles delante y detrás. Fresca y con mucho estilo.":"Black satin short-sleeve shirt with a sunflower print on the front and back. Fresh and full of style.",
 "Camiseta roja de manga corta con la palabra «ciao» en blanco. Un básico alegre para el día a día.":"Red short-sleeve tee with the word “ciao” in white. A cheerful everyday basic.",
