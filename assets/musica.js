@@ -47,6 +47,7 @@
 
   // Orden: lo más reciente primero. La música de la web sigue sonando por debajo de cada vídeo.
   const historias = [
+    { v: 'looks-invierno', name: 'Looks de invierno', talla: '', price: '', silent: true },
     { v: 'blusa-rayas-multicolor', name: 'Blusa de rayas multicolor', talla: 'XL', price: '$5.50', silent: true },
     { v: 'blusa-satinada-azul', name: 'Blusa satinada azul de flores', talla: 'XL', price: '$5.50', silent: true },
     { v: 'jeans-tigre-corazones', name: 'Jeans stretch negros intervenidos', talla: 'L', price: '', silent: true },
@@ -69,8 +70,7 @@
     { v: 'blusa-satinada-roja', name: 'Blusa satinada y short de flecos', talla: 'L/XL', price: 'Desde $12.00' },
     { v: 'camisa-blanca', name: 'Camisa blanca', talla: 'XL', price: '$10.50', old: '$15.00' },
     { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50', silent: true },
-    { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50', silent: true },
-    { v: 'looks-invierno', name: 'Looks de invierno', talla: '', price: '', silent: true }
+    { v: 'camisero-verde', name: 'Camisero largo con cinturón', talla: 'L', price: '$13.50', silent: true }
   ]
 
   // Looks de Mónica (Facebook)
