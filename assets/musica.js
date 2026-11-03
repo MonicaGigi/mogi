@@ -1,6 +1,6 @@
 // MoniSale: música ambiente + lookbook en vídeo de Mónica.
-// La música suena suave y continua. Al reproducir un vídeo baja y queda sutil por debajo;
-// al terminar o cerrar, vuelve a su volumen.
+// La música suena suave y continua. En cada vídeo entra con sutileza, baja y queda de fondo
+// bajo la voz, y al final vuelve a entrar suave. Los vídeos siempre llevan música de fondo.
 (() => {
   const base = new URL('..', import.meta.url).href
   // Una sola mezcla continua (las 5 canciones igualadas de volumen y encadenadas con fundidos largos de 10 s) que se repite sin cortes.
@@ -227,7 +227,7 @@
     if (!ducked) return
     ducked = false
     const wasLifted = lifted; lifted = false
-    if (off) { if (wasLifted) fadeTo(0, () => { audio.pause(); paint() }, 2500); return }
+    if (off) { if (wasLifted) fadeTo(0, () => { audio.pause(); paint() }, 4000); return }
     if (audio.paused) play(); else fadeTo(VOL)
   }
 
@@ -243,22 +243,36 @@
     }
     v._fr = requestAnimationFrame(step)
   }
+  // Música en los vídeos del lookbook: siempre suena. Entra con sutileza, baja y se queda
+  // de fondo bajo la voz del vídeo, y al final vuelve a entrar suave.
+  const BED = 0.09
+  let curV = null
+  const release = v => setTimeout(() => { if (curV === v) { curV = null; unduck() } }, 3600)
   const startVid = (v, onEnd) => {
-    if (!audio.paused) { lifted = false; ducked = true; fadeTo(0, () => audio.pause(), 2600) } else lifted = false
+    const silent = v.dataset.silent === '1'
+    curV = v; lifted = off; ducked = true
+    if (!audio.src) audio.src = tracks[order[i]]
+    const intro = audio.paused || audio.volume < LOW
+    if (audio.paused) { audio.volume = 0; audio.play().then(paint).catch(() => {}) }
+    if (silent) fadeTo(VOL, null, 3500)
+    else if (intro) fadeTo(VOL * 0.9, () => fadeTo(BED, null, 2600), 2800)
+    else fadeTo(BED, null, 2600)
     try { v.volume = 0 } catch {}
     v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {})
-    vfade(v, VV, 1600)
+    clearTimeout(v._in)
+    v._in = setTimeout(() => vfade(v, VV, 2200), intro && !silent ? 1600 : 400)
     let back = false
     v.ontimeupdate = () => {
-      if (!back && v.duration && v.duration - v.currentTime < 3.0) { back = true; vfade(v, 0, 2800); setTimeout(unduck, 900) }
+      if (!back && v.duration && v.duration - v.currentTime < 3.5) { back = true; vfade(v, 0, 3000); fadeTo(VOL, null, 3500) }
     }
-    v.onended = () => { v.ontimeupdate = null; v.muted = true; v.loop = true; v.play().catch(() => {}); if (!back) unduck(); onEnd && onEnd() }
+    v.onended = () => { v.ontimeupdate = null; v.muted = true; v.loop = true; v.play().catch(() => {}); if (!back) fadeTo(VOL, null, 3500); release(v); onEnd && onEnd() }
   }
   const stopVid = (v, quiet) => {
+    clearTimeout(v._in)
     v.ontimeupdate = null; v.onended = null
     if (v.muted) return
     vfade(v, 0, 900, () => { v.muted = true })
-    if (!quiet) unduck()
+    if (!quiet) { fadeTo(VOL, null, 3000); release(v) }
   }
   window.mogiMusic = { duck: () => hush(), unduck: () => unduck(), start: startVid, stop: stopVid }
   // Lookbook
@@ -273,7 +287,7 @@
       <button type="button" class="mogi-close">Cerrar</button></header>
       <div class="mogi-rail">${historias.map(h => `
         <figure class="mogi-card" style="margin:0">
-          <div class="mogi-frame"><video src="${base}videos/${h.v}.mp4" poster="${base}videos/${h.v}.jpg" playsinline muted loop preload="none"></video>
+          <div class="mogi-frame"><video src="${base}videos/${h.v}.mp4" poster="${base}videos/${h.v}.jpg"${h.silent ? ' data-silent="1"' : ''} playsinline muted loop preload="none"></video>
             <span class="hint"><i></i>Reproducir</span></div>
           <figcaption class="mogi-cap"><div>${h.name}${h.talla ? `<small>Talla ${h.talla}</small>` : ''}</div>
             <div class="p">${h.old ? `<s>${h.old}</s><span class="sale">${h.price}</span>` : h.price}</div></figcaption>
@@ -297,7 +311,7 @@
       if (wasActive) { stopVid(v); f.classList.remove('playing'); return }
       startVid(v, () => f.classList.remove('playing')); f.classList.add('playing')
     }))
-    const close = () => { vids.forEach(v => { v.ontimeupdate = null; vfade(v, 0, 400, () => v.pause()) }); panel.classList.remove('open'); setTimeout(() => panel.remove(), 450); unduck(); document.removeEventListener('keydown', esc) }
+    const close = () => { curV = null; vids.forEach(v => { clearTimeout(v._in); v.ontimeupdate = null; v.onended = null; vfade(v, 0, 400, () => v.pause()) }); panel.classList.remove('open'); setTimeout(() => panel.remove(), 450); unduck(); document.removeEventListener('keydown', esc) }
     const esc = e => { if (e.key === 'Escape') close() }
     panel.querySelector('.mogi-close').addEventListener('click', close)
     document.addEventListener('keydown', esc)
