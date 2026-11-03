@@ -47,7 +47,7 @@
 
   // Orden: lo más reciente primero. La música de la web sigue sonando por debajo de cada vídeo.
   const historias = [
-    { v: 'jeans-lunares', name: 'Jeans stretch de lunares', talla: 'M/8', price: '$20.00' },
+    { v: 'jeans-lunares', name: 'Jeans stretch de lunares', talla: 'M/8', price: '$20.00', silent: true },
     { v: 'jeans-balloon', name: 'Jeans balloon celeste', talla: 'L/X', price: '$20.00' },
     { v: 'jeans-degrade-gris', name: 'Jeans rígidos degradé gris con strass', talla: 'L/XL', price: '$20.00' },
     { v: 'pantalon-stretch-rosa', name: 'Pantalón stretch rosa', talla: 'L/XL', price: '$25.00' },
@@ -258,19 +258,20 @@
     else if (intro) fadeTo(VOL * 0.9, () => fadeTo(BED, null, 2600), 2800)
     else fadeTo(BED, null, 2600)
     try { v.volume = 0 } catch {}
-    v.muted = false; v.loop = false; v.currentTime = 0; v.play().catch(() => {})
+    // Vídeos marcados como silent: sin la voz del vídeo, solo la música de fondo.
+    v.muted = silent; v.loop = false; v.currentTime = 0; v.play().catch(() => {})
     clearTimeout(v._in)
-    v._in = setTimeout(() => vfade(v, VV, 2200), intro && !silent ? 1600 : 400)
+    if (!silent) v._in = setTimeout(() => vfade(v, VV, 2200), intro ? 1600 : 400)
     let back = false
     v.ontimeupdate = () => {
-      if (!back && v.duration && v.duration - v.currentTime < 3.5) { back = true; vfade(v, 0, 3000); fadeTo(VOL, null, 3500) }
+      if (!back && v.duration && v.duration - v.currentTime < 3.5) { back = true; if (!silent) vfade(v, 0, 3000); fadeTo(VOL, null, 3500) }
     }
     v.onended = () => { v.ontimeupdate = null; v.muted = true; v.loop = true; v.play().catch(() => {}); if (!back) fadeTo(VOL, null, 3500); release(v); onEnd && onEnd() }
   }
   const stopVid = (v, quiet) => {
     clearTimeout(v._in)
     v.ontimeupdate = null; v.onended = null
-    if (v.muted) return
+    if (v.muted) { if (!quiet) release(v); return }
     vfade(v, 0, 900, () => { v.muted = true })
     if (!quiet) { fadeTo(VOL, null, 3000); release(v) }
   }
