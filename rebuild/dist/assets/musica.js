@@ -260,10 +260,26 @@
     if (audio.paused) { audio.volume = 0; audio.play().then(paint).catch(() => {}) }
     fadeTo(VOL, null, ms || 3500)
   }
-  let curV = null
-  const release = v => setTimeout(() => { if (curV === v) { curV = null; unduck() } }, 3600)
+  let curV = null, inLook = false
+  const release = v => setTimeout(() => { if (curV === v) { curV = null; if (!inLook) unduck() } }, 3600)
   const startVid = (v, onEnd) => {
     const silent = v.dataset.silent === '1'
+    if (inLook) {
+      // Dentro del Lookbook la canción suena siempre; baja bajo la voz y vuelve al terminar.
+      curV = v
+      if (song.paused) songIn()
+      vfade(song, silent ? VOL : BED * 1.6, 2200)
+      try { v.volume = 0 } catch {}
+      v.muted = silent; v.loop = false; v.currentTime = 0; v.play().catch(() => {})
+      clearTimeout(v._in)
+      if (!silent) v._in = setTimeout(() => vfade(v, VV, 2000), 500)
+      let back = false
+      v.ontimeupdate = () => {
+        if (!back && v.duration && v.duration - v.currentTime < 3) { back = true; if (!silent) vfade(v, 0, 2800); vfade(song, VOL, 3000) }
+      }
+      v.onended = () => { v.ontimeupdate = null; v.muted = true; v.loop = true; v.play().catch(() => {}); if (!back) vfade(song, VOL, 3000); curV = null; onEnd && onEnd() }
+      return
+    }
     curV = v; lifted = off; ducked = true
     if (!audio.src) audio.src = tracks[order[i]]
     if (silent) {
@@ -291,6 +307,11 @@
   const stopVid = (v, quiet) => {
     clearTimeout(v._in)
     v.ontimeupdate = null; v.onended = null
+    if (inLook) {
+      if (!v.muted) vfade(v, 0, 900, () => { v.muted = true })
+      if (!quiet) { curV = null; vfade(song, VOL, 2500) }
+      return
+    }
     const wasSilent = v.dataset.silent === '1'
     if (wasSilent && !song.paused) { songOut(1200); if (!quiet) mixBack(3000) }
     if (v.muted) { if (!quiet) release(v); return }
@@ -320,6 +341,10 @@
           <figcaption><small>${l.m}</small>${l.t}</figcaption></figure>`).join('')}</div></section>`
     document.body.appendChild(panel)
     requestAnimationFrame(() => panel.classList.add('open'))
+    // Al entrar en el Lookbook suena su canción mientras se pasan los vídeos.
+    inLook = true; curV = null
+    if (!audio.paused) fadeTo(0, () => { if (inLook) audio.pause() }, 1600)
+    songIn()
     const vids = [...panel.querySelectorAll('video')]
     // Vista previa silenciosa
     const io = new IntersectionObserver(es => es.forEach(e => {
@@ -334,7 +359,7 @@
       if (wasActive) { stopVid(v); f.classList.remove('playing'); return }
       startVid(v, () => f.classList.remove('playing')); f.classList.add('playing')
     }))
-    const close = () => { curV = null; if (!song.paused) songOut(600); vids.forEach(v => { clearTimeout(v._in); v.ontimeupdate = null; v.onended = null; vfade(v, 0, 400, () => v.pause()) }); panel.classList.remove('open'); setTimeout(() => panel.remove(), 450); unduck(); document.removeEventListener('keydown', esc) }
+    const close = () => { curV = null; inLook = false; songOut(1500); vids.forEach(v => { clearTimeout(v._in); v.ontimeupdate = null; v.onended = null; vfade(v, 0, 400, () => v.pause()) }); panel.classList.remove('open'); setTimeout(() => panel.remove(), 450); ducked = false; mixBack(3000); document.removeEventListener('keydown', esc) }
     const esc = e => { if (e.key === 'Escape') close() }
     panel.querySelector('.mogi-close').addEventListener('click', close)
     document.addEventListener('keydown', esc)
@@ -352,6 +377,7 @@
   window.addEventListener('keydown', first, true)
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) { if (!audio.paused) audio.pause(); if (!song.paused) song.pause() }
+    else if (inLook) song.play().catch(() => {})
     else if (!off && !ducked && audio.src && btn.classList.contains('on')) audio.play().catch(() => {})
   })
   paint()
