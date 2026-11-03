@@ -1,5 +1,9 @@
 // Descripciones de las prendas en inglés (se aplican solo con EN seleccionado)
 window.mogiDescEN = {
+"Vestido camisero corto con mangas abullonadas y estampado abstracto en burdeos, azul y crudo. Talla M (no llega a L).":"Short shirt dress with puff sleeves and an abstract print in burgundy, blue and ecru. Size M (does not fit an L).",
+"Camisa negra satinada de manga corta con estampado de girasoles delante y detrás. Fresca y con mucho estilo.":"Black satin short-sleeve shirt with a sunflower print on the front and back. Fresh and full of style.",
+"Camiseta roja de manga corta con la palabra «ciao» en blanco. Un básico alegre para el día a día.":"Red short-sleeve tee with the word “ciao” in white. A cheerful everyday basic.",
+"Blusa de manga corta con estampado de escamas en tonos perla y tornasolados. Original y muy fácil de combinar.":"Short-sleeve blouse with a scale print in pearly, iridescent tones. Unique and easy to style.",
 "Jeans stretch de pierna ancha en marrón chocolate, tiro alto. Cómodos y fáciles de combinar; hacen perfect match con el blazer marrón con broches.":"High-rise wide-leg stretch jeans in chocolate brown. Comfy and easy to style; a perfect match for the brown blazer with brooches.",
 "Jeans stretch negros de pierna ancha, intervenidos con un parche bordado de tigre y corazones en tonos pastel. Pieza única.":"Black wide-leg stretch jeans, customised with an embroidered tiger patch and pastel hearts. One of a kind.",
 "Blazer marrón sin solapa, de un botón, decorado con broches dorados y mangas para remangar. Hace perfect match con los jeans stretch marrones.":"Collarless one-button brown blazer decorated with gold brooches, with sleeves you can roll up. A perfect match for the brown stretch jeans.",
