@@ -249,31 +249,50 @@
   // Música en los vídeos del lookbook: siempre suena. Entra con sutileza, baja y se queda
   // de fondo bajo la voz del vídeo, y al final vuelve a entrar suave.
   const BED = 0.09
+  // Canción propia de los vídeos sin sonido (la misma del vídeo «Looks de invierno»).
+  const song = new Audio(`${base}musica/c2.mp3`)
+  song.loop = true; song.preload = 'none'; song.volume = 0
+  const songIn = () => { song.play().catch(() => {}); vfade(song, VOL, 2500) }
+  const songOut = ms => vfade(song, 0, ms || 3000, () => song.pause())
+  const mixBack = ms => {
+    if (off) return
+    if (!audio.src) audio.src = tracks[order[i]]
+    if (audio.paused) { audio.volume = 0; audio.play().then(paint).catch(() => {}) }
+    fadeTo(VOL, null, ms || 3500)
+  }
   let curV = null
   const release = v => setTimeout(() => { if (curV === v) { curV = null; unduck() } }, 3600)
   const startVid = (v, onEnd) => {
     const silent = v.dataset.silent === '1'
     curV = v; lifted = off; ducked = true
     if (!audio.src) audio.src = tracks[order[i]]
-    const intro = audio.paused || audio.volume < LOW
-    if (audio.paused) { audio.volume = 0; audio.play().then(paint).catch(() => {}) }
-    if (silent) fadeTo(VOL, null, 3500)
-    else if (intro) fadeTo(VOL * 0.9, () => fadeTo(BED, null, 2600), 2800)
-    else fadeTo(BED, null, 2600)
+    if (silent) {
+      // Sin voz: la música de la web se funde y entra la canción de los vídeos.
+      if (!audio.paused) fadeTo(0, () => { if (curV === v) audio.pause() }, 1800)
+      songIn()
+    } else {
+      if (!song.paused) songOut(1500)
+      const intro = audio.paused || audio.volume < LOW
+      if (audio.paused) { audio.volume = 0; audio.play().then(paint).catch(() => {}) }
+      if (intro) fadeTo(VOL * 0.9, () => fadeTo(BED, null, 2600), 2800)
+      else fadeTo(BED, null, 2600)
+    }
     try { v.volume = 0 } catch {}
-    // Vídeos marcados como silent: sin la voz del vídeo, solo la música de fondo.
     v.muted = silent; v.loop = false; v.currentTime = 0; v.play().catch(() => {})
     clearTimeout(v._in)
-    if (!silent) v._in = setTimeout(() => vfade(v, VV, 2200), intro ? 1600 : 400)
+    if (!silent) v._in = setTimeout(() => vfade(v, VV, 2200), 400)
     let back = false
+    const finish = () => { if (silent) { songOut(3500); mixBack(3500) } else fadeTo(VOL, null, 3500) }
     v.ontimeupdate = () => {
-      if (!back && v.duration && v.duration - v.currentTime < 3.5) { back = true; if (!silent) vfade(v, 0, 3000); fadeTo(VOL, null, 3500) }
+      if (!back && v.duration && v.duration - v.currentTime < 3.5) { back = true; if (!silent) vfade(v, 0, 3000); finish() }
     }
-    v.onended = () => { v.ontimeupdate = null; v.muted = true; v.loop = true; v.play().catch(() => {}); if (!back) fadeTo(VOL, null, 3500); release(v); onEnd && onEnd() }
+    v.onended = () => { v.ontimeupdate = null; v.muted = true; v.loop = true; v.play().catch(() => {}); if (!back) finish(); release(v); onEnd && onEnd() }
   }
   const stopVid = (v, quiet) => {
     clearTimeout(v._in)
     v.ontimeupdate = null; v.onended = null
+    const wasSilent = v.dataset.silent === '1'
+    if (wasSilent && !song.paused) { songOut(1200); if (!quiet) mixBack(3000) }
     if (v.muted) { if (!quiet) release(v); return }
     vfade(v, 0, 900, () => { v.muted = true })
     if (!quiet) { fadeTo(VOL, null, 3000); release(v) }
@@ -292,7 +311,7 @@
       <div class="mogi-rail">${historias.map(h => `
         <figure class="mogi-card" style="margin:0">
           <div class="mogi-frame"><video src="${base}videos/${h.v}.mp4" poster="${base}videos/${h.v}.jpg"${h.silent ? ' data-silent="1"' : ''} playsinline muted loop preload="none"></video>
-            <span class="hint"><i></i>Reproducir</span></div>
+            ${h.silent ? '' : '<span class="hint"><i></i>Reproducir</span>'}</div>
           <figcaption class="mogi-cap"><div>${h.name}${h.talla ? `<small>Talla ${h.talla}</small>` : ''}</div>
             <div class="p">${h.old ? `<s>${h.old}</s><span class="sale">${h.price}</span>` : h.price}</div></figcaption>
         </figure>`).join('')}</div>
@@ -315,7 +334,7 @@
       if (wasActive) { stopVid(v); f.classList.remove('playing'); return }
       startVid(v, () => f.classList.remove('playing')); f.classList.add('playing')
     }))
-    const close = () => { curV = null; vids.forEach(v => { clearTimeout(v._in); v.ontimeupdate = null; v.onended = null; vfade(v, 0, 400, () => v.pause()) }); panel.classList.remove('open'); setTimeout(() => panel.remove(), 450); unduck(); document.removeEventListener('keydown', esc) }
+    const close = () => { curV = null; if (!song.paused) songOut(600); vids.forEach(v => { clearTimeout(v._in); v.ontimeupdate = null; v.onended = null; vfade(v, 0, 400, () => v.pause()) }); panel.classList.remove('open'); setTimeout(() => panel.remove(), 450); unduck(); document.removeEventListener('keydown', esc) }
     const esc = e => { if (e.key === 'Escape') close() }
     panel.querySelector('.mogi-close').addEventListener('click', close)
     document.addEventListener('keydown', esc)
@@ -332,7 +351,7 @@
   window.addEventListener('pointerdown', first, true)
   window.addEventListener('keydown', first, true)
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) { if (!audio.paused) audio.pause() }
+    if (document.hidden) { if (!audio.paused) audio.pause(); if (!song.paused) song.pause() }
     else if (!off && !ducked && audio.src && btn.classList.contains('on')) audio.play().catch(() => {})
   })
   paint()
