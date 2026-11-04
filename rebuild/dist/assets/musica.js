@@ -63,7 +63,6 @@
     { v: 'jacket-militar', name: 'Jacket militar', talla: 'M/L', price: '$25.00' },
     { v: 'falda-tul', name: 'Falda doble de tul', talla: 'L', price: '$15.00' },
     { v: 'sobretodo-stretch', name: 'Sobretodo stretch', talla: 'L', price: '$15.00' },
-    { v: 'bolso-de-mano', name: 'Bolso de mano', talla: '', price: '$15.00' },
     { v: 'set-tres-piezas', name: 'Set de 3 piezas: chaleco, blazer y pantalón', talla: 'L', price: '$50.00' },
     { v: 'blusa-pantalon-coral', name: 'Blusa estampada y pantalón pierna ancha', talla: 'L · M/L', price: 'Desde $12.00', silent: true },
     { v: 'set-floral-v2', name: 'Set de blusa y short floral', talla: 'M/L', price: '$22.00', silent: true },
