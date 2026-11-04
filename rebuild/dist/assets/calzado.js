@@ -63,6 +63,7 @@
     'Blazers': ['Sharp Tailoring', 'Cuadros, rayas y príncipe de Gales: la prenda que pone estructura a cualquier look.'],
     'Aretes': ['Frame the Face', 'Flores de rafia, oro martillado y cristal: el brillo que enmarca la mirada.'],
     'Collares y sets': ['The Final Flourish', 'Piezas artesanales que hablan por sí solas: el broche final de cada look.'],
+    'Bolsos': ['Carry It Light', 'Pequeños, ligeros y con un toque de brillo: el detalle que completa el look.'],
     'Botas': ['Statement Boots', 'Ante, color y tacón ancho: carácter de la cabeza a los pies.'],
     'Tacones': ['High Notes', 'Salones de punta en fucsia y azul hielo: elegancia que se oye al caminar.'],
     'Planos': ['City Walk', 'Comodidad con estilo para recorrer la ciudad.'],
@@ -72,7 +73,7 @@
   const nombres = {
     'Novedades': 'New In', 'Colección': 'The Collection', 'Calzado': 'Shoes', 'Accesorios': 'Accessories', 'Special Prices': 'The Private Edit',
     'Vestidos': 'Dresses', 'Blusas': 'Blouses', 'Top-bodies': 'Tops & Bodies', 'Camisetas': 'T-Shirts', 'Pantalones': 'Trousers', 'Shorts': 'Shorts',
-    'Faldas': 'Skirts', 'Conjuntos': 'Sets', 'Blazers': 'Blazers', 'Aretes': 'Earrings', 'Collares y sets': 'Necklaces & Sets',
+    'Faldas': 'Skirts', 'Conjuntos': 'Sets', 'Blazers': 'Blazers', 'Aretes': 'Earrings', 'Collares y sets': 'Necklaces & Sets', 'Bolsos': 'Bags',
     'Botas': 'Boots', 'Tacones': 'Heels', 'Planos': 'Flats', 'Zapatillas': 'Sneakers',
     'Ver novedades': 'Discover New In', 'Ver todo el calzado': 'Shop All Shoes', 'Ver toda la colección': 'Shop the Collection', 'Ver todos los accesorios': 'Shop Accessories',
   }
@@ -84,7 +85,7 @@
     'Novedades': 'Recién llegado', 'Colección': 'El armario', 'Accesorios': 'El toque final', 'Special Prices': 'Selección privada',
     'Vestidos': 'Siluetas que fluyen', 'Blusas': 'Seda y color', 'Top-bodies': 'Los esenciales', 'Camisetas': 'Días ligeros', 'Pantalones': 'Amplios y audaces',
     'Shorts': 'Modo verano', 'Faldas': 'En movimiento', 'Conjuntos': 'Parejas perfectas', 'Blazers': 'Sastrería con carácter', 'Aretes': 'Enmarcar la mirada',
-    'Collares y sets': 'El broche final', 'Botas': 'Botas con carácter', 'Tacones': 'Notas altas', 'Planos': 'Paseo por la ciudad', 'Zapatillas': 'Días libres',
+    'Collares y sets': 'El broche final', 'Bolsos': 'Ligero y con brillo', 'Botas': 'Botas con carácter', 'Tacones': 'Notas altas', 'Planos': 'Paseo por la ciudad', 'Zapatillas': 'Días libres',
   }
   const esNombre = { 'Special Prices': 'Precios especiales' }
   const rename = () => {
