@@ -1,5 +1,6 @@
 // Descripciones de las prendas en inglés (se aplican solo con EN seleccionado)
 window.mogiDescEN = {
+"Bolso de mano pequeño en piel sintética color camel, con solapa y asa de cadena gruesa en tono marfil jaspeado. Elegante y fácil de combinar.":"Small camel faux-leather handbag with a flap and a chunky marbled ivory chain handle. Elegant and easy to style.",
 "Blusa fluida de manga corta en verde agua, con escote en V con detalle de lazada y mangas con alforzas. Delicada y fácil de llevar.":"Flowy short-sleeve mint-green blouse with a V-neck with a knot detail and pintucked sleeves. Delicate and easy to wear.",
 "Chaqueta ligera abierta en turquesa, de manga larga y delanteros en cascada. Pone color a cualquier look básico.":"Lightweight open turquoise jacket with long sleeves and waterfall front panels. Adds colour to any basic look.",
 "Bolsito bandolera traslúcido con efecto tornasolado, solapa negra con dos hebillas y correa negra regulable. Divertido y ligero.":"Small translucent iridescent crossbody bag with a black two-buckle flap and an adjustable black strap. Fun and lightweight.",
@@ -7,7 +8,6 @@ window.mogiDescEN = {
 "Camiseta básica de manga corta en color mostaza. Suave, cómoda y fácil de combinar.":"Basic short-sleeve tee in mustard. Soft, comfy and easy to style.",
 "Vestido satinado de manga larga con estampado de serpiente en gris, negro y blanco, con falda de volantes. Corte relajado (relaxed fit).":"Long-sleeve satin dress with a grey, black and white snake print and a tiered skirt. Relaxed fit.",
 "Blusa stretch de manga corta y escote en V en marrón chocolate. Un básico cómodo que combina con todo.":"Chocolate-brown short-sleeve V-neck stretch top. A comfy basic that goes with everything.",
-"Blusa de manga corta en verde lima con textura plisada y brillos. Alegre y luminosa.":"Lime-green short-sleeve blouse with a crinkled texture and sparkle. Bright and cheerful.",
 "Vestido camisero corto con mangas abullonadas y estampado abstracto en burdeos, azul y crudo. Talla M (no llega a L).":"Short shirt dress with puff sleeves and an abstract print in burgundy, blue and ecru. Size M (does not fit an L).",
 "Camisa negra satinada de manga corta con estampado de girasoles delante y detrás. Fresca y con mucho estilo.":"Black satin short-sleeve shirt with a sunflower print on the front and back. Fresh and full of style.",
 "Camiseta roja de manga corta con la palabra «ciao» en blanco. Un básico alegre para el día a día.":"Red short-sleeve tee with the word “ciao” in white. A cheerful everyday basic.",
