@@ -3,8 +3,8 @@
 // bajo la voz, y al final vuelve a entrar suave. Los vídeos siempre llevan música de fondo.
 (() => {
   const base = new URL('..', import.meta.url).href
-  // Una sola canción en toda la web (la primera que se escuchaba al entrar), en bucle sin cortes.
-  const tracks = [`${base}musica/una.mp3?v=1`]
+  // Una sola mezcla continua (las 5 canciones igualadas de volumen y encadenadas con fundidos largos de 10 s) que se repite sin cortes.
+  const tracks = [`${base}musica/mix.mp3?v=2`]
   const VOL = 0.28
   const LOW = 0.14
   const XF = 6 // segundos de fundido encadenado entre canciones
@@ -247,10 +247,10 @@
   // Música en los vídeos del lookbook: siempre suena. Entra con sutileza, baja y se queda
   // de fondo bajo la voz del vídeo, y al final vuelve a entrar suave.
   const BED = 0.09
-  // En el Lookbook suena la MISMA canción de la web, y sigue desde donde iba.
-  const song = new Audio(tracks[0])
+  // Canción propia de los vídeos sin sonido (la misma del vídeo «Looks de invierno»).
+  const song = new Audio(`${base}musica/c2.mp3`)
   song.loop = true; song.preload = 'none'; song.volume = 0
-  const songIn = () => { if (song.paused) { try { if (audio.src && audio.currentTime) song.currentTime = audio.currentTime } catch {} } song.play().catch(() => {}); vfade(song, VOL, 2500) }
+  const songIn = () => { song.play().catch(() => {}); vfade(song, VOL, 2500) }
   const songOut = ms => vfade(song, 0, ms || 3000, () => song.pause())
   // Canción propia del Lookbook: la del primer vídeo («Looks de invierno»). Suena en toda la galería;
   // el resto de la web sigue con su música de siempre.
@@ -263,7 +263,7 @@
   const mixBack = ms => {
     if (off) return
     if (!audio.src) audio.src = tracks[order[i]]
-    if (audio.paused) { try { if (song.currentTime) audio.currentTime = song.currentTime } catch {} audio.volume = 0; audio.play().then(paint).catch(() => {}) }
+    if (audio.paused) { audio.volume = 0; audio.play().then(paint).catch(() => {}) }
     fadeTo(VOL, null, ms || 3500)
   }
   let curV = null, inLook = false

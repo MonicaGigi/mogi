@@ -1,5 +1,6 @@
 // Descripciones de las prendas en inglés (se aplican solo con EN seleccionado)
 window.mogiDescEN = {
+"Collar de bolitas en degradé de tamaño con aretes a juego. Disponible en fucsia, rojo, azul, verde, verde neón y rosa claro.":"Graduated bead necklace with matching earrings. Available in fuchsia, red, blue, green, neon green and light pink.",
 "Top sin mangas de espalda nadadora con estampado de grandes flores en rosa, lila y blanco. Fresco, ligero y muy femenino.":"Sleeveless racerback top with a large floral print in pink, lilac and white. Fresh, light and very feminine.",
 "Bolso de mano pequeño en piel sintética color camel, con solapa y asa de cadena gruesa en tono marfil jaspeado. Elegante y fácil de combinar.":"Small camel faux-leather handbag with a flap and a chunky marbled ivory chain handle. Elegant and easy to style.",
 "Blusa fluida de manga corta en verde agua, con escote en V con detalle de lazada y mangas con alforzas. Delicada y fácil de llevar.":"Flowy short-sleeve mint-green blouse with a V-neck with a knot detail and pintucked sleeves. Delicate and easy to wear.",
