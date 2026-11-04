@@ -4,7 +4,13 @@
 (() => {
   const base = new URL('..', import.meta.url).href
   // Una sola mezcla continua (las 5 canciones igualadas de volumen y encadenadas con fundidos largos de 10 s) que se repite sin cortes.
-  const tracks = [`${base}musica/mix.mp3?v=2`]
+  // Cada visita empieza en una canción distinta de la mezcla (nunca siempre la misma), con entrada suave.
+  const STARTS = [113.5, 217, 351, 485, 0]
+  let last = -1
+  try { last = +(localStorage.getItem('mogi-musica-ini') ?? -1) } catch {}
+  let ini = Math.floor(Math.random() * 4); if (ini === last) ini = (ini + 1 + Math.floor(Math.random() * 3)) % 4
+  try { localStorage.setItem('mogi-musica-ini', ini) } catch {}
+  const tracks = [`${base}musica/mix.mp3?v=2#t=${STARTS[ini]}`]
   const VOL = 0.28
   const LOW = 0.14
   const XF = 6 // segundos de fundido encadenado entre canciones
@@ -16,6 +22,7 @@
   let i = 0
   // La música nunca se corta: cada canción se funde con la siguiente sin silencios.
   let audio = new Audio()
+  audio.addEventListener('loadedmetadata', () => { try { if (audio.currentTime < 1 && STARTS[ini]) audio.currentTime = STARTS[ini] } catch {} }, { once: true })
   audio.preload = 'none'
   audio.loop = true
   audio.volume = 0
