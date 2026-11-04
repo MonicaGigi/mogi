@@ -1,5 +1,7 @@
 // Descripciones de las prendas en inglés (se aplican solo con EN seleccionado)
 window.mogiDescEN = {
+"Blusa fluida de manga corta en fucsia con estampado de hojas en rosa y crudo. Fresca y llena de color.":"Flowy short-sleeve fuchsia blouse with a pink and ecru leaf print. Fresh and full of colour.",
+"Camiseta básica de manga corta en color mostaza. Suave, cómoda y fácil de combinar.":"Basic short-sleeve tee in mustard. Soft, comfy and easy to style.",
 "Vestido satinado de manga larga con estampado de serpiente en gris, negro y blanco, con falda de volantes. Corte relajado (relaxed fit).":"Long-sleeve satin dress with a grey, black and white snake print and a tiered skirt. Relaxed fit.",
 "Blusa stretch de manga corta y escote en V en marrón chocolate. Un básico cómodo que combina con todo.":"Chocolate-brown short-sleeve V-neck stretch top. A comfy basic that goes with everything.",
 "Blusa de manga corta en verde lima con textura plisada y brillos. Alegre y luminosa.":"Lime-green short-sleeve blouse with a crinkled texture and sparkle. Bright and cheerful.",
