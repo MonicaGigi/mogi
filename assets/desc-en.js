@@ -1,5 +1,8 @@
 // Descripciones de las prendas en inglés (se aplican solo con EN seleccionado)
 window.mogiDescEN = {
+"Blusa fluida de manga corta en verde agua, con escote en V con detalle de lazada y mangas con alforzas. Delicada y fácil de llevar.":"Flowy short-sleeve mint-green blouse with a V-neck with a knot detail and pintucked sleeves. Delicate and easy to wear.",
+"Chaqueta ligera abierta en turquesa, de manga larga y delanteros en cascada. Pone color a cualquier look básico.":"Lightweight open turquoise jacket with long sleeves and waterfall front panels. Adds colour to any basic look.",
+"Bolsito bandolera traslúcido con efecto tornasolado, solapa negra con dos hebillas y correa negra regulable. Divertido y ligero.":"Small translucent iridescent crossbody bag with a black two-buckle flap and an adjustable black strap. Fun and lightweight.",
 "Blusa fluida de manga corta en fucsia con estampado de hojas en rosa y crudo. Fresca y llena de color.":"Flowy short-sleeve fuchsia blouse with a pink and ecru leaf print. Fresh and full of colour.",
 "Camiseta básica de manga corta en color mostaza. Suave, cómoda y fácil de combinar.":"Basic short-sleeve tee in mustard. Soft, comfy and easy to style.",
 "Vestido satinado de manga larga con estampado de serpiente en gris, negro y blanco, con falda de volantes. Corte relajado (relaxed fit).":"Long-sleeve satin dress with a grey, black and white snake print and a tiered skirt. Relaxed fit.",
