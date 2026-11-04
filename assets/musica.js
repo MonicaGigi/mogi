@@ -5,12 +5,14 @@
   const base = new URL('..', import.meta.url).href
   // Una sola mezcla continua (las 5 canciones igualadas de volumen y encadenadas con fundidos largos de 10 s) que se repite sin cortes.
   // Cada visita empieza en una canción distinta de la mezcla (nunca siempre la misma), con entrada suave.
-  const STARTS = [113.5, 217, 351, 485, 0]
+  // Mezcla estilo boutique (house elegante a 122 BPM): 7 canciones a tempo, enlazadas a ritmo con cambio de graves, sin cortes.
+  const STARTS = [0, 129.8, 234.25, 326.6, 415.01, 537.12, 629.36]
   let last = -1
   try { last = +(localStorage.getItem('mogi-musica-ini') ?? -1) } catch {}
-  let ini = Math.floor(Math.random() * 4); if (ini === last) ini = (ini + 1 + Math.floor(Math.random() * 3)) % 4
+  const NS = STARTS.length
+  let ini = Math.floor(Math.random() * NS); if (ini === last) ini = (ini + 1 + Math.floor(Math.random() * (NS - 1))) % NS
   try { localStorage.setItem('mogi-musica-ini', ini) } catch {}
-  const tracks = [`${base}musica/mix.mp3?v=2#t=${STARTS[ini]}`]
+  const tracks = [`${base}musica/mix2.mp3?v=1#t=${STARTS[ini]}`]
   const VOL = 0.28
   const LOW = 0.14
   const XF = 6 // segundos de fundido encadenado entre canciones
@@ -196,7 +198,7 @@
   const play = () => {
     if (!audio.src) audio.src = tracks[order[i]]
     audio.volume = 0
-    audio.play().then(() => { fadeTo(VOL, null, 5000); paint() }).catch(paint)
+    audio.play().then(() => { fadeTo(VOL, null, 1800); paint() }).catch(paint)
   }
   const pause = () => fadeTo(0, () => { audio.pause(); paint() })
 
