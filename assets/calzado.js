@@ -134,7 +134,7 @@
     el.className = 'mogi-frase'
     el.dataset.key = key
     el.innerHTML = `<h3>${lang === 'es' ? esTit[key] : frases[key][0]}</h3><p>${frases[key][1]}</p>`
-    const fv = key === 'Bolsos' ? ['bolso-de-mano', 'Bolso de mano camel con cadena', '$15.00'] : (key === 'Accesorios' || key === 'Collares y sets') ? ['collar-artesanal', 'Collar artesanal plateado', '$15.00'] : null
+    const fv = key === 'Bolsos' ? ['bolso-de-mano', 'Bolso de mano camel con cadena', '$15.00'] : key === 'Collares y sets' ? ['collares-bolitas', 'Collares de bolitas con aretes', lang === 'es' ? 'Consultar precio' : 'Price on request'] : key === 'Accesorios' ? ['collar-artesanal', 'Collar artesanal plateado', '$15.00'] : null
     if (fv) {
       el.classList.add('con-video')
       el.insertAdjacentHTML('beforeend', `<figure class="mogi-fv"><div class="fr"><video src="${base}videos/${fv[0]}.mp4" poster="${base}videos/${fv[0]}.jpg" playsinline muted loop preload="metadata"></video><span class="hint"><i></i>Ver en vídeo</span></div><figcaption><small>${fv[1]}</small>${fv[2]}</figcaption></figure>`)
