@@ -1,7 +1,7 @@
 // MoniSale · Servicios de casa: Private Styling, Sell With Us, The Journal, avisos e Instagram
 {
   const base = new URL('..', import.meta.url).href
-  const WA = '50766001620'
+  const WA = '50769501733'
   const IG = 'https://www.instagram.com/monisalepty/'
   const L = () => { try { return localStorage.getItem('mogi-lang') || 'en' } catch { return 'en' } }
   const es = () => L() === 'es'

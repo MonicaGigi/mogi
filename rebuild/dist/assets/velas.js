@@ -1,7 +1,7 @@
 // MoniSale · La Maison: velas perfumadas (colección en preparación)
 {
   const base = new URL('..', import.meta.url).href
-  const WA = '50766001620'
+  const WA = '50769501733'
   const L = () => { try { return localStorage.getItem('mogi-lang') || 'en' } catch { return 'en' } }
   const es = () => L() === 'es'
   const wa = txt => `https://wa.me/${WA}?text=${encodeURIComponent(txt)}`
