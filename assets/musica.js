@@ -5,15 +5,15 @@
   const base = new URL('..', import.meta.url).href
   // Una sola mezcla continua (las 5 canciones igualadas de volumen y encadenadas con fundidos largos de 10 s) que se repite sin cortes.
   // Cada visita empieza en una canción distinta de la mezcla (nunca siempre la misma), con entrada suave.
-  // Mezcla estilo tienda de moda (fashion house a 121 BPM, temas libres de Pixabay): 7 temas al mismo tempo y volumen,
+  // Mezcla estilo boutique de lujo (deep house / lounge elegante a 118 BPM, temas libres de Pixabay): 8 temas al mismo tempo y volumen,
   // enlazados sobre el compás con 32 tiempos de transición y cambio de bajos, sin cortes; el final empalma con el principio.
-  const STARTS = [0.0, 65.45, 162.64, 319.34, 402.64, 468.1, 547.44]
+  const STARTS = [0.0, 181.02, 270.51, 394.58, 559.32, 720.0, 809.49, 923.39]
   let last = -1
   try { last = +(localStorage.getItem('mogi-musica-ini') ?? -1) } catch {}
   const NS = STARTS.length
   let ini = Math.floor(Math.random() * NS); if (ini === last) ini = (ini + 1 + Math.floor(Math.random() * (NS - 1))) % NS
   try { localStorage.setItem('mogi-musica-ini', ini) } catch {}
-  const tracks = [`${base}musica/mix4.mp3?v=1#t=${STARTS[ini]}`]
+  const tracks = [`${base}musica/mix5.mp3?v=1#t=${STARTS[ini]}`]
   const VOL = 0.28
   const LOW = 0.14
   const XF = 6 // segundos de fundido encadenado entre canciones
