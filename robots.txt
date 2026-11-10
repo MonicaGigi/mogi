@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /artifact.html
+
+Sitemap: https://monisale.com/sitemap.xml
