@@ -8,11 +8,12 @@
 
   // Destacada (la más reciente) y galería. `sim`: prendas a la venta parecidas (ids de la tienda).
   const feat = {
-    f: 'turquesa', sim: ['n14', 'q31', 'v7', 'q46', 'v2'],
-    es: ['Turquesa, luz y una sonrisa que lo dice todo', 'Un mono turquesa sin mangas, de cuello mao, con bolsillos de solapa y botones de madera, marcado con un cinturón de rafia y combinado con zapatillas blancas. Elegante sin esfuerzo: así se lleva una segunda vida.', 'Mono turquesa sin mangas con cinturón de rafia', 'Fresco · Luminoso · Atemporal'],
-    en: ['Turquoise, light and a smile that says it all', 'A sleeveless turquoise jumpsuit with a mandarin collar, flap pockets and wooden buttons, cinched with a raffia belt and worn with white sneakers. Effortless elegance: this is how a second life is worn.', 'Sleeveless turquoise jumpsuit with raffia belt', 'Fresh · Luminous · Timeless'],
+    f: 'conjunto-cuadros', sim: ['v1', 'q29', 'n16', 'n15', 'q8'],
+    es: ['Cuadros, lila y actitud', 'Un conjunto de chaleco entallado y pantalón de pinzas en cuadro vichy marrón y crudo, con una camisa lila de manga corta debajo. Sastrería con un guiño de color: clásica, moderna y con mucha personalidad.', 'Conjunto de chaleco y pantalón de cuadros con camisa lila', 'Sastrería · Color · Actitud'],
+    en: ['Checks, lilac and attitude', 'A fitted waistcoat and pleated trousers in brown and ecru gingham, worn over a short-sleeved lilac shirt. Tailoring with a touch of colour: classic, modern and full of personality.', 'Gingham waistcoat and trouser set with a lilac shirt', 'Tailoring · Colour · Attitude'],
   }
   const looks = [
+    { f: 'turquesa', sim: ['n14', 'q31', 'v7', 'q46', 'v2'] },
     { f: 'vestido-colores', sim: ['q47', 'q11', 'q33', 'm2'] },
     { f: 'blusa-corazones', sim: ['m7', 'q9', 'q23', 'q22'] },
     { f: 'vestido-largo', sim: ['q47', 'n12', 'q11', 'q48'] },
