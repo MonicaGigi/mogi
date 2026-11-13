@@ -57,9 +57,9 @@
 
   // Orden: lo más reciente primero. La música de la web sigue sonando por debajo de cada vídeo.
   const historias = [
-    { v: 'tacones-verdes', name: 'Tacones verdes con tacón joya', talla: '37', price: '$25.00', silent: true },
     { v: 'looks-invierno', name: 'Looks de invierno', talla: '', price: '', silent: true },
     { v: 'blusa-rayas-multicolor', name: 'Blusa de rayas multicolor', talla: 'XL', price: '$5.50', silent: true },
+    { v: 'tacones-verdes', name: 'Tacones verdes con tacón joya', talla: '37', price: '$25.00', silent: true },
     { v: 'blusa-satinada-azul', name: 'Blusa satinada azul de flores', talla: 'XL', price: '$5.50', silent: true },
     { v: 'jeans-tigre-corazones', name: 'Jeans stretch negros intervenidos', talla: 'L', price: '', silent: true },
     { v: 'jeans-lunares', name: 'Jeans stretch de lunares', talla: 'M/8', price: '$20.00', silent: true },
