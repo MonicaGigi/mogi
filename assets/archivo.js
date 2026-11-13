@@ -107,14 +107,31 @@
   btn.className = 'mogi-arch-btn py-2 text-left text-[11px] tracking-[0.14em] uppercase transition text-neutral-500 hover:text-ink'
   btn.addEventListener('click', e => { e.stopPropagation(); open() })
 
-  // Avance en la portada, debajo de los looks
+  // Avance en la portada, debajo de los looks: piezas disponibles alegres y elegantes (no lo vendido).
+  // Si alguna se vende, su hueco lo ocupa la siguiente novedad disponible.
+  const destacadas = ['q48', 'q31', 'q46', 'q35']
+  const tHome = () => L() === 'es'
+    ? { title: 'Recién llegado', sub: 'Color y elegancia para estrenar', more: 'Ver novedades', size: 'Talla' }
+    : { title: 'Just arrived', sub: 'Colour and elegance, ready to wear', more: 'View new arrivals', size: 'Size' }
+  const money = n => '$' + Number(n).toFixed(2)
+  const foto = p => /^https?:/.test(p) ? p : `${base}fotos/${p.includes('.') ? p : p + '.jpg'}`
+  const elegidas = () => {
+    const all = (window.mogiProducts ? window.mogiProducts() : []).filter(p => !p.sold && p.photo && p.section === 'Colección')
+    const pick = destacadas.map(id => all.find(p => p.id === id)).filter(Boolean)
+    for (const p of all) { if (pick.length >= 4) break; if (p.isNew && !pick.includes(p)) pick.push(p) }
+    return pick.slice(0, 4)
+  }
   const home = document.createElement('section')
   home.className = 'mogi-arch-home mogi-ar'
+  const go = r => window.mogiGo && window.mogiGo(r)
   const paintHome = () => {
-    home.innerHTML = `<div class="t"><div><h3>${t().title}</h3><div class="sub">${t().sub}</div></div><button type="button" class="more">${t().more}</button></div>
-      <div class="grid">${piezas.slice(0, 4).map(card).join('')}</div>`
-    home.querySelector('.more').addEventListener('click', open)
-    home.querySelectorAll('figure').forEach(f => f.addEventListener('click', open))
+    const h = tHome(), list = elegidas()
+    home.innerHTML = `<div class="t"><div><h3>${h.title}</h3><div class="sub">${h.sub}</div></div><button type="button" class="more">${h.more}</button></div>
+      <div class="grid">${list.map(p => `<figure data-id="${p.id}" style="cursor:pointer"><div class="ph"><img src="${foto(p.photo)}" alt="${p.name}" loading="lazy" style="filter:none"></div>
+        <figcaption>${p.name}<small>${p.sizes && p.sizes[0] ? h.size + ' ' + p.sizes.join(' · ') + ' · ' : ''}${p.price ? money(p.price) : ''}</small></figcaption></figure>`).join('')}</div>`
+    home.querySelector('.more').addEventListener('click', () => go({ name: 'catalog', listing: { kind: 'new' } }))
+    home.querySelectorAll('figure').forEach(f => f.addEventListener('click', () => go({ name: 'product', id: f.dataset.id })))
+    return list.length
   }
   let painted = ''
   const place = () => {
@@ -126,7 +143,7 @@
     const main = document.querySelector('main')
     const isHome = main && main.firstElementChild && main.firstElementChild.querySelector(':scope > nav')
     if (isHome) {
-      if (painted !== lang) { paintHome(); painted = lang }
+      if (painted !== lang) { if (paintHome()) painted = lang }
       if (main.lastElementChild !== home) main.appendChild(home)
     } else if (home.isConnected) home.remove()
   }
