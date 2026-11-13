@@ -14,6 +14,7 @@
   }
   const looks = [
     { f: 'turquesa', sim: ['n14', 'q31', 'v7', 'q46', 'v2'] },
+    { f: 'conjunto-cuadros', sim: ['v1', 'q29', 'n16', 'n15', 'q8'] },
     { f: 'vestido-colores', sim: ['q47', 'q11', 'q33', 'm2'] },
     { f: 'blusa-corazones', sim: ['m7', 'q9', 'q23', 'q22'] },
     { f: 'vestido-largo', sim: ['q47', 'n12', 'q11', 'q48'] },
