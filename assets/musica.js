@@ -55,34 +55,34 @@
   }
   watch(audio)
 
-  // Orden: lo más reciente primero. La música de la web sigue sonando por debajo de cada vídeo.
+  // Orden con ritmo: alterna looks completos y detalles, colores y tipos de prenda. La música de la web sigue sonando por debajo de cada vídeo.
   const historias = [
     { v: 'looks-invierno', name: 'Looks de invierno', talla: '', price: '', silent: true },
-    { v: 'set-jacquard-celeste', name: 'Set de chaleco y pantalón jacquard celeste', talla: 'L', price: '$25.00' },
-    { v: 'blazer-neon-flecos', name: 'Blazer sin mangas verde neón con flecos', talla: 'Única', price: '$20.00' },
-    { v: 'jeans-morados-blusa-rosa', name: 'Jeans stretch morados', talla: 'L', price: '$20.00' },
     { v: 'vestido-rosa-hombros-voz', name: 'Vestido largo rosa de hombros caídos', talla: 'L/XL', price: '$25.00' },
-    { v: 'blusa-rayas-multicolor', name: 'Blusa de rayas multicolor', talla: 'XL', price: '$5.50', silent: true },
-    { v: 'tacones-verdes', name: 'Tacones verdes con tacón joya', talla: '37', price: '$25.00', silent: true },
+    { v: 'blazer-neon-flecos-v2', name: 'Blazer sin mangas verde neón con flecos', talla: 'Única', price: '$20.00' },
     { v: 'blusa-satinada-azul', name: 'Blusa satinada azul de flores', talla: 'XL', price: '$5.50', silent: true },
-    { v: 'jeans-tigre-corazones', name: 'Jeans stretch negros intervenidos', talla: 'L', price: '', silent: true },
-    { v: 'jeans-lunares', name: 'Jeans stretch de lunares', talla: 'M/8', price: '$20.00', silent: true },
-    { v: 'jeans-balloon', name: 'Jeans balloon celeste', talla: 'L/X', price: '$20.00' },
-    { v: 'jeans-degrade-gris', name: 'Jeans rígidos degradé gris con strass', talla: 'L/XL', price: '$20.00' },
-    { v: 'pantalon-stretch-rosa', name: 'Pantalón stretch rosa', talla: 'L/XL', price: '$25.00', silent: true },
-    { v: 'blusa-rayas-turquesa', name: 'Blusa de rayas turquesa', talla: 'L', price: '$15.00' },
-    { v: 'blusita-corazones-jeans', name: 'Blusita de punto con corazones y jeans wide leg', talla: 'M/L · L', price: 'Desde $15.50' },
-    { v: 'blusa-pedreria', name: 'Blusa celeste con pedrería', talla: 'M', price: '' },
-    { v: 'falda-estampada', name: 'Falda larga estampada', talla: '', price: '' },
+    { v: 'set-jacquard-celeste', name: 'Set de chaleco y pantalón jacquard celeste', talla: 'L', price: '$25.00' },
+    { v: 'tacones-verdes', name: 'Tacones verdes con tacón joya', talla: '37', price: '$25.00', silent: true },
     { v: 'set-rosa-lunares', name: 'Set de blazer rosa y pantalón de lunares', talla: 'M/L', price: '$26.50', old: '$30.00' },
-    { v: 'jacket-militar', name: 'Jacket militar', talla: 'M/L', price: '$25.00' },
+    { v: 'jeans-morados-blusa-rosa', name: 'Jeans stretch morados', talla: 'L', price: '$20.00' },
     { v: 'falda-tul', name: 'Falda doble de tul', talla: 'L', price: '$15.00' },
-    { v: 'sobretodo-stretch', name: 'Sobretodo stretch', talla: 'L', price: '$15.00' },
+    { v: 'jacket-militar', name: 'Jacket militar', talla: 'M/L', price: '$25.00' },
+    { v: 'blusa-rayas-multicolor', name: 'Blusa de rayas multicolor', talla: 'XL', price: '$5.50', silent: true },
+    { v: 'jeans-lunares', name: 'Jeans stretch de lunares', talla: 'M/8', price: '$20.00', silent: true },
     { v: 'set-tres-piezas', name: 'Set de 3 piezas: chaleco, blazer y pantalón', talla: 'L', price: '$50.00' },
-    { v: 'blusa-pantalon-coral', name: 'Blusa estampada y pantalón pierna ancha', talla: 'L · M/L', price: 'Desde $12.00', silent: true },
-    { v: 'set-floral-v2', name: 'Set de blusa y short floral', talla: 'M/L', price: '$22.00', silent: true },
     { v: 'blusa-satinada-roja-v3', name: 'Blusa satinada y short de flecos', talla: 'L/XL', price: 'Desde $12.00' },
+    { v: 'jeans-balloon', name: 'Jeans balloon celeste', talla: 'L/X', price: '$20.00' },
+    { v: 'falda-estampada', name: 'Falda larga estampada', talla: '', price: '' },
+    { v: 'blusa-pedreria', name: 'Blusa celeste con pedrería', talla: 'M', price: '' },
+    { v: 'pantalon-stretch-rosa', name: 'Pantalón stretch rosa', talla: 'L/XL', price: '$25.00', silent: true },
     { v: 'camisa-blanca', name: 'Camisa blanca', talla: 'XL', price: '$10.50', old: '$15.00' },
+    { v: 'jeans-tigre-corazones', name: 'Jeans stretch negros intervenidos', talla: 'L', price: '', silent: true },
+    { v: 'set-floral-v2', name: 'Set de blusa y short floral', talla: 'M/L', price: '$22.00', silent: true },
+    { v: 'sobretodo-stretch', name: 'Sobretodo stretch', talla: 'L', price: '$15.00' },
+    { v: 'blusa-rayas-turquesa', name: 'Blusa de rayas turquesa', talla: 'L', price: '$15.00' },
+    { v: 'jeans-degrade-gris', name: 'Jeans rígidos degradé gris con strass', talla: 'L/XL', price: '$20.00' },
+    { v: 'blusita-corazones-jeans', name: 'Blusita de punto con corazones y jeans wide leg', talla: 'M/L · L', price: 'Desde $15.50' },
+    { v: 'blusa-pantalon-coral', name: 'Blusa estampada y pantalón pierna ancha', talla: 'L · M/L', price: 'Desde $12.00', silent: true },
     { v: 'pantalon-estampado', name: 'Pantalón estampado', talla: 'M/L', price: '$8.50', old: '$15.50', silent: true }
   ]
 
