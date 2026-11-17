@@ -58,6 +58,9 @@
   // Orden: lo más reciente primero. La música de la web sigue sonando por debajo de cada vídeo.
   const historias = [
     { v: 'looks-invierno', name: 'Looks de invierno', talla: '', price: '', silent: true },
+    { v: 'set-jacquard-celeste', name: 'Set de chaleco y pantalón jacquard celeste', talla: 'L', price: '$25.00' },
+    { v: 'blazer-neon-flecos', name: 'Blazer sin mangas verde neón con flecos', talla: 'Única', price: '$20.00' },
+    { v: 'jeans-morados-blusa-rosa', name: 'Jeans stretch morados', talla: 'L', price: '$20.00' },
     { v: 'vestido-rosa-hombros-voz', name: 'Vestido largo rosa de hombros caídos', talla: 'L/XL', price: '$25.00' },
     { v: 'blusa-rayas-multicolor', name: 'Blusa de rayas multicolor', talla: 'XL', price: '$5.50', silent: true },
     { v: 'tacones-verdes', name: 'Tacones verdes con tacón joya', talla: '37', price: '$25.00', silent: true },
