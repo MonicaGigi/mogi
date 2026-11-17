@@ -5,7 +5,28 @@
     window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
   }
   const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
-  if (standalone) { document.documentElement.classList.add('ms-app'); return; }
+  // Enlace "App" con la M (como en Zara o Loewe): en el menú lateral y en el pie.
+  // En el móvil instala directamente si el navegador lo permite; si no, lleva a /app/ con los pasos.
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); window.__msInstall = e; });
+  const M = '<img src="/icon-192.png" alt="" width="20" height="20" style="width:20px;height:20px;border-radius:50%;display:block">';
+  const linkCss = `.ms-applink{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:inherit;font:inherit;letter-spacing:.2em;text-transform:uppercase;font-size:11px;cursor:pointer;background:none;border:0;padding:0}
+.ms-applink:hover span{text-decoration:underline;text-underline-offset:4px}
+footer .ms-applink{font-size:10px;letter-spacing:.24em;color:#8a857c;margin:0 14px}`;
+  const go = e => {
+    if (window.__msInstall) { e.preventDefault(); const d = window.__msInstall; d.prompt(); d.userChoice.finally(() => { window.__msInstall = null; }); }
+  };
+  const mk = () => { const a = document.createElement('a'); a.href = '/app/'; a.className = 'ms-applink'; a.innerHTML = M + '<span>App</span>'; a.setAttribute('aria-label', 'Descarga la app de MoniSale'); a.addEventListener('click', go); return a; };
+  const place = () => {
+    const side = document.querySelector('.mogi-side');
+    if (side && !side.querySelector('.ms-applink')) { const a = mk(); a.style.marginTop = '14px'; side.appendChild(a); }
+    const ig = document.querySelector('footer .mogi-ig');
+    if (ig && !ig.parentElement.querySelector('.ms-applink')) ig.insertAdjacentElement('afterend', mk());
+  };
+  const stl = document.createElement('style'); stl.textContent = linkCss; document.head.appendChild(stl);
+  new MutationObserver(place).observe(document.documentElement, { childList: true, subtree: true });
+  place();
+  if (standalone) document.documentElement.classList.add('ms-app-installed');
+  if (standalone) return;
   const ua = navigator.userAgent;
   const isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   const isMobile = isIOS || /Android/i.test(ua);
@@ -16,8 +37,6 @@
   const T = lang === 'en'
     ? { t: 'MoniSale on your phone', s: 'Install the app: new pieces one tap away.', b: 'Install', ios: 'Tap <b>Share</b> <span class="ms-sh"></span> and then <b>Add to Home Screen</b>.', and: 'Open the menu <b>⋮</b> and tap <b>Install app</b> or <b>Add to Home screen</b>.', x: 'Close' }
     : { t: 'MoniSale en tu móvil', s: 'Instala la app: las novedades, a un toque.', b: 'Instalar', ios: 'Pulsa <b>Compartir</b> <span class="ms-sh"></span> y luego <b>Añadir a pantalla de inicio</b>.', and: 'Abre el menú <b>⋮</b> y pulsa <b>Instalar app</b> o <b>Añadir a pantalla de inicio</b>.', x: 'Cerrar' };
-  let deferred = null;
-  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferred = e; });
   const css = `.ms-inst{position:fixed;left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));bottom:calc(64px + env(safe-area-inset-bottom));z-index:2147483000;background:#fff;color:#14110d;border:1px solid #b79a66;box-shadow:0 10px 30px rgba(20,17,13,.18);display:flex;gap:12px;align-items:center;padding:12px 12px 12px 12px;font-family:Inter,system-ui,sans-serif;transform:translateY(20px);opacity:0;transition:all .5s ease}
 .ms-inst.on{transform:none;opacity:1}.ms-inst img{width:44px;height:44px;border-radius:10px;flex:none}
 .ms-inst .tx{flex:1;min-width:0}.ms-inst .t{font-family:'Bodoni Moda',Georgia,serif;font-size:17px;line-height:1.15}.ms-inst .s{font-size:12px;color:#6f6a62;margin-top:3px;line-height:1.35}
@@ -32,7 +51,7 @@
     const close = () => { el.classList.remove('on'); setTimeout(() => el.remove(), 500); try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {} };
     el.querySelector('.x').onclick = close;
     el.querySelector('.b').onclick = async () => {
-      if (deferred) { deferred.prompt(); try { await deferred.userChoice; } catch (e) {} deferred = null; close(); }
+      if (window.__msInstall) { const d = window.__msInstall; d.prompt(); try { await d.userChoice; } catch (e) {} window.__msInstall = null; close(); }
       else { el.querySelector('.s').innerHTML = isIOS ? T.ios : T.and; el.querySelector('.b').style.display = 'none'; }
     };
     window.addEventListener('appinstalled', close);
