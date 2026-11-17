@@ -59,9 +59,9 @@
   const historias = [
     { v: 'looks-invierno', name: 'Looks de invierno', talla: '', price: '', silent: true },
     { v: 'vestido-rosa-hombros-voz', name: 'Vestido largo rosa de hombros caídos', talla: 'L/XL', price: '$25.00' },
-    { v: 'blazer-neon-flecos-v3', name: 'Blazer sin mangas verde neón con flecos', talla: 'Única', price: '$20.00' },
+    { v: 'blazer-neon-flecos-v3', name: 'Blazer sin mangas verde neón con flecos', talla: 'Única', price: '$20.00', silent: true },
     { v: 'blusa-satinada-azul', name: 'Blusa satinada azul de flores', talla: 'XL', price: '$5.50', silent: true },
-    { v: 'set-stretch-negro', name: 'Set stretch negro con flor', talla: 'M/L', price: '$20.00', old: '$25.00' },
+    { v: 'set-stretch-negro-v2', name: 'Set stretch negro con flor', talla: 'M/L', price: '$20.00', old: '$25.00' },
     { v: 'set-jacquard-celeste', name: 'Set de chaleco y pantalón jacquard celeste', talla: 'L', price: '$25.00' },
     { v: 'tacones-verdes', name: 'Tacones verdes con tacón joya', talla: '37', price: '$25.00', silent: true },
     { v: 'set-rosa-lunares', name: 'Set de blazer rosa y pantalón de lunares', talla: 'M/L', price: '$26.50', old: '$30.00' },
