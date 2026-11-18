@@ -109,7 +109,7 @@
 
   // Avance en la portada, debajo de los looks: piezas disponibles alegres y elegantes (no lo vendido).
   // Si alguna se vende, su hueco lo ocupa la siguiente novedad disponible.
-  const destacadas = ['q48', 'q31', 'q46', 'q35']
+  const destacadas = ['q103', 'q105', 'q104', 'q98']
   const tHome = () => L() === 'es'
     ? { title: 'Recién llegado', sub: 'Color y elegancia para estrenar', more: 'Ver novedades', size: 'Talla' }
     : { title: 'Just arrived', sub: 'Colour and elegance, ready to wear', more: 'View new arrivals', size: 'Size' }
