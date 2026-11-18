@@ -4,9 +4,7 @@
   const L = () => { try { return localStorage.getItem('mogi-lang') || 'en' } catch { return 'en' } }
   // [foto, nombre, talla] — de la más reciente a la más antigua
   const piezas = [
-    ['x-q79', 'Blusa verde agua', 'L', 'bl', 'stamp'],
     ['x-s4', 'Camisero largo verde con cinturón', 'L', 'tr', 'pill'],
-    ['x-n11v', 'Vestido bordado de tul', 'M/L', 'br', 'stamp'],
     ['x-q47', 'Vestido largo floral de manga corta', 'M', 'tl', 'pill'],
     ['x-q70', 'Camisa negra con girasoles', 'L', 'tl', 'stamp'],
     ['x-q76', 'Blusa cruzada de rayas azules', 'M/L', 'sl', 'vertical'],
